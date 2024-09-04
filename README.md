@@ -42,6 +42,8 @@ The currently supported translation languages and `translateLocale` matching val
 - English: `en`
 - Korean: `ko`
 
+If a `rootLocale` value is specified, set the language key to `root` if the label language and the `rootLocale` value are the same. In the remaining areas, it does not need to be specified as `root`.
+
 It will then use the same parameters that VitePress already uses. Note, however, that you must declare custom values for each of the keys you specify in `defineLocales`.
 
 ## Methods: `generateI18nLocale`
@@ -54,19 +56,20 @@ Call this function with the `locales` option in VitePress's root config:
 export default defineConfig({
   locales: generateI18nLocale({
     defineLocales: [
-      { label: 'root', translateLocale: 'en' },
+      { label: 'en', translateLocale: 'en' },
       { label: 'ko', translateLocale: 'ko' }
     ],
+    rootLocale: 'en',
     label: {
-      root: 'English',
+      en: 'English',
       ko: '한국어'
     },
     lang: {
-      root: 'en-US',
+      en: 'en-US',
       ko: 'ko-KR'
     },
     description: {
-      root: 'Hello',
+      en: 'Hello',
       ko: '안녕하세요'
     }
   })
@@ -101,6 +104,7 @@ export default defineConfig({
   themeConfig: {
     search: generateI18nSearch({
       defineLocales: [{ label: 'ko', translateLocale: 'ko' }],
+      rootLocale: 'en',
       provider: 'local'
     })
   }

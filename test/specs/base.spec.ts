@@ -6,71 +6,56 @@ describe('Test: base test', () => {
     assert.deepStrictEqual(
       generateI18nLocale({
         defineLocales: [
-          { label: 'root', translateLocale: 'en' },
+          { label: 'en', translateLocale: 'en' },
           { label: 'ko', translateLocale: 'ko' }
         ],
+        rootLocale: 'en',
         label: {
-          root: 'English',
+          en: 'English',
           ko: '한국어'
         },
         lang: {
-          root: 'en-US',
+          en: 'en-US',
           ko: 'ko-KR'
         },
         description: {
-          root: 'Hello',
+          en: 'Hello',
           ko: '안녕하세요'
         }
       }),
       {
-        ko: {
-          description: '안녕하세요',
-          label: '한국어',
-          lang: 'ko-KR',
+        root: {
+          lang: 'en-US',
+          label: 'English',
+          description: 'Hello',
           themeConfig: {
-            darkModeSwitchLabel: '다크 모드',
-            darkModeSwitchTitle: '다크 모드로 변경',
-            docFooter: {
-              next: '다음',
-              prev: '이전'
-            },
-            editLink: {
-              text: '이 페이지 편집 제안'
-            },
-            langMenuLabel: '언어 변경',
-            lastUpdated: {
-              text: '업데이트 일자'
-            },
-            lightModeSwitchTitle: '라이트 모드로 변경',
-            outline: {
-              label: '이 페이지 콘텐츠'
-            },
-            returnToTopLabel: '맨 위로',
-            sidebarMenuLabel: '사이드바 메뉴'
+            editLink: { text: 'Edit this page' },
+            docFooter: { prev: 'Previous page', next: 'Next page' },
+            outline: { label: 'On this page' },
+            lastUpdated: { text: 'Last updated' },
+            langMenuLabel: 'Change language',
+            returnToTopLabel: 'Return to top',
+            sidebarMenuLabel: 'Menu',
+            darkModeSwitchLabel: 'Appearance',
+            lightModeSwitchTitle: 'Switch to light theme',
+            darkModeSwitchTitle: 'Switch to dark theme'
           }
         },
-        root: {
-          label: 'English',
+        ko: {
+          lang: 'ko-KR',
+          label: '한국어',
+          description: '안녕하세요',
           themeConfig: {
-            darkModeSwitchLabel: 'Appearance',
-            darkModeSwitchTitle: 'Switch to dark theme',
-            docFooter: {
-              next: 'Next page',
-              prev: 'Previous page'
-            },
-            editLink: {
-              text: 'Edit this page'
-            },
-            langMenuLabel: 'Change language',
-            lastUpdated: {
-              text: 'Last updated'
-            },
-            lightModeSwitchTitle: 'Switch to light theme',
-            outline: {
-              label: 'On this page'
-            },
-            returnToTopLabel: 'Return to top',
-            sidebarMenuLabel: 'Menu'
+            editLink: { text: '이 페이지 편집 제안' },
+            docFooter: { prev: '이전', next: '다음' },
+            outline: { label: '이 페이지 콘텐츠' },
+            lastUpdated: { text: '업데이트 일자' },
+            langMenuLabel: '언어 변경',
+            returnToTopLabel: '맨 위로',
+            sidebarMenuLabel: '사이드바 메뉴',
+            darkModeSwitchLabel: '다크 모드',
+            lightModeSwitchTitle: '라이트 모드로 변경',
+            darkModeSwitchTitle: '다크 모드로 변경'
           }
         }
       }
@@ -83,6 +68,7 @@ describe('Test: base test', () => {
     assert.deepStrictEqual(
       generateI18nSearch({
         defineLocales: [{ label: 'ko', translateLocale: 'ko' }],
+        rootLocale: 'en',
         provider: 'local'
       }),
       {

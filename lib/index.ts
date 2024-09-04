@@ -16,6 +16,7 @@ declare interface DefineLocales {
 
 export declare interface VitePressI18nLocalesOptions {
   defineLocales: DefineLocales[];
+  rootLocale?: string;
   editLinkPattern: string;
   label: { [key: string]: string };
   link?: { [key: string]: string };
@@ -35,6 +36,7 @@ export declare interface VitePressI18nLocalesOptions {
 
 export declare interface VitePressI18nSearchOptions {
   defineLocales: DefineLocales[];
+  rootLocale?: string;
   provider: 'local' | 'algolia';
   options?: LocalSearchOptions;
 }
@@ -245,41 +247,37 @@ export default class VitePressI18n {
       const locale = options.defineLocales[i].translateLocale;
       const label = options.defineLocales[i].label;
 
-      if (locale !== 'root' && !PLUGIN_SUPPORT_LOCALES.includes(locale)) {
+      if (!PLUGIN_SUPPORT_LOCALES.includes(locale)) {
         throw new Error(`The '${locale}' locale is not currently supported.`);
       }
 
-      const commonThemeConfig = locale !== 'root' ? LOCALES_TRANSLATIONS[locale] : {};
+      const commonThemeConfig = LOCALES_TRANSLATIONS[locale];
 
-      result[label] = {
-        ...(options.lang?.[locale] ? { lang: options.lang?.[locale] } : {}),
+      result[label === options.rootLocale ? 'root' : label] = {
+        ...(options.lang?.[label] ? { lang: options.lang?.[label] } : {}),
         label: options.label[label],
-        ...(options.link?.[locale] ? { link: options.link?.[locale] } : {}),
-        ...(options.title?.[locale] ? { title: options.title?.[locale] } : {}),
-        ...(options.titleTemplate?.[locale]
-          ? { titleTemplate: options.titleTemplate?.[locale] }
+        ...(options.link?.[label] ? { link: options.link?.[label] } : {}),
+        ...(options.title?.[label] ? { title: options.title?.[label] } : {}),
+        ...(options.titleTemplate?.[label]
+          ? { titleTemplate: options.titleTemplate?.[label] }
           : {}),
-        ...(options.description?.[locale] ? { description: options.description?.[locale] } : {}),
-        ...(options.head?.[locale] ? { head: options.head?.[locale] } : {}),
-        ...(locale !== 'root' || options.themeConfig?.[locale]
+        ...(options.description?.[label] ? { description: options.description?.[label] } : {}),
+        ...(options.head?.[label] ? { head: options.head?.[label] } : {}),
+        themeConfig: options.themeConfig?.[label]
           ? {
-              themeConfig: options.themeConfig?.[locale]
+              ...commonThemeConfig,
+              ...(options.editLinkPattern
                 ? {
-                    ...commonThemeConfig,
-                    ...(options.editLinkPattern
-                      ? {
-                          editLink: {
-                            pattern: options.editLinkPattern,
-                            text: LOCALES_TRANSLATIONS[locale].editLink.text
-                          }
-                        }
-                      : {}),
-                    // Override
-                    ...options.themeConfig?.[locale]
+                    editLink: {
+                      pattern: options.editLinkPattern,
+                      text: LOCALES_TRANSLATIONS[locale].editLink.text
+                    }
                   }
-                : commonThemeConfig
+                : {}),
+              // Override
+              ...options.themeConfig?.[label]
             }
-          : {})
+          : commonThemeConfig
       };
     }
 
@@ -308,9 +306,9 @@ export default class VitePressI18n {
       }
 
       if (options.provider === 'local') {
-        result[label] = LOCAL_SEARCH_TRANSLATIONS[locale];
+        result[label === options.rootLocale ? 'root' : label] = LOCAL_SEARCH_TRANSLATIONS[locale];
       } else {
-        result[label] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
+        result[label === options.rootLocale ? 'root' : label] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
       }
     }
 
