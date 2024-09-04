@@ -1,0 +1,5 @@
+node_modules/
+dist/
+test/resources/
+.idea/
+.vscode/

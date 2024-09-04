@@ -1,0 +1,26 @@
+# System files
+.DS_Store
+Thumbs.db
+*.log
+
+# IDEs
+.idea/
+.vscode/
+
+# Project files
+lib/
+test/
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+
+# For development
+.git*
+.terserrc
+.eslintignore
+.eslintrc.json
+.prettierignore
+.prettierrc
+.editorconfig
+.mocharc.json
+tsconfig.json
+tsconfig.prod.json
