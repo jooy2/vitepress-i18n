@@ -81,6 +81,7 @@ export default defineConfig({
 ```text
 {
   defineLocales: DefineLocales[];
+  rootLocale?: string;
   editLinkPattern: string;
   label: { [key: string]: string };
   link?: { [key: string]: string };
@@ -116,6 +117,7 @@ export default defineConfig({
 ```text
 {
   defineLocales: DefineLocales[];
+  rootLocale?: string;
   provider: 'local' | 'algolia';
   options?: LocalSearchOptions;
 }
