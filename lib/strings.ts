@@ -126,6 +126,31 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: 'Tema Oscuro',
     lightModeSwitchTitle: 'Cambiar a modo claro',
     darkModeSwitchTitle: 'Cambiar a modo oscuro'
+  },
+  pt: {
+    editLink: {
+      text: 'Edite esta página no GitHub'
+    },
+    docFooter: {
+      prev: 'Anterior',
+      next: 'Próximo'
+    },
+    outline: {
+      label: 'Nesta página'
+    },
+    lastUpdated: {
+      text: 'Atualizado em',
+      formatOptions: {
+        dateStyle: 'short',
+        timeStyle: 'medium'
+      }
+    },
+    langMenuLabel: 'Alterar Idioma',
+    returnToTopLabel: 'Voltar ao Topo',
+    sidebarMenuLabel: 'Menu Lateral',
+    darkModeSwitchLabel: 'Tema Escuro',
+    lightModeSwitchTitle: 'Mudar para Modo Claro',
+    darkModeSwitchTitle: 'Mudar para Modo Escuro'
   }
 };
 
@@ -264,6 +289,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateDownKeyAriaLabel: 'flecha hacia abajo',
           closeText: 'cerrar',
           closeKeyAriaLabel: 'escapar'
+        }
+      }
+    }
+  },
+  pt: {
+    translations: {
+      button: {
+        buttonText: 'Pesquisar',
+        buttonAriaLabel: 'Pesquisar'
+      },
+      modal: {
+        displayDetails: 'Apresentar lista pormenorizada',
+        resetButtonTitle: 'Repor a pesquisa',
+        backButtonTitle: 'Fechar pesquisa',
+        noResultsText: 'Nenhum resultado para',
+        footer: {
+          selectText: 'para selecionar',
+          selectKeyAriaLabel: 'entrar',
+          navigateText: 'para navegar',
+          navigateUpKeyAriaLabel: 'seta para cima',
+          navigateDownKeyAriaLabel: 'seta para baixo',
+          closeText: 'para encerrar',
+          closeKeyAriaLabel: 'fuga'
         }
       }
     }
@@ -543,6 +591,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: 'Puede intentar una nueva búsqueda',
           reportMissingResultsText: 'Deberian haber resultados para esa consulta?',
           reportMissingResultsLinkText: 'Click para enviar feedback'
+        }
+      }
+    }
+  },
+  pt: {
+    placeholder: 'Pesquisar documentos',
+    translations: {
+      button: {
+        buttonText: 'Pesquisar',
+        buttonAriaLabel: 'Pesquisar'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'Limpar pesquisa',
+          resetButtonAriaLabel: 'Limpar pesquisa',
+          cancelButtonText: 'Cancelar',
+          cancelButtonAriaLabel: 'Cancelar',
+          searchInputLabel: 'Pesquisar'
+        },
+        startScreen: {
+          recentSearchesTitle: 'Histórico de Pesquisa',
+          noRecentSearchesText: 'Nenhuma pesquisa recente',
+          saveRecentSearchButtonTitle: 'Salvar no histórico de pesquisas',
+          removeRecentSearchButtonTitle: 'Remover do histórico de pesquisas',
+          favoriteSearchesTitle: 'Favoritos',
+          removeFavoriteSearchButtonTitle: 'Remover dos favoritos'
+        },
+        errorScreen: {
+          titleText: 'Não foi possível obter resultados',
+          helpText: 'Verifique a sua conexão de rede'
+        },
+        footer: {
+          selectText: 'Selecionar',
+          selectKeyAriaLabel: 'Tecla Enter',
+          navigateText: 'Navegar',
+          navigateUpKeyAriaLabel: 'Seta para cima',
+          navigateDownKeyAriaLabel: 'Seta para baixo',
+          closeText: 'Fechar',
+          closeKeyAriaLabel: 'Tecla de escape',
+          searchByText: 'Pesquisa por'
+        },
+        noResultsScreen: {
+          noResultsText: 'Não foi possível encontrar resultados',
+          suggestedQueryText: 'Você pode tentar uma nova consulta',
+          reportMissingResultsText: 'Deveriam haver resultados para essa consulta?',
+          reportMissingResultsLinkText: 'Clique para enviar feedback'
         }
       }
     }
