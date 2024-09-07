@@ -84,6 +84,27 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: '外觀',
     lightModeSwitchTitle: '切換至燈光主題',
     darkModeSwitchTitle: '切換至深色主題'
+  },
+  ja: {
+    editLink: {
+      text: 'このページを編集する'
+    },
+    docFooter: {
+      prev: '前のページ',
+      next: '次のページ'
+    },
+    outline: {
+      label: 'このページでは'
+    },
+    lastUpdated: {
+      text: '最終更新日'
+    },
+    langMenuLabel: '言語の変更',
+    returnToTopLabel: 'トップに戻る',
+    sidebarMenuLabel: 'メニュー',
+    darkModeSwitchLabel: '外観',
+    lightModeSwitchTitle: 'ライトテーマに切り替える',
+    darkModeSwitchTitle: 'ダークテーマに切り替える'
   }
 };
 
@@ -175,6 +196,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateUpKeyAriaLabel: '上箭頭',
           navigateDownKeyAriaLabel: '下箭頭',
           closeText: '關閉',
+          closeKeyAriaLabel: 'escape'
+        }
+      }
+    }
+  },
+  ja: {
+    translations: {
+      button: {
+        buttonText: '検索',
+        buttonAriaLabel: '検索'
+      },
+      modal: {
+        displayDetails: '詳細リスト表示',
+        resetButtonTitle: '検索のリセット',
+        backButtonTitle: '詳細検索',
+        noResultsText: '該当事項はありません。',
+        footer: {
+          selectText: 'を選択します。',
+          selectKeyAriaLabel: '入る',
+          navigateText: 'ナビゲートする',
+          navigateUpKeyAriaLabel: '上矢印',
+          navigateDownKeyAriaLabel: '下矢印',
+          closeText: '閉じる',
           closeKeyAriaLabel: 'escape'
         }
       }
@@ -363,6 +407,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: '試著搜尋',
           reportMissingResultsText: '相信這個查詢應該會傳回結果嗎？',
           reportMissingResultsLinkText: '讓我們知道。'
+        }
+      }
+    }
+  },
+  ja: {
+    placeholder: 'ドキュメント検索',
+    translations: {
+      button: {
+        buttonText: '検索',
+        buttonAriaLabel: '検索'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'クエリをクリアする',
+          resetButtonAriaLabel: 'クエリをクリアする',
+          cancelButtonText: 'キャンセル',
+          cancelButtonAriaLabel: 'キャンセル',
+          searchInputLabel: '検索'
+        },
+        startScreen: {
+          recentSearchesTitle: '最近',
+          noRecentSearchesText: '最近の検索なし',
+          saveRecentSearchButtonTitle: 'この検索を保存',
+          removeRecentSearchButtonTitle: 'この検索を履歴から削除する',
+          favoriteSearchesTitle: 'お気に入り',
+          removeFavoriteSearchButtonTitle: 'この検索をお気に入りから削除する'
+        },
+        errorScreen: {
+          titleText: '結果を取得できない',
+          helpText: 'ネットワーク接続を確認したほうがいいかもしれない。'
+        },
+        footer: {
+          selectText: 'を選択します。',
+          selectKeyAriaLabel: 'エンターキー',
+          navigateText: 'ナビゲートする',
+          navigateUpKeyAriaLabel: '矢印を上に',
+          navigateDownKeyAriaLabel: '矢印を下に',
+          closeText: '閉じる',
+          closeKeyAriaLabel: 'エスケープキー',
+          searchByText: 'で検索'
+        },
+        noResultsScreen: {
+          noResultsText: '該当事項はありません。',
+          suggestedQueryText: 'を検索してみよう。',
+          reportMissingResultsText: 'このクエリーは結果を返すべきだと思いますか？',
+          reportMissingResultsLinkText: '教えてください。'
         }
       }
     }

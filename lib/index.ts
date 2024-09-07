@@ -12,7 +12,7 @@ type LocalSearchOptions = DefaultTheme.LocalSearchOptions;
 type AlgoliaSearchOptions = DefaultTheme.AlgoliaSearchOptions;
 
 const FALLBACK_LOCALE = 'en';
-const PLUGIN_SUPPORT_LOCALES: string[] = [FALLBACK_LOCALE, 'ko', 'zhHans', 'zhHant'];
+const PLUGIN_SUPPORT_LOCALES: string[] = [FALLBACK_LOCALE, 'ko', 'zhHans', 'zhHant', 'ja'];
 
 export default class VitePressI18n {
   static generateI18nLocale(options: Partial<VitePressI18nLocalesOptions>): LocaleConfig {
