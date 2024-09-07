@@ -49,6 +49,7 @@ The currently supported translation languages and `translateLocale` matching val
 - Spanish (Español): `es`
 - Portuguese (Português): `pt`
 - Russian (Русский): `ru`
+- `*` Indonesian (Bahasa Indonesia): `id`
 
 If a `rootLocale` value is specified, set the language key to `root` if the label language and the `rootLocale` value are the same. In the remaining areas, it does not need to be specified as `root`.
 

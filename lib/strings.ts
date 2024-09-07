@@ -168,6 +168,27 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: 'Оформление',
     lightModeSwitchTitle: 'Переключить на светлую тему',
     darkModeSwitchTitle: 'Переключить на тёмную тему'
+  },
+  id: {
+    editLink: {
+      text: 'Edit halaman ini'
+    },
+    docFooter: {
+      prev: 'Halaman sebelumnya',
+      next: 'Halaman berikutnya'
+    },
+    outline: {
+      label: 'Di halaman ini'
+    },
+    lastUpdated: {
+      text: 'Terakhir diperbarui'
+    },
+    langMenuLabel: 'Mengubah bahasa',
+    returnToTopLabel: 'Kembali ke atas',
+    sidebarMenuLabel: 'Menu',
+    darkModeSwitchLabel: 'Penampilan',
+    lightModeSwitchTitle: 'Beralih ke tema cahaya',
+    darkModeSwitchTitle: 'Beralih ke tema gelap'
   }
 };
 
@@ -352,6 +373,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateDownKeyAriaLabel: 'стрелка вниз',
           closeText: 'закрываться',
           closeKeyAriaLabel: 'побег'
+        }
+      }
+    }
+  },
+  id: {
+    translations: {
+      button: {
+        buttonText: 'Pencarian',
+        buttonAriaLabel: 'Pencarian'
+      },
+      modal: {
+        displayDetails: 'Menampilkan daftar detail',
+        resetButtonTitle: 'Atur ulang pencarian',
+        backButtonTitle: 'Tutup pencarian',
+        noResultsText: 'Tidak ada hasil untuk',
+        footer: {
+          selectText: 'untuk memilih',
+          selectKeyAriaLabel: 'masuk',
+          navigateText: 'untuk menavigasi',
+          navigateUpKeyAriaLabel: 'panah atas',
+          navigateDownKeyAriaLabel: 'panah bawah',
+          closeText: 'untuk menutup',
+          closeKeyAriaLabel: 'melarikan diri'
         }
       }
     }
@@ -723,6 +767,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: 'Вы можете попытаться узнать',
           reportMissingResultsText: 'Считаете, что поиск даёт ложные результаты？',
           reportMissingResultsLinkText: 'Нажмите на кнопку «Обратная связь»'
+        }
+      }
+    }
+  },
+  id: {
+    placeholder: 'Cari dokumen',
+    translations: {
+      button: {
+        buttonText: 'Pencarian',
+        buttonAriaLabel: 'Pencarian'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'Menghapus kueri',
+          resetButtonAriaLabel: 'Menghapus kueri',
+          cancelButtonText: 'Batal',
+          cancelButtonAriaLabel: 'Batal',
+          searchInputLabel: 'Pencarian'
+        },
+        startScreen: {
+          recentSearchesTitle: 'Terbaru',
+          noRecentSearchesText: 'Tidak ada pencarian terbaru',
+          saveRecentSearchButtonTitle: 'Simpan pencarian ini',
+          removeRecentSearchButtonTitle: 'Hapus pencarian ini dari riwayat',
+          favoriteSearchesTitle: 'Favorit',
+          removeFavoriteSearchButtonTitle: 'Hapus pencarian ini dari favorit'
+        },
+        errorScreen: {
+          titleText: 'Tidak dapat mengambil hasil',
+          helpText: 'Anda mungkin ingin memeriksa koneksi jaringan Anda.'
+        },
+        footer: {
+          selectText: 'untuk memilih',
+          selectKeyAriaLabel: 'Memasukkan kunci',
+          navigateText: 'untuk menavigasi',
+          navigateUpKeyAriaLabel: 'Panah ke atas',
+          navigateDownKeyAriaLabel: 'Panah ke bawah',
+          closeText: 'untuk menutup',
+          closeKeyAriaLabel: 'Tombol keluar',
+          searchByText: 'Cari berdasarkan'
+        },
+        noResultsScreen: {
+          noResultsText: 'Tidak ada hasil untuk',
+          suggestedQueryText: 'Coba cari',
+          reportMissingResultsText: 'Yakin kueri ini akan mengembalikan hasil?',
+          reportMissingResultsLinkText: 'Beritahu kami.'
         }
       }
     }
