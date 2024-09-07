@@ -6,7 +6,8 @@ import {
   ALGOLIA_SEARCH_TRANSLATIONS,
   LOCAL_SEARCH_TRANSLATIONS,
   LOCALES_TRANSLATIONS
-} from './strings';
+  // eslint-disable-next-line import/no-unresolved
+} from './strings.js';
 
 type LocalSearchOptions = DefaultTheme.LocalSearchOptions;
 type AlgoliaSearchOptions = DefaultTheme.AlgoliaSearchOptions;
