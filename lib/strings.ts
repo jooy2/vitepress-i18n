@@ -105,6 +105,27 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: '外観',
     lightModeSwitchTitle: 'ライトテーマに切り替える',
     darkModeSwitchTitle: 'ダークテーマに切り替える'
+  },
+  es: {
+    editLink: {
+      text: 'Editar esta página en GitHub'
+    },
+    docFooter: {
+      prev: 'Anterior',
+      next: 'Siguiente'
+    },
+    outline: {
+      label: 'En esta página'
+    },
+    lastUpdated: {
+      text: 'Actualizado en'
+    },
+    langMenuLabel: 'Cambiar Idioma',
+    returnToTopLabel: 'Volver arriba',
+    sidebarMenuLabel: 'Menu Lateral',
+    darkModeSwitchLabel: 'Tema Oscuro',
+    lightModeSwitchTitle: 'Cambiar a modo claro',
+    darkModeSwitchTitle: 'Cambiar a modo oscuro'
   }
 };
 
@@ -220,6 +241,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateDownKeyAriaLabel: '下矢印',
           closeText: '閉じる',
           closeKeyAriaLabel: 'escape'
+        }
+      }
+    }
+  },
+  es: {
+    translations: {
+      button: {
+        buttonText: 'Buscar en',
+        buttonAriaLabel: 'Buscar en'
+      },
+      modal: {
+        displayDetails: 'Mostrar lista detallada',
+        resetButtonTitle: 'Restablecer búsqueda',
+        backButtonTitle: 'Cerrar búsqueda',
+        noResultsText: 'Cerrar búsqueda',
+        footer: {
+          selectText: 'para seleccionar',
+          selectKeyAriaLabel: 'enter',
+          navigateText: 'para navegar',
+          navigateUpKeyAriaLabel: 'flecha hacia arriba',
+          navigateDownKeyAriaLabel: 'flecha hacia abajo',
+          closeText: 'cerrar',
+          closeKeyAriaLabel: 'escapar'
         }
       }
     }
@@ -453,6 +497,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: 'を検索してみよう。',
           reportMissingResultsText: 'このクエリーは結果を返すべきだと思いますか？',
           reportMissingResultsLinkText: '教えてください。'
+        }
+      }
+    }
+  },
+  es: {
+    placeholder: 'Buscar documentos',
+    translations: {
+      button: {
+        buttonText: 'Buscar',
+        buttonAriaLabel: 'Buscar'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'Limpiar búsqueda',
+          resetButtonAriaLabel: 'Limpiar búsqueda',
+          cancelButtonText: 'Cancelar',
+          cancelButtonAriaLabel: 'Cancelar',
+          searchInputLabel: 'Buscar en'
+        },
+        startScreen: {
+          recentSearchesTitle: 'Historial de búsqueda',
+          noRecentSearchesText: 'Ninguna búsqueda reciente',
+          saveRecentSearchButtonTitle: 'Guardar en el historial de búsqueda',
+          removeRecentSearchButtonTitle: 'Borrar del historial de búsqueda',
+          favoriteSearchesTitle: 'Favoritos',
+          removeFavoriteSearchButtonTitle: 'Borrar de favoritos'
+        },
+        errorScreen: {
+          titleText: 'No fue posible obtener resultados',
+          helpText: 'Verifique su conexión de red'
+        },
+        footer: {
+          selectText: 'Seleccionar',
+          selectKeyAriaLabel: 'Tecla Intro',
+          navigateText: 'Navegar',
+          navigateUpKeyAriaLabel: 'Flecha arriba',
+          navigateDownKeyAriaLabel: 'Flecha abajo',
+          closeText: 'Cerrar',
+          closeKeyAriaLabel: 'Tecla Escape',
+          searchByText: 'Busqueda por'
+        },
+        noResultsScreen: {
+          noResultsText: 'No fue posible encontrar resultados',
+          suggestedQueryText: 'Puede intentar una nueva búsqueda',
+          reportMissingResultsText: 'Deberian haber resultados para esa consulta?',
+          reportMissingResultsLinkText: 'Click para enviar feedback'
         }
       }
     }
