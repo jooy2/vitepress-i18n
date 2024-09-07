@@ -21,7 +21,8 @@ const PLUGIN_SUPPORT_LOCALES: string[] = [
   'es',
   'pt',
   'ru',
-  'id'
+  'id',
+  'de'
 ];
 
 export default class VitePressI18n {

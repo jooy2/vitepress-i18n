@@ -189,6 +189,27 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: 'Penampilan',
     lightModeSwitchTitle: 'Beralih ke tema cahaya',
     darkModeSwitchTitle: 'Beralih ke tema gelap'
+  },
+  de: {
+    editLink: {
+      text: 'Diese Seite bearbeiten'
+    },
+    docFooter: {
+      prev: 'Vorherige Seite',
+      next: 'Nächste Seite'
+    },
+    outline: {
+      label: 'Auf dieser Seite'
+    },
+    lastUpdated: {
+      text: 'Zuletzt aktualisiert'
+    },
+    langMenuLabel: 'Sprache ändern',
+    returnToTopLabel: 'Zurück zum Anfang',
+    sidebarMenuLabel: 'Menü',
+    darkModeSwitchLabel: 'Erscheinungsbild',
+    lightModeSwitchTitle: 'Zum Thema Licht wechseln',
+    darkModeSwitchTitle: 'Zu einem dunklen Thema wechseln'
   }
 };
 
@@ -396,6 +417,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateDownKeyAriaLabel: 'panah bawah',
           closeText: 'untuk menutup',
           closeKeyAriaLabel: 'melarikan diri'
+        }
+      }
+    }
+  },
+  de: {
+    translations: {
+      button: {
+        buttonText: 'Suche',
+        buttonAriaLabel: 'Suche'
+      },
+      modal: {
+        displayDetails: 'Detaillierte Liste anzeigen',
+        resetButtonTitle: 'Suche zurücksetzen',
+        backButtonTitle: 'Suche beenden',
+        noResultsText: 'Keine Ergebnisse für',
+        footer: {
+          selectText: 'zur Auswahl',
+          selectKeyAriaLabel: 'eingeben',
+          navigateText: 'zum Navigieren',
+          navigateUpKeyAriaLabel: 'Pfeil nach oben',
+          navigateDownKeyAriaLabel: 'Abwärtspfeil',
+          closeText: 'zu schließen',
+          closeKeyAriaLabel: 'Flucht'
         }
       }
     }
@@ -813,6 +857,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: 'Coba cari',
           reportMissingResultsText: 'Yakin kueri ini akan mengembalikan hasil?',
           reportMissingResultsLinkText: 'Beritahu kami.'
+        }
+      }
+    }
+  },
+  de: {
+    placeholder: 'Dokumente suchen',
+    translations: {
+      button: {
+        buttonText: 'Suche',
+        buttonAriaLabel: 'Suche'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'Löschen Sie die Abfrage',
+          resetButtonAriaLabel: 'Löschen Sie die Abfrage',
+          cancelButtonText: 'Abbrechen',
+          cancelButtonAriaLabel: 'Abbrechen',
+          searchInputLabel: 'Suche'
+        },
+        startScreen: {
+          recentSearchesTitle: 'Neueste',
+          noRecentSearchesText: 'Keine aktuellen Suchanfragen',
+          saveRecentSearchButtonTitle: 'Diese Suche speichern',
+          removeRecentSearchButtonTitle: 'Diese Suche aus dem Verlauf entfernen',
+          favoriteSearchesTitle: 'Favorit',
+          removeFavoriteSearchButtonTitle: 'Diese Suche aus den Favoriten entfernen'
+        },
+        errorScreen: {
+          titleText: 'Ergebnisse können nicht abgerufen werden',
+          helpText: 'Sie sollten Ihre Netzwerkverbindung überprüfen.'
+        },
+        footer: {
+          selectText: 'zur Auswahl',
+          selectKeyAriaLabel: 'Eingabetaste',
+          navigateText: 'zum Navigieren',
+          navigateUpKeyAriaLabel: 'Pfeil nach oben',
+          navigateDownKeyAriaLabel: 'Pfeil nach unten',
+          closeText: 'zu schließen',
+          closeKeyAriaLabel: 'Escape-Taste',
+          searchByText: 'Escape-Taste'
+        },
+        noResultsScreen: {
+          noResultsText: 'Keine Ergebnisse für',
+          suggestedQueryText: 'Versuchen Sie die Suche nach',
+          reportMissingResultsText: 'Glauben Sie, dass diese Abfrage Ergebnisse liefern sollte?',
+          reportMissingResultsLinkText: 'Lassen Sie es uns wissen.'
         }
       }
     }
