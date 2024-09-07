@@ -231,6 +231,27 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: 'Apparence',
     lightModeSwitchTitle: 'Passer au thème lumineux',
     darkModeSwitchTitle: 'Passer à un thème sombre'
+  },
+  vi: {
+    editLink: {
+      text: 'Chỉnh sửa trang này'
+    },
+    docFooter: {
+      prev: 'Trang trước',
+      next: 'Trang tiếp theo'
+    },
+    outline: {
+      label: 'Trên trang này'
+    },
+    lastUpdated: {
+      text: 'Cập nhật lần cuối'
+    },
+    langMenuLabel: 'Thay đổi ngôn ngữ',
+    returnToTopLabel: 'Quay lại đầu trang',
+    sidebarMenuLabel: 'Thực đơn',
+    darkModeSwitchLabel: 'Vẻ bề ngoài',
+    lightModeSwitchTitle: 'Chuyển sang chủ đề sáng',
+    darkModeSwitchTitle: 'Chuyển sang chủ đề tối'
   }
 };
 
@@ -484,6 +505,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateDownKeyAriaLabel: 'flèche vers le bas',
           closeText: 'pour fermer',
           closeKeyAriaLabel: "s'échapper"
+        }
+      }
+    }
+  },
+  vi: {
+    translations: {
+      button: {
+        buttonText: 'Tìm kiếm',
+        buttonAriaLabel: 'Tìm kiếm'
+      },
+      modal: {
+        displayDetails: 'Hiển thị danh sách chi tiết',
+        resetButtonTitle: 'Đặt lại tìm kiếm',
+        backButtonTitle: 'Đóng tìm kiếm',
+        noResultsText: 'Không có kết quả cho',
+        footer: {
+          selectText: 'để lựa chọn',
+          selectKeyAriaLabel: 'đi vào',
+          navigateText: 'để điều hướng',
+          navigateUpKeyAriaLabel: 'mũi tên lên',
+          navigateDownKeyAriaLabel: 'mũi tên xuống',
+          closeText: 'để đóng lại',
+          closeKeyAriaLabel: 'bỏ trốn'
         }
       }
     }
@@ -993,6 +1037,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: 'Essayez de rechercher',
           reportMissingResultsText: 'Croyez-vous que cette requête devrait donner des résultats ?',
           reportMissingResultsLinkText: 'Tenez-nous au courant.'
+        }
+      }
+    }
+  },
+  vi: {
+    placeholder: 'Tìm kiếm tài liệu',
+    translations: {
+      button: {
+        buttonText: 'Tìm kiếm',
+        buttonAriaLabel: 'Tìm kiếm'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'Xóa truy vấn',
+          resetButtonAriaLabel: 'Xóa truy vấn',
+          cancelButtonText: 'Hủy bỏ',
+          cancelButtonAriaLabel: 'Hủy bỏ',
+          searchInputLabel: 'Tìm kiếm'
+        },
+        startScreen: {
+          recentSearchesTitle: 'Gần đây',
+          noRecentSearchesText: 'Không có tìm kiếm gần đây',
+          saveRecentSearchButtonTitle: 'Lưu tìm kiếm này',
+          removeRecentSearchButtonTitle: 'Xóa tìm kiếm này khỏi lịch sử',
+          favoriteSearchesTitle: 'Yêu thích',
+          removeFavoriteSearchButtonTitle: 'Xóa tìm kiếm này khỏi mục yêu thích'
+        },
+        errorScreen: {
+          titleText: 'Không thể lấy kết quả',
+          helpText: 'Bạn có thể muốn kiểm tra kết nối mạng của mình.'
+        },
+        footer: {
+          selectText: 'để lựa chọn',
+          selectKeyAriaLabel: 'Nhập phím',
+          navigateText: 'để điều hướng',
+          navigateUpKeyAriaLabel: 'Mũi tên lên',
+          navigateDownKeyAriaLabel: 'Mũi tên xuống',
+          closeText: 'để đóng lại',
+          closeKeyAriaLabel: 'Phím thoát',
+          searchByText: 'Tìm kiếm theo'
+        },
+        noResultsScreen: {
+          noResultsText: 'Không có kết quả cho',
+          suggestedQueryText: 'Hãy thử tìm kiếm',
+          reportMissingResultsText: 'Bạn có tin truy vấn này sẽ trả về kết quả không?',
+          reportMissingResultsLinkText: 'Hãy cho chúng tôi biết.'
         }
       }
     }
