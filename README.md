@@ -42,12 +42,13 @@ The currently supported translation languages and `translateLocale` matching val
 (`*` = Currently using machine translation. Help us improve translation quality with a pull request!)
 
 - English: `en`
-- Korean: `ko`
-- Simplified Chinese: `zhHans`
-- (`*`) Traditional Chinese: `zhHant`
-- (`*`) Japanese: `ja`
-- Español: `es`
-- Português: `pt`
+- Korean (한국어): `ko`
+- Chinese Simplified (简体中文): `zhHans`
+- `*` Chinese Traditional (繁體中文): `zhHant`
+- `*` Japanese (日本語): `ja`
+- Spanish (Español): `es`
+- Portuguese (Português): `pt`
+- Russian (Русский): `ru`
 
 If a `rootLocale` value is specified, set the language key to `root` if the label language and the `rootLocale` value are the same. In the remaining areas, it does not need to be specified as `root`.
 

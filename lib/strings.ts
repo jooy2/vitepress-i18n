@@ -139,11 +139,7 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
       label: 'Nesta página'
     },
     lastUpdated: {
-      text: 'Atualizado em',
-      formatOptions: {
-        dateStyle: 'short',
-        timeStyle: 'medium'
-      }
+      text: 'Atualizado em'
     },
     langMenuLabel: 'Alterar Idioma',
     returnToTopLabel: 'Voltar ao Topo',
@@ -151,6 +147,27 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: 'Tema Escuro',
     lightModeSwitchTitle: 'Mudar para Modo Claro',
     darkModeSwitchTitle: 'Mudar para Modo Escuro'
+  },
+  ru: {
+    editLink: {
+      text: 'Редактировать страницу'
+    },
+    docFooter: {
+      prev: 'Предыдущая страница',
+      next: 'Следующая страница'
+    },
+    outline: {
+      label: 'Содержание страницы'
+    },
+    lastUpdated: {
+      text: 'Обновлено'
+    },
+    langMenuLabel: 'Изменить язык',
+    returnToTopLabel: 'Вернуться к началу',
+    sidebarMenuLabel: 'Меню',
+    darkModeSwitchLabel: 'Оформление',
+    lightModeSwitchTitle: 'Переключить на светлую тему',
+    darkModeSwitchTitle: 'Переключить на тёмную тему'
   }
 };
 
@@ -312,6 +329,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateDownKeyAriaLabel: 'seta para baixo',
           closeText: 'para encerrar',
           closeKeyAriaLabel: 'fuga'
+        }
+      }
+    }
+  },
+  ru: {
+    translations: {
+      button: {
+        buttonText: 'Поиск',
+        buttonAriaLabel: 'Поиск'
+      },
+      modal: {
+        displayDetails: 'Отображение подробного списка',
+        resetButtonTitle: 'Сброс поиска',
+        backButtonTitle: 'Закрытый поиск',
+        noResultsText: 'Нет результатов для',
+        footer: {
+          selectText: 'чтобы выбрать',
+          selectKeyAriaLabel: 'зайдите на',
+          navigateText: 'перемещаться',
+          navigateUpKeyAriaLabel: 'стрелка вверх',
+          navigateDownKeyAriaLabel: 'стрелка вниз',
+          closeText: 'закрываться',
+          closeKeyAriaLabel: 'побег'
         }
       }
     }
@@ -637,6 +677,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: 'Você pode tentar uma nova consulta',
           reportMissingResultsText: 'Deveriam haver resultados para essa consulta?',
           reportMissingResultsLinkText: 'Clique para enviar feedback'
+        }
+      }
+    }
+  },
+  ru: {
+    placeholder: 'Поиск в документации',
+    translations: {
+      button: {
+        buttonText: 'Поиск',
+        buttonAriaLabel: 'Поиск'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'Сбросить поиск',
+          resetButtonAriaLabel: 'Сбросить поиск',
+          cancelButtonText: 'Отменить поиск',
+          cancelButtonAriaLabel: 'Отменить поиск',
+          searchInputLabel: 'Поиск'
+        },
+        startScreen: {
+          recentSearchesTitle: 'История поиска',
+          noRecentSearchesText: 'Нет истории поиска',
+          saveRecentSearchButtonTitle: 'Сохранить в истории поиска',
+          removeRecentSearchButtonTitle: 'Удалить из истории поиска',
+          favoriteSearchesTitle: 'Избранное',
+          removeFavoriteSearchButtonTitle: 'Удалить из избранного'
+        },
+        errorScreen: {
+          titleText: 'Невозможно получить результаты',
+          helpText: 'Вам может потребоваться проверить подключение к Интернету'
+        },
+        footer: {
+          selectText: 'выбрать',
+          selectKeyAriaLabel: 'Клавиша Enter',
+          navigateText: 'перейти',
+          navigateUpKeyAriaLabel: 'Стрелка вверх',
+          navigateDownKeyAriaLabel: 'Стрелка вниз',
+          closeText: 'закрыть',
+          closeKeyAriaLabel: 'Клавиша Escape',
+          searchByText: 'поставщик поиска'
+        },
+        noResultsScreen: {
+          noResultsText: 'Нет результатов для',
+          suggestedQueryText: 'Вы можете попытаться узнать',
+          reportMissingResultsText: 'Считаете, что поиск даёт ложные результаты？',
+          reportMissingResultsLinkText: 'Нажмите на кнопку «Обратная связь»'
         }
       }
     }
