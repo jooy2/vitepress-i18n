@@ -63,6 +63,27 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: '主题',
     lightModeSwitchTitle: '切换到浅色模式',
     darkModeSwitchTitle: '切换到深色模式'
+  },
+  zhHant: {
+    editLink: {
+      text: '編輯此頁面'
+    },
+    docFooter: {
+      prev: '前一頁',
+      next: '下一頁'
+    },
+    outline: {
+      label: '在此頁面上'
+    },
+    lastUpdated: {
+      text: '最後更新'
+    },
+    langMenuLabel: '變更語言',
+    returnToTopLabel: '返回頁首',
+    sidebarMenuLabel: '選單',
+    darkModeSwitchLabel: '外觀',
+    lightModeSwitchTitle: '切換至燈光主題',
+    darkModeSwitchTitle: '切換至深色主題'
   }
 };
 
@@ -132,6 +153,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateDownKeyAriaLabel: '下降',
           closeText: '關閉',
           closeKeyAriaLabel: 'esc'
+        }
+      }
+    }
+  },
+  zhHant: {
+    translations: {
+      button: {
+        buttonText: '搜尋',
+        buttonAriaLabel: '搜尋'
+      },
+      modal: {
+        displayDetails: '顯示詳細清單',
+        resetButtonTitle: '重設搜尋',
+        backButtonTitle: '關閉搜尋',
+        noResultsText: '沒有結果',
+        footer: {
+          selectText: '選擇',
+          selectKeyAriaLabel: '進入',
+          navigateText: '導航',
+          navigateUpKeyAriaLabel: '上箭頭',
+          navigateDownKeyAriaLabel: '下箭頭',
+          closeText: '關閉',
+          closeKeyAriaLabel: 'escape'
         }
       }
     }
@@ -273,6 +317,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: '你可以尝试查询',
           reportMissingResultsText: '你认为该查询应该有结果？',
           reportMissingResultsLinkText: '点击反馈'
+        }
+      }
+    }
+  },
+  zhHant: {
+    placeholder: '搜尋文件',
+    translations: {
+      button: {
+        buttonText: '搜尋',
+        buttonAriaLabel: '搜尋'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: '清除查詢',
+          resetButtonAriaLabel: '清除查詢',
+          cancelButtonText: '取消',
+          cancelButtonAriaLabel: '取消',
+          searchInputLabel: '搜尋'
+        },
+        startScreen: {
+          recentSearchesTitle: '最近',
+          noRecentSearchesText: '沒有最近的搜尋',
+          saveRecentSearchButtonTitle: '儲存此搜尋',
+          removeRecentSearchButtonTitle: '從歷史中移除此搜尋',
+          favoriteSearchesTitle: '最愛',
+          removeFavoriteSearchButtonTitle: '將此搜尋從我的最愛移除'
+        },
+        errorScreen: {
+          titleText: '無法取得結果',
+          helpText: '您可能需要檢查網路連線。'
+        },
+        footer: {
+          selectText: '選擇',
+          selectKeyAriaLabel: 'Enter 鍵',
+          navigateText: '導航',
+          navigateUpKeyAriaLabel: '向上箭頭',
+          navigateDownKeyAriaLabel: '箭頭向下',
+          closeText: '關閉',
+          closeKeyAriaLabel: 'Escape 鍵',
+          searchByText: '搜尋方式'
+        },
+        noResultsScreen: {
+          noResultsText: '沒有結果',
+          suggestedQueryText: '試著搜尋',
+          reportMissingResultsText: '相信這個查詢應該會傳回結果嗎？',
+          reportMissingResultsLinkText: '讓我們知道。'
         }
       }
     }

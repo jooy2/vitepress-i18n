@@ -39,9 +39,12 @@ For example, to translate what is specified as the `kor` key into Korean, add th
 
 The currently supported translation languages and `translateLocale` matching values are as follows:
 
+(`*` = Currently using machine translation. Help us improve translation quality with a pull request!)
+
 - English: `en`
 - Korean: `ko`
 - Simplified Chinese: `zhHans`
+- (`*`) Traditional Chinese: `zhHant`
 
 If a `rootLocale` value is specified, set the language key to `root` if the label language and the `rootLocale` value are the same. In the remaining areas, it does not need to be specified as `root`.
 
