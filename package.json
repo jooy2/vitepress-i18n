@@ -19,7 +19,7 @@
     "test": "npm run build && mocha test/specs/**/*.spec.ts -r ts-node/register --loader=ts-node/esm --timeout 10000",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "minify": "terser dist/index.js --config-file .terserrc -o dist/index.js",
+    "minify": "terser dist/index.js --config-file .terserrc -o dist/index.js && terser dist/strings.js --config-file .terserrc -o dist/strings.js",
     "prepare": "npm run build",
     "format": "prettier .",
     "format:fix": "prettier . --write",
