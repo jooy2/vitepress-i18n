@@ -210,6 +210,27 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: 'Erscheinungsbild',
     lightModeSwitchTitle: 'Zum Thema Licht wechseln',
     darkModeSwitchTitle: 'Zu einem dunklen Thema wechseln'
+  },
+  fr: {
+    editLink: {
+      text: 'Modifier cette page'
+    },
+    docFooter: {
+      prev: 'Page précédente',
+      next: 'Page suivante'
+    },
+    outline: {
+      label: 'Sur cette page'
+    },
+    lastUpdated: {
+      text: 'Dernière mise à jour'
+    },
+    langMenuLabel: 'Changer de langue',
+    returnToTopLabel: 'Retour au début de la page',
+    sidebarMenuLabel: 'Menu',
+    darkModeSwitchLabel: 'Apparence',
+    lightModeSwitchTitle: 'Passer au thème lumineux',
+    darkModeSwitchTitle: 'Passer à un thème sombre'
   }
 };
 
@@ -440,6 +461,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateDownKeyAriaLabel: 'Abwärtspfeil',
           closeText: 'zu schließen',
           closeKeyAriaLabel: 'Flucht'
+        }
+      }
+    }
+  },
+  fr: {
+    translations: {
+      button: {
+        buttonText: 'Recherche',
+        buttonAriaLabel: 'Recherche'
+      },
+      modal: {
+        displayDetails: 'Afficher la liste détaillée',
+        resetButtonTitle: 'Réinitialiser la recherche',
+        backButtonTitle: 'Fermer la recherche',
+        noResultsText: 'Aucun résultat pour',
+        footer: {
+          selectText: 'pour sélectionner',
+          selectKeyAriaLabel: 'entrer',
+          navigateText: 'pour naviguer',
+          navigateUpKeyAriaLabel: 'flèche vers le haut',
+          navigateDownKeyAriaLabel: 'flèche vers le bas',
+          closeText: 'pour fermer',
+          closeKeyAriaLabel: "s'échapper"
         }
       }
     }
@@ -903,6 +947,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: 'Versuchen Sie die Suche nach',
           reportMissingResultsText: 'Glauben Sie, dass diese Abfrage Ergebnisse liefern sollte?',
           reportMissingResultsLinkText: 'Lassen Sie es uns wissen.'
+        }
+      }
+    }
+  },
+  fr: {
+    placeholder: 'Recherche de documents',
+    translations: {
+      button: {
+        buttonText: 'Recherche',
+        buttonAriaLabel: 'Recherche'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'Effacer la requête',
+          resetButtonAriaLabel: 'Effacer la requête',
+          cancelButtonText: 'Annuler',
+          cancelButtonAriaLabel: 'Annuler',
+          searchInputLabel: 'Recherche'
+        },
+        startScreen: {
+          recentSearchesTitle: 'Récents',
+          noRecentSearchesText: 'Pas de recherches récentes',
+          saveRecentSearchButtonTitle: 'Enregistrer cette recherche',
+          removeRecentSearchButtonTitle: "Supprimer cette recherche de l'historique",
+          favoriteSearchesTitle: 'Favoris',
+          removeFavoriteSearchButtonTitle: 'Supprimer cette recherche des favoris'
+        },
+        errorScreen: {
+          titleText: 'Impossible de récupérer les résultats',
+          helpText: 'Vous pouvez vérifier votre connexion réseau.'
+        },
+        footer: {
+          selectText: 'pour sélectionner',
+          selectKeyAriaLabel: 'Touche Entrée',
+          navigateText: 'pour naviguer',
+          navigateUpKeyAriaLabel: 'Flèche vers le haut',
+          navigateDownKeyAriaLabel: 'Flèche vers le bas',
+          closeText: 'pour fermer',
+          closeKeyAriaLabel: "Touche d'échappement",
+          searchByText: 'Recherche par'
+        },
+        noResultsScreen: {
+          noResultsText: 'Aucun résultat pour',
+          suggestedQueryText: 'Essayez de rechercher',
+          reportMissingResultsText: 'Croyez-vous que cette requête devrait donner des résultats ?',
+          reportMissingResultsLinkText: 'Tenez-nous au courant.'
         }
       }
     }
