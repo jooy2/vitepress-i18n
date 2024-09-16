@@ -53,6 +53,7 @@ The currently supported translation languages and `translateLocale` matching val
 - `*` German (Deutsch): `de`
 - `*` French (Français): `fr`
 - `*` Vietnamese (Tiếng Việt): `vi`
+- `*` Italian (Italiano): `it`
 
 If a `rootLocale` value is specified, set the language key to `root` if the label language and the `rootLocale` value are the same. In the remaining areas, it does not need to be specified as `root`.
 
@@ -94,8 +95,10 @@ export default defineConfig({
 {
   defineLocales: DefineLocales[];
   rootLocale?: string;
-  editLinkPattern: string;
-  label: { [key: string]: string };
+  disableAutoSetLangValue?: boolean;
+  debugPrint?: boolean;
+  editLinkPattern?: string;
+  label?: { [key: string]: string };
   link?: { [key: string]: string };
   lang?: { [key: string]: string };
   title?: { [key: string]: string };

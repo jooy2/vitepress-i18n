@@ -252,6 +252,27 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     darkModeSwitchLabel: 'Vẻ bề ngoài',
     lightModeSwitchTitle: 'Chuyển sang chủ đề sáng',
     darkModeSwitchTitle: 'Chuyển sang chủ đề tối'
+  },
+  it: {
+    editLink: {
+      text: 'Modifica questa pagina'
+    },
+    docFooter: {
+      prev: 'Pagina precedente',
+      next: 'Pagina successiva'
+    },
+    outline: {
+      label: 'In questa pagina'
+    },
+    lastUpdated: {
+      text: 'Ultimo aggiornamento'
+    },
+    langMenuLabel: 'Cambiare la lingua',
+    returnToTopLabel: "Torna all'inizio",
+    sidebarMenuLabel: 'Menu',
+    darkModeSwitchLabel: 'Aspetto',
+    lightModeSwitchTitle: 'Passare al tema della luce',
+    darkModeSwitchTitle: 'Passare al tema scuro'
   }
 };
 
@@ -528,6 +549,29 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateDownKeyAriaLabel: 'mũi tên xuống',
           closeText: 'để đóng lại',
           closeKeyAriaLabel: 'bỏ trốn'
+        }
+      }
+    }
+  },
+  it: {
+    translations: {
+      button: {
+        buttonText: 'Ricerca',
+        buttonAriaLabel: 'Ricerca'
+      },
+      modal: {
+        displayDetails: "Visualizzazione dell'elenco dettagliato",
+        resetButtonTitle: 'Azzeramento della ricerca',
+        backButtonTitle: 'Chiudere la ricerca',
+        noResultsText: 'Nessun risultato per',
+        footer: {
+          selectText: 'per selezionare',
+          selectKeyAriaLabel: 'entrare',
+          navigateText: 'per navigare',
+          navigateUpKeyAriaLabel: "freccia verso l'alto",
+          navigateDownKeyAriaLabel: 'freccia verso il basso',
+          closeText: 'per chiudere',
+          closeKeyAriaLabel: 'fuga'
         }
       }
     }
@@ -1083,6 +1127,52 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           suggestedQueryText: 'Hãy thử tìm kiếm',
           reportMissingResultsText: 'Bạn có tin truy vấn này sẽ trả về kết quả không?',
           reportMissingResultsLinkText: 'Hãy cho chúng tôi biết.'
+        }
+      }
+    }
+  },
+  it: {
+    placeholder: 'Ricerca documenti',
+    translations: {
+      button: {
+        buttonText: 'Ricerca',
+        buttonAriaLabel: 'Ricerca'
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'Cancellare la query',
+          resetButtonAriaLabel: 'Cancellare la query',
+          cancelButtonText: 'Annullamento',
+          cancelButtonAriaLabel: 'Annullamento',
+          searchInputLabel: 'Ricerca'
+        },
+        startScreen: {
+          recentSearchesTitle: 'Recente',
+          noRecentSearchesText: 'Nessuna ricerca recente',
+          saveRecentSearchButtonTitle: 'Salva questa ricerca',
+          removeRecentSearchButtonTitle: 'Rimuovere questa ricerca dalla cronologia',
+          favoriteSearchesTitle: 'Preferito',
+          removeFavoriteSearchButtonTitle: 'Rimuovi questa ricerca dai preferiti'
+        },
+        errorScreen: {
+          titleText: 'Impossibile recuperare i risultati',
+          helpText: 'Si consiglia di controllare la connessione di rete.'
+        },
+        footer: {
+          selectText: 'per selezionare',
+          selectKeyAriaLabel: 'Tasto Invio',
+          navigateText: 'per navigare',
+          navigateUpKeyAriaLabel: 'Freccia in alto',
+          navigateDownKeyAriaLabel: 'Freccia giù',
+          closeText: 'per chiudere',
+          closeKeyAriaLabel: 'Tasto di fuga',
+          searchByText: 'Ricerca per'
+        },
+        noResultsScreen: {
+          noResultsText: 'Nessun risultato per',
+          suggestedQueryText: 'Prova a cercare',
+          reportMissingResultsText: 'Credete che questa query debba restituire dei risultati?',
+          reportMissingResultsLinkText: 'Fateci sapere.'
         }
       }
     }

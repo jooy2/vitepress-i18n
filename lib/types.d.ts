@@ -21,8 +21,8 @@ export declare interface PluginSupportLocalesOptions {
 export declare interface VitePressI18nLocalesOptions {
   defineLocales: DefineLocales[];
   rootLocale?: string;
-  disableAutoSetLangValue: boolean;
-  debugPrint: boolean;
+  disableAutoSetLangValue?: boolean;
+  debugPrint?: boolean;
   editLinkPattern?: string;
   label?: { [key: string]: string };
   link?: { [key: string]: string };

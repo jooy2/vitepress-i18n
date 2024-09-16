@@ -28,7 +28,8 @@ const PLUGIN_SUPPORT_LOCALES: PluginSupportLocalesOptions[] = [
   { value: 'id', label: 'Bahasa Indonesia', lang: 'id-ID' },
   { value: 'de', label: 'Deutsch', lang: 'de-DE' },
   { value: 'fr', label: 'Français', lang: 'fr-FR' },
-  { value: 'vi', label: 'Tiếng Việt', lang: 'vi-VN' }
+  { value: 'vi', label: 'Tiếng Việt', lang: 'vi-VN' },
+  { value: 'it', label: 'Italiano', lang: 'it-IT' }
 ];
 
 export default class VitePressI18n {
