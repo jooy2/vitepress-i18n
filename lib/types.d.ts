@@ -15,8 +15,9 @@ export declare interface DefineLocales {
 export declare interface VitePressI18nLocalesOptions {
   defineLocales: DefineLocales[];
   rootLocale?: string;
-  editLinkPattern: string;
-  label: { [key: string]: string };
+  debugPrint: boolean;
+  editLinkPattern?: string;
+  label?: { [key: string]: string };
   link?: { [key: string]: string };
   /*
    * Types from: `vitepress/types/default-theme.d.ts`

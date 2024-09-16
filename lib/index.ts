@@ -80,6 +80,14 @@ export default class VitePressI18n {
       };
     }
 
+    if (options.debugPrint) {
+      process.stdout.write(
+        `\n${'='.repeat(50)}\n${JSON.stringify(options, null, 2)}\n${'-'.repeat(
+          50
+        )}\n${JSON.stringify(result, null, 2)}\n${'='.repeat(50)}\n\n`
+      );
+    }
+
     return result;
   }
 
