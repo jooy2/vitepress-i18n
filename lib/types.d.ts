@@ -12,9 +12,16 @@ export declare interface DefineLocales {
   translateLocale: string;
 }
 
+export declare interface PluginSupportLocalesOptions {
+  label: string;
+  lang: string;
+  value: string;
+}
+
 export declare interface VitePressI18nLocalesOptions {
   defineLocales: DefineLocales[];
   rootLocale?: string;
+  disableAutoSetLangValue: boolean;
   debugPrint: boolean;
   editLinkPattern?: string;
   label?: { [key: string]: string };
