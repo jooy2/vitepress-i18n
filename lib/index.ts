@@ -51,7 +51,18 @@ export default class VitePressI18n {
         throw new Error(`The '${locale}' locale is not currently supported.`);
       }
 
-      const commonThemeConfig = LOCALES_TRANSLATIONS[locale];
+      const commonThemeConfig = {
+        ...LOCALES_TRANSLATIONS[locale],
+        // Override
+        ...(options.editLinkPattern
+          ? {
+              editLink: {
+                pattern: options.editLinkPattern,
+                text: LOCALES_TRANSLATIONS[locale].editLink.text
+              }
+            }
+          : {})
+      };
 
       result[label === options.rootLocale ? 'root' : label] = {
         ...VitePressI18n.getDefaultLangValue(options, label, locale),
@@ -66,14 +77,6 @@ export default class VitePressI18n {
         themeConfig: options.themeConfig?.[label]
           ? {
               ...commonThemeConfig,
-              ...(options.editLinkPattern
-                ? {
-                    editLink: {
-                      pattern: options.editLinkPattern,
-                      text: LOCALES_TRANSLATIONS[locale].editLink.text
-                    }
-                  }
-                : {}),
               // Override
               ...options.themeConfig?.[label]
             }
