@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.6 (2024-09-16)
+
+- Override `editLinkPattern` value even if defined common theme configs
+- Add `debugPrint` option for `generateI18nSearch`
+
 ## 1.0.5 (2024-09-16)
 
 - Add italian translations
