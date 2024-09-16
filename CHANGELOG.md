@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.5 (2024-09-16)
+
+- Add italian translations
+- Allow auto set lang and label value when if not defined
+- Add `debugPrint` method
+- Add `disableAutoSetLangValue` method
+
 ## 1.0.4 (2024-09-07)
 
 - Fix import issue
