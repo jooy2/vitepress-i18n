@@ -95,6 +95,55 @@ export default class VitePressI18n {
     return result;
   }
 
+  static generateI18nSearch(
+    options: VitePressI18nSearchOptions
+  ):
+    | { provider: 'local'; options?: Partial<LocalSearchOptions> }
+    | { provider: 'algolia'; options: Partial<AlgoliaSearchOptions> } {
+    if (arguments.length > 1 || !options) {
+      throw new Error(`You must pass 1 argument, see the documentation for details.`);
+    }
+
+    const tempResult:
+      | Record<string, Partial<Omit<LocalSearchOptions, 'locales'>>>
+      | Record<string, Partial<DocSearchProps>> = {};
+
+    for (let i = 0; i < options.defineLocales.length; i += 1) {
+      const locale = options.defineLocales[i].translateLocale;
+      const label = options.defineLocales[i].label;
+
+      if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === locale)) {
+        throw new Error(`The '${locale}' locale is not currently supported.`);
+      }
+
+      if (options.provider === 'local') {
+        tempResult[label === options.rootLocale ? 'root' : label] =
+          LOCAL_SEARCH_TRANSLATIONS[locale];
+      } else {
+        tempResult[label === options.rootLocale ? 'root' : label] =
+          ALGOLIA_SEARCH_TRANSLATIONS[locale];
+      }
+    }
+
+    const result = {
+      provider: options.provider,
+      options: {
+        ...options.options,
+        locales: tempResult
+      }
+    };
+
+    if (options.debugPrint) {
+      process.stdout.write(
+        `\n${'='.repeat(50)}\n${JSON.stringify(options, null, 2)}\n${'-'.repeat(
+          50
+        )}\n${JSON.stringify(result, null, 2)}\n${'='.repeat(50)}\n\n`
+      );
+    }
+
+    return result;
+  }
+
   private static getDefaultLabelValue(locale: string): string {
     const findIndex = PLUGIN_SUPPORT_LOCALES.findIndex((x) => x.value === locale);
     const fallbackLocaleIndex = PLUGIN_SUPPORT_LOCALES.findIndex(
@@ -130,53 +179,6 @@ export default class VitePressI18n {
           ? PLUGIN_SUPPORT_LOCALES[findIndex].lang
           : PLUGIN_SUPPORT_LOCALES[fallbackLocaleIndex].lang
     };
-  }
-
-  static generateI18nSearch(
-    options: VitePressI18nSearchOptions
-  ):
-    | { provider: 'local'; options?: Partial<LocalSearchOptions> }
-    | { provider: 'algolia'; options: Partial<AlgoliaSearchOptions> } {
-    if (arguments.length > 1 || !options) {
-      throw new Error(`You must pass 1 argument, see the documentation for details.`);
-    }
-
-    const result:
-      | Record<string, Partial<Omit<LocalSearchOptions, 'locales'>>>
-      | Record<string, Partial<DocSearchProps>> = {};
-
-    for (let i = 0; i < options.defineLocales.length; i += 1) {
-      const locale = options.defineLocales[i].translateLocale;
-      const label = options.defineLocales[i].label;
-
-      if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === locale)) {
-        throw new Error(`The '${locale}' locale is not currently supported.`);
-      }
-
-      if (options.provider === 'local') {
-        result[label === options.rootLocale ? 'root' : label] = LOCAL_SEARCH_TRANSLATIONS[locale];
-      } else {
-        result[label === options.rootLocale ? 'root' : label] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
-      }
-    }
-
-    const result = {
-      provider: options.provider,
-      options: {
-        ...options.options,
-        locales: result
-      }
-    };
-
-    if (options.debugPrint) {
-      process.stdout.write(
-        `\n${'='.repeat(50)}\n${JSON.stringify(options, null, 2)}\n${'-'.repeat(
-          50
-        )}\n${JSON.stringify(result, null, 2)}\n${'='.repeat(50)}\n\n`
-      );
-    }
-
-    return result;
   }
 }
 
