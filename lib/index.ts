@@ -5,7 +5,7 @@ import type {
   PluginSupportLocalesOptions,
   VitePressI18nLocalesOptions,
   VitePressI18nSearchOptions
-} from './types.d.ts';
+} from './types.ts';
 import {
   ALGOLIA_SEARCH_TRANSLATIONS,
   LOCAL_SEARCH_TRANSLATIONS,

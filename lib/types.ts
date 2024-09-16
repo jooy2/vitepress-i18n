@@ -1,24 +1,22 @@
 import type { HeadConfig } from 'vitepress';
 import type { DefaultTheme } from 'vitepress/types/default-theme.d.ts';
 
-import LocalSearchOptions = DefaultTheme.LocalSearchOptions;
-
-export declare interface KeyValueItem {
+export interface KeyValueItem {
   [key: string]: any;
 }
 
-export declare interface DefineLocales {
+export interface DefineLocales {
   label: string;
   translateLocale: string;
 }
 
-export declare interface PluginSupportLocalesOptions {
+export interface PluginSupportLocalesOptions {
   label: string;
   lang: string;
   value: string;
 }
 
-export declare interface VitePressI18nLocalesOptions {
+export interface VitePressI18nLocalesOptions {
   defineLocales: DefineLocales[];
   rootLocale?: string;
   disableAutoSetLangValue?: boolean;
@@ -40,9 +38,9 @@ export declare interface VitePressI18nLocalesOptions {
    * */
 }
 
-export declare interface VitePressI18nSearchOptions {
+export interface VitePressI18nSearchOptions {
   defineLocales: DefineLocales[];
   rootLocale?: string;
   provider: 'local' | 'algolia';
-  options?: LocalSearchOptions;
+  options?: DefaultTheme.LocalSearchOptions;
 }

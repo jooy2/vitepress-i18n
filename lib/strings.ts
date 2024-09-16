@@ -1,4 +1,4 @@
-import type { KeyValueItem } from './types.d.ts';
+import type { KeyValueItem } from './types.ts';
 
 export const LOCALES_TRANSLATIONS: KeyValueItem = {
   en: {
