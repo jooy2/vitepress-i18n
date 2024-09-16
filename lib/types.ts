@@ -41,6 +41,7 @@ export interface VitePressI18nLocalesOptions {
 export interface VitePressI18nSearchOptions {
   defineLocales: DefineLocales[];
   rootLocale?: string;
+  debugPrint?: boolean;
   provider: 'local' | 'algolia';
   options?: DefaultTheme.LocalSearchOptions;
 }
