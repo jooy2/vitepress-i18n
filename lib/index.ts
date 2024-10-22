@@ -1,6 +1,7 @@
 import type { DefaultTheme } from 'vitepress/types/default-theme.d.ts';
 import type { LocaleConfig, LocaleSpecificConfig } from 'vitepress/types/index.d.ts';
 import type { DocSearchProps } from 'vitepress/types/docsearch.d.ts';
+import type { UserConfig } from 'vitepress';
 import type {
   PluginSupportLocalesOptions,
   VitePressI18nLocalesOptions,
@@ -33,6 +34,87 @@ const PLUGIN_SUPPORT_LOCALES: PluginSupportLocalesOptions[] = [
 ];
 
 export default class VitePressI18n {
+  static generateI18n(options: Partial<VitePressI18nLocalesOptions>): Partial<UserConfig> {
+    if (arguments.length > 1 || !options) {
+      throw new Error(`You must pass 1 argument, see the documentation for details.`);
+    }
+    if (!options?.defineLocales || options.defineLocales.length < 1) {
+      throw new Error(`At least one 'defineLocales' value must exist!`);
+    }
+
+    const result: Partial<UserConfig> = {
+      themeConfig: {
+        ...(options.searchProvider
+          ? {
+              search: {
+                provider: options.searchProvider,
+                options: {
+                  ...options.searchOptions,
+                  locales: {}
+                }
+              }
+            }
+          : {})
+      }, // For `search` only
+      locales: {}
+    };
+
+    for (let i = 0; i < options.defineLocales.length; i += 1) {
+      const locale = options.defineLocales[i].translateLocale;
+      const label = options.defineLocales[i].label;
+
+      if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === locale)) {
+        throw new Error(`The '${locale}' locale is not currently supported.`);
+      }
+
+      // Search
+      if (options.searchProvider) {
+        if (options.searchProvider === 'local') {
+          result.themeConfig.search.options.locales[label === options.rootLocale ? 'root' : label] =
+            LOCAL_SEARCH_TRANSLATIONS[locale];
+        } else {
+          result.themeConfig.search.options.locales[label === options.rootLocale ? 'root' : label] =
+            ALGOLIA_SEARCH_TRANSLATIONS[locale];
+        }
+      }
+
+      const commonThemeConfig = LOCALES_TRANSLATIONS[locale];
+
+      result.locales![label === options.rootLocale ? 'root' : label] = {
+        ...VitePressI18n.getDefaultLangValue(options, label, locale),
+        label: options.label?.[label] || VitePressI18n.getDefaultLabelValue(locale),
+        ...(options.link?.[label] ? { link: options.link?.[label] } : {}),
+        ...(options.title?.[label] ? { title: options.title?.[label] } : {}),
+        ...(options.titleTemplate?.[label]
+          ? { titleTemplate: options.titleTemplate?.[label] }
+          : {}),
+        ...(options.description?.[label] ? { description: options.description?.[label] } : {}),
+        ...(options.head?.[label] ? { head: options.head?.[label] } : {}),
+        themeConfig: options.themeConfig?.[label]
+          ? {
+              ...commonThemeConfig,
+              // Override
+              ...options.themeConfig?.[label]
+            }
+          : commonThemeConfig
+      };
+    }
+
+    if (options.debugPrint) {
+      process.stdout.write(
+        `\n${'='.repeat(50)}\n${JSON.stringify(options, null, 2)}\n${'-'.repeat(
+          50
+        )}\n${JSON.stringify(result, null, 2)}\n${'='.repeat(50)}\n\n`
+      );
+    }
+
+    return result;
+  }
+
+  /**
+   * @deprecated This function has been integrated into the `generateI18n` function and will be removed in a future version. For more information, see `README.md`.
+   * @param options
+   */
   static generateI18nLocale(options: Partial<VitePressI18nLocalesOptions>): LocaleConfig {
     if (arguments.length > 1 || !options) {
       throw new Error(`You must pass 1 argument, see the documentation for details.`);
@@ -95,6 +177,10 @@ export default class VitePressI18n {
     return result;
   }
 
+  /**
+   * @deprecated This function has been integrated into the `generateI18n` function and will be removed in a future version. For more information, see `README.md`.
+   * @param options
+   */
   static generateI18nSearch(
     options: VitePressI18nSearchOptions
   ):
@@ -184,4 +270,4 @@ export default class VitePressI18n {
 
 export { VitePressI18n };
 
-export const { generateI18nSearch, generateI18nLocale } = VitePressI18n;
+export const { generateI18n, generateI18nSearch, generateI18nLocale } = VitePressI18n;

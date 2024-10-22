@@ -19,6 +19,8 @@ export interface PluginSupportLocalesOptions {
 export interface VitePressI18nLocalesOptions {
   defineLocales: DefineLocales[];
   rootLocale?: string;
+  searchProvider?: 'local' | 'algolia';
+  searchOptions?: { [key: string]: any };
   disableAutoSetLangValue?: boolean;
   debugPrint?: boolean;
   editLinkPattern?: string;
