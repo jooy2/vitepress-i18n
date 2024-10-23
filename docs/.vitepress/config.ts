@@ -8,7 +8,8 @@ const editLinkPattern = `${repository.url}/edit/master/docs/:path`;
 
 const commonSidebarConfig: VitePressSidebarOptions = {
   debugPrint: true,
-  excludePattern: ['CHANGELOG.md'],
+  manualSortFileNameByPriority: ['introduction.md', 'guide'],
+  excludePattern: ['changelog.md'],
   collapsed: false,
   capitalizeFirst: true,
   useTitleFromFileHeading: true,
@@ -58,7 +59,7 @@ const vitePressConfig: UserConfig = {
       })
     ]),
     socialLinks: [
-      { icon: 'npm', link: 'https://www.npmjs.com/package/vitepress-sidebar' },
+      { icon: 'npm', link: 'https://www.npmjs.com/package/vitepress-i18n' },
       { icon: 'github', link: repository.url.replace('.git', '') }
     ],
     footer: {
