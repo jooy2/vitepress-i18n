@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 (2024-10-23)
+
+- Fix chinese simplified string (#1)
+
 ## 1.1.0 (2024-10-23)
 
 - **BREAKING CHANGES**: The `generateI18nLocale` and `generateI18nSearch` functions have now been merged into `generateI18n`. Therefore, both functions will be removed in the next version. Please refer to the documentation to migrate to the `generateI18n` function.
