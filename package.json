@@ -1,6 +1,6 @@
 {
   "name": "vitepress-i18n",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "VitePress i18n is a plugin for VitePress that makes it easy to translate text in the default theme and search tool.",
   "type": "module",
   "types": "dist/index.d.ts",
