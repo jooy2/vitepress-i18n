@@ -8,34 +8,13 @@
 - ⚡️ Lightweight bundle file size, zero dependencies
 - ⚡️ [TypeScript](https://www.typescriptlang.org) support
 
-## Installation
+> [!NOTE]
+>
+> Currently, the plugin is experimental and production-ready, but many features may be missing. The documentation page is still a work in progress. If you run into behavioral issues, please create a new issue!
 
-First, you may need to pre-configure **[VitePress](https://vitepress.dev)** before using this module.
+## [Documentation (Getting Started & All option lists)](https://vitepress-i18n.cdget.com/guide/getting-started)
 
-We recommend using **Node.js 18.x** or higher. The **VitePress i18n** is written in `ESM`.
-
-You will need to install the module using [NPM](https://www.npmjs.com/package/vitepress-i18n) or any other Node module package manager. The package should be installed in `devDependencies` as it is only used in the developer environment. Use the command below:
-
-```shell
-# via npm
-$ npm i -D vitepress-i18n
-
-# via yarn
-$ yarn add -D vitepress-i18n
-
-# via pnpm
-$ pnpm i -D vitepress-i18n
-```
-
-## How to use
-
-VitePress i18n comes with a function to translate the general layout text (`generateI18nLocale`) and a function to translate the search interface (`generateI18nSearch`).
-
-Each function must be called from a specific location in VitePress's configuration file. VitePress's configuration file is typically located at `.vitepress/config.ts`.
-
-In VitePress' i18n, you can customize the locale key. For example, if you specify `kor` as the locale key for Korean translation, you can use a URL like `/kor/docs/abc`. This plugin requires you to properly configure `defineLocales` in the parameter so that it can tell it to translate a specific locale key into the language you specify.
-
-For example, to translate what is specified as the `kor` key into Korean, add the following to the values in the `defineLocales` array: `{ label: 'kor', translateLocale: 'ko' }`
+Installing and using the package and defining all the utility methods can be found on the documentation page below: https://vitepress-i18n.cdget.com/guide/getting-started
 
 The currently supported translation languages and `translateLocale` matching values are as follows:
 
@@ -55,19 +34,26 @@ The currently supported translation languages and `translateLocale` matching val
 - `*` Vietnamese (Tiếng Việt): `vi`
 - `*` Italian (Italiano): `it`
 
-If a `rootLocale` value is specified, set the language key to `root` if the label language and the `rootLocale` value are the same. In the remaining areas, it does not need to be specified as `root`.
+## Example
 
-It will then use the same parameters that VitePress already uses. Note, however, that you must declare custom values for each of the keys you specify in `defineLocales`.
-
-## Methods: `generateI18nLocale`
-
-Call this function with the `locales` option in VitePress's root config:
-
-### Example
+### Basic configurations
 
 ```javascript
 export default defineConfig({
-  locales: generateI18nLocale({
+  ...generateI18n({
+    defineLocales: [
+      { label: 'en', translateLocale: 'en' },
+      { label: 'ko', translateLocale: 'ko' }
+    ]
+  })
+});
+```
+
+### With custom label
+
+```javascript
+export default defineConfig({
+  ...generateI18n({
     defineLocales: [
       { label: 'en', translateLocale: 'en' },
       { label: 'ko', translateLocale: 'ko' }
@@ -95,6 +81,8 @@ export default defineConfig({
 {
   defineLocales: DefineLocales[];
   rootLocale?: string;
+  searchProvider?: 'local' | 'algolia';
+  searchOptions?: { [key: string]: any };
   disableAutoSetLangValue?: boolean;
   debugPrint?: boolean;
   editLinkPattern?: string;
@@ -106,35 +94,6 @@ export default defineConfig({
   description?: { [key: string]: string };
   head?: { [key: string]: HeadConfig[] };
   themeConfig?: { [key: string]: any };
-}
-```
-
-## Methods: `generateI18nSearch`
-
-Call this function on the `search` option of VitePress's `themeConfig`:
-
-### Example
-
-```javascript
-export default defineConfig({
-  themeConfig: {
-    search: generateI18nSearch({
-      defineLocales: [{ label: 'ko', translateLocale: 'ko' }],
-      rootLocale: 'en',
-      provider: 'local'
-    })
-  }
-});
-```
-
-### Parameters
-
-```text
-{
-  defineLocales: DefineLocales[];
-  rootLocale?: string;
-  provider: 'local' | 'algolia';
-  options?: LocalSearchOptions;
 }
 ```
 
