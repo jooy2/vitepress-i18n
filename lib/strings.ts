@@ -340,7 +340,7 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
           navigateText: '切换',
           navigateUpKeyAriaLabel: '向上',
           navigateDownKeyAriaLabel: '下降',
-          closeText: '關閉',
+          closeText: '关闭',
           closeKeyAriaLabel: 'esc'
         }
       }
