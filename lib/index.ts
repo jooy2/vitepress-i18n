@@ -1,20 +1,10 @@
-import type { DefaultTheme } from 'vitepress/types/default-theme.d.ts';
-import type { LocaleConfig, LocaleSpecificConfig } from 'vitepress/types/index.d.ts';
-import type { DocSearchProps } from 'vitepress/types/docsearch.d.ts';
 import type { UserConfig } from 'vitepress';
-import type {
-  PluginSupportLocalesOptions,
-  VitePressI18nOptions,
-  VitePressI18nSearchOptions
-} from './types.ts';
+import type { PluginSupportLocalesOptions, VitePressI18nOptions, I18nLocale } from './types.ts';
 import {
   ALGOLIA_SEARCH_TRANSLATIONS,
   LOCAL_SEARCH_TRANSLATIONS,
   LOCALES_TRANSLATIONS
 } from './strings.js';
-
-type LocalSearchOptions = DefaultTheme.LocalSearchOptions;
-type AlgoliaSearchOptions = DefaultTheme.AlgoliaSearchOptions;
 
 declare type AnyValueObject = { [key: string]: any };
 
@@ -45,8 +35,28 @@ export default class VitePressI18n {
         `You will need to pass VitePress's defineConfig option and plugin options respectively, see the documentation for details.`
       );
     }
-    if (!i18nOptions?.defineLocales || i18nOptions.defineLocales.length < 1) {
-      throw new Error(`At least one 'defineLocales' value must exist!`);
+    if (!i18nOptions?.locales || i18nOptions.locales.length < 1) {
+      throw new Error(
+        `The 'locales' option value is required. Please refer to the documentation to pass the correct value.`
+      );
+    }
+
+    if (!i18nOptions.rootLocale) {
+      if (
+        typeof i18nOptions.locales[0] === 'object' &&
+        Object.hasOwn(i18nOptions.locales[0], 'path') &&
+        Object.hasOwn(i18nOptions.locales[0], 'locale')
+      ) {
+        i18nOptions.rootLocale = i18nOptions.locales[0].locale;
+      } else if (typeof i18nOptions.locales[0] === 'string') {
+        i18nOptions.rootLocale = i18nOptions.locales[0];
+      }
+    }
+
+    if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === i18nOptions.rootLocale)) {
+      throw new Error(
+        `Invalid locale detected, please make sure you are using a supported language code for the 'rootLocale' or 'locales' option.`
+      );
     }
 
     const result: Partial<UserConfig> = {
@@ -66,9 +76,25 @@ export default class VitePressI18n {
       locales: {}
     };
 
-    for (let i = 0; i < i18nOptions.defineLocales.length; i += 1) {
-      const locale = i18nOptions.defineLocales[i].translateLocale;
-      const label = i18nOptions.defineLocales[i].label;
+    for (let i = 0; i < i18nOptions.locales.length; i += 1) {
+      let locale: string | undefined;
+      let label: string | undefined;
+
+      if (typeof i18nOptions.locales[i] === 'object') {
+        const localeOption = i18nOptions.locales[i] as I18nLocale;
+
+        if (Object.hasOwn(localeOption, 'path') && Object.hasOwn(localeOption, 'locale')) {
+          locale = localeOption.locale;
+          label = localeOption.path;
+        }
+      } else if (typeof i18nOptions.locales[i] === 'string') {
+        locale = i18nOptions.locales[i].toString();
+        label = i18nOptions.locales[i].toString();
+      }
+
+      if (!locale || !label) {
+        throw new Error(`The value of the 'locales' option is not in the correct format!`);
+      }
 
       if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === locale)) {
         throw new Error(`The '${locale}' locale is not currently supported.`);
@@ -78,18 +104,22 @@ export default class VitePressI18n {
       if (i18nOptions.searchProvider) {
         if (i18nOptions.searchProvider === 'local') {
           result.themeConfig.search.options.locales[
-            label === i18nOptions.rootLocale ? 'root' : label
+            locale === i18nOptions.rootLocale ? 'root' : label
           ] = LOCAL_SEARCH_TRANSLATIONS[locale];
         } else {
           result.themeConfig.search.options.locales[
-            label === i18nOptions.rootLocale ? 'root' : label
+            locale === i18nOptions.rootLocale ? 'root' : label
           ] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
         }
       }
 
       const commonThemeConfig = LOCALES_TRANSLATIONS[locale];
 
-      result.locales![label === i18nOptions.rootLocale ? 'root' : label] = {
+      if (commonThemeConfig.editLink && vitePressOptions.themeConfig?.editLink?.pattern) {
+        commonThemeConfig.editLink.pattern = vitePressOptions.themeConfig.editLink.pattern;
+      }
+
+      result.locales![locale === i18nOptions.rootLocale ? 'root' : label] = {
         ...VitePressI18n.getDefaultLangValue(i18nOptions, label, locale),
         label: i18nOptions.label?.[label] || VitePressI18n.getDefaultLabelValue(locale),
         ...(i18nOptions.link?.[label] ? { link: i18nOptions.link?.[label] } : {}),
@@ -120,125 +150,6 @@ export default class VitePressI18n {
     }
 
     return VitePressI18n.objMergeNewKey(vitePressOptions, result) as UserConfig;
-  }
-
-  /**
-   * @deprecated This function has been integrated into the `generateI18n` function and will be removed in a future version. For more information, see `README.md`.
-   * @param options
-   */
-  static generateI18nLocale(options: Partial<VitePressI18nOptions>): LocaleConfig {
-    if (arguments.length > 1 || !options) {
-      throw new Error(`You must pass 1 argument, see the documentation for details.`);
-    }
-    if (!options?.defineLocales || options.defineLocales.length < 1) {
-      throw new Error(`At least one 'defineLocales' value must exist!`);
-    }
-
-    const result: Record<string, LocaleSpecificConfig & { label: string; link?: string }> = {};
-
-    for (let i = 0; i < options.defineLocales.length; i += 1) {
-      const locale = options.defineLocales[i].translateLocale;
-      const label = options.defineLocales[i].label;
-
-      if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === locale)) {
-        throw new Error(`The '${locale}' locale is not currently supported.`);
-      }
-
-      const commonThemeConfig = {
-        ...LOCALES_TRANSLATIONS[locale],
-        // Override
-        ...(options.editLinkPattern
-          ? {
-              editLink: {
-                pattern: options.editLinkPattern,
-                text: LOCALES_TRANSLATIONS[locale].editLink.text
-              }
-            }
-          : {})
-      };
-
-      result[label === options.rootLocale ? 'root' : label] = {
-        ...VitePressI18n.getDefaultLangValue(options, label, locale),
-        label: options.label?.[label] || VitePressI18n.getDefaultLabelValue(locale),
-        ...(options.link?.[label] ? { link: options.link?.[label] } : {}),
-        ...(options.title?.[label] ? { title: options.title?.[label] } : {}),
-        ...(options.titleTemplate?.[label]
-          ? { titleTemplate: options.titleTemplate?.[label] }
-          : {}),
-        ...(options.description?.[label] ? { description: options.description?.[label] } : {}),
-        ...(options.head?.[label] ? { head: options.head?.[label] } : {}),
-        themeConfig: options.themeConfig?.[label]
-          ? {
-              ...commonThemeConfig,
-              // Override
-              ...options.themeConfig?.[label]
-            }
-          : commonThemeConfig
-      };
-    }
-
-    if (options.debugPrint) {
-      process.stdout.write(
-        `\n${'='.repeat(50)}\n${JSON.stringify(options, null, 2)}\n${'-'.repeat(
-          50
-        )}\n${JSON.stringify(result, null, 2)}\n${'='.repeat(50)}\n\n`
-      );
-    }
-
-    return result;
-  }
-
-  /**
-   * @deprecated This function has been integrated into the `generateI18n` function and will be removed in a future version. For more information, see `README.md`.
-   * @param options
-   */
-  static generateI18nSearch(
-    options: VitePressI18nSearchOptions
-  ):
-    | { provider: 'local'; options?: Partial<LocalSearchOptions> }
-    | { provider: 'algolia'; options: Partial<AlgoliaSearchOptions> } {
-    if (arguments.length > 1 || !options) {
-      throw new Error(`You must pass 1 argument, see the documentation for details.`);
-    }
-
-    const tempResult:
-      | Record<string, Partial<Omit<LocalSearchOptions, 'locales'>>>
-      | Record<string, Partial<DocSearchProps>> = {};
-
-    for (let i = 0; i < options.defineLocales.length; i += 1) {
-      const locale = options.defineLocales[i].translateLocale;
-      const label = options.defineLocales[i].label;
-
-      if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === locale)) {
-        throw new Error(`The '${locale}' locale is not currently supported.`);
-      }
-
-      if (options.provider === 'local') {
-        tempResult[label === options.rootLocale ? 'root' : label] =
-          LOCAL_SEARCH_TRANSLATIONS[locale];
-      } else {
-        tempResult[label === options.rootLocale ? 'root' : label] =
-          ALGOLIA_SEARCH_TRANSLATIONS[locale];
-      }
-    }
-
-    const result = {
-      provider: options.provider,
-      options: {
-        ...options.options,
-        locales: tempResult
-      }
-    };
-
-    if (options.debugPrint) {
-      process.stdout.write(
-        `\n${'='.repeat(50)}\n${JSON.stringify(options, null, 2)}\n${'-'.repeat(
-          50
-        )}\n${JSON.stringify(result, null, 2)}\n${'='.repeat(50)}\n\n`
-      );
-    }
-
-    return result;
   }
 
   private static getDefaultLabelValue(locale: string): string {
@@ -319,4 +230,4 @@ export default class VitePressI18n {
 
 export { VitePressI18n };
 
-export const { withI18n, generateI18nSearch, generateI18nLocale } = VitePressI18n;
+export const { withI18n } = VitePressI18n;

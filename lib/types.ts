@@ -1,13 +1,12 @@
 import type { HeadConfig } from 'vitepress';
-import type { DefaultTheme } from 'vitepress/types/default-theme.d.ts';
 
 export interface KeyValueItem {
   [key: string]: any;
 }
 
-export interface DefineLocales {
-  label: string;
-  translateLocale: string;
+export interface I18nLocale {
+  path: string;
+  locale: string;
 }
 
 export interface PluginSupportLocalesOptions {
@@ -17,13 +16,12 @@ export interface PluginSupportLocalesOptions {
 }
 
 export interface VitePressI18nOptions {
-  defineLocales: DefineLocales[];
+  debugPrint?: boolean;
+  locales: I18nLocale[] | string[];
   rootLocale?: string;
-  searchProvider?: 'local' | 'algolia';
+  searchProvider?: 'local' | 'algolia' | undefined;
   searchOptions?: { [key: string]: any };
   disableAutoSetLangValue?: boolean;
-  debugPrint?: boolean;
-  editLinkPattern?: string;
   label?: { [key: string]: string };
   link?: { [key: string]: string };
   /*
@@ -38,12 +36,4 @@ export interface VitePressI18nOptions {
   /*
    * End
    * */
-}
-
-export interface VitePressI18nSearchOptions {
-  defineLocales: DefineLocales[];
-  rootLocale?: string;
-  debugPrint?: boolean;
-  provider: 'local' | 'algolia';
-  options?: DefaultTheme.LocalSearchOptions;
 }
