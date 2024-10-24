@@ -12,7 +12,7 @@
 
 Installing and using the package and defining all the utility methods can be found on the documentation page below: https://vitepress-i18n.cdget.com/guide/getting-started
 
-The currently supported translation languages and `translateLocale` matching values are as follows:
+## Supported languages
 
 (`*` = Currently using machine translation. Help us improve translation quality with a pull request!)
 
