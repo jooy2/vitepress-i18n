@@ -2,17 +2,17 @@
 order: 1
 ---
 
-# 시작하기
+# Getting Started
 
-이 페이지에서는 VitePress I18n 모듈의 설치 및 사용 방법을 안내합니다.
+This page walks you through the installation and use of the VitePress I18n module.
 
-## 설치
+## Installation
 
-먼저 이 모듈을 사용하기 전에 **[VitePress](https://vitepress.dev)** 모듈을 사전 구성해야 할 수 있습니다.
+You may need to pre-configure the **[VitePress](https://vitepress.dev)** module before using this module.
 
-Node.js 버전은 18.x 이상을 사용하는 것이 좋습니다. **VitePress I18n**은 `ESM`으로 작성되었습니다.
+It is recommended that you use Node.js version 18.x or higher. **VitePress I18n** is written in `ESM`.
 
-[NPM](https://www.npmjs.com/package/vitepress-i18n) 또는 다른 노드 모듈 패키지 관리자를 사용하여 모듈을 설치할 수 있습니다. 이 패키지는 개발자 환경에서만 사용되므로 `devDependencies`에 설치해야 합니다. 아래 명령어로 설치하세요:
+You can install the module using [NPM](https://www.npmjs.com/package/vitepress-i18n) or another node module package manager. This package is only used in the developer environment and should be installed in `devDependencies`. Install it with the command below:
 
 ```shell
 # via npm
@@ -25,13 +25,13 @@ $ yarn add -D vitepress-i18n
 $ pnpm i -D vitepress-i18n
 ```
 
-## 사용 방법
+## How to Use
 
-이 문서에서 VitePress에 대한 기본 지식에 대해서는 설명하지 않습니다. VitePress에 대해 자세히 알아보시려면 다음 사이트를 방문하세요: https://vitepress.dev
+This article does not cover basic knowledge of **VitePress**. To learn more about **VitePress**, please visit: https://vitepress.dev
 
-먼저 아래 두 가지 방법 중 하나로 `vitepress-i18n`을 import합니다.
+First, import `vitepress-i18n` in one of the two ways below.
 
-### 1. named-import 사용 (권장)
+### 1. Using named-import (Recommend)
 
 ```javascript
 // `.vitepress/config.js`
@@ -51,7 +51,7 @@ const vitePressI18nOptions = {
 export default defineConfig(withI18n(vitePressOptions, vitePressI18nOptions));
 ```
 
-### 2. default-import 사용
+### 2. Using default-import
 
 ```javascript
 // `.vitepress/config.js`
@@ -71,12 +71,43 @@ const vitePressI18nOptions = {
 export default defineConfig(VitePressI18n.withI18n(vitePressOptions, vitePressI18nOptions));
 ```
 
-VitePress의 구성 파일인 `.vitepress/config.js` 파일(설정 파일 이름은 프로젝트 환경에 따라 다를 수 있음)의 `defineConfig` 옵션값에 `withI18n`을 호출합니다.
+Call `withI18n` on the `defineConfig` option of VitePress's configuration file, the `.vitepress/config.js` file (the name of the configuration file may vary depending on your project environment).
 
-`withI18n`에는 두가지 인자값을 포함해야 합니다. 첫번째 인자는 VitePress의 옵션 값을, 두번째 인자는 오버라이딩 할 VitePress I18n의 옵션 값을 포함합니다.
+The `withI18n` must contain two argument values: the first argument contains the value of the option in VitePress and the second argument contains the value of the option in VitePress I18n to override.
 
-VitePress I18n의 출력 결과에는 자동 번역이 된 텍스트가 포함되어 있습니다. 이 옵션 데이터는 기존의 VitePress의 옵션과 병합 될 것입니다.
+The output from VitePress I18n contains automatically translated text. This options data will be merged with the existing options in VitePress.
 
-이것이 어떻게 출력되는지 테스트하려면 VitePress I18에서 제공하는 `debugPrint` 옵션을 `true`로 설정하여 VitePress를 빌드해 보세요. 콘솔에 출력이 표시될 것입니다.
+There are several options available, but they are optional depending on the context. However, the `locales` option is mandatory: it provides the languages that VitePress I18n should translate into.
 
-VitePress I18n의 옵션에 대해 자세히 알아보시려면 VitePress I18n 옵션 문서를 참고하세요.
+```javascript
+withI18n(vitePressOptions, {
+  locales: ['en', 'ko'] // "Required"
+});
+```
+
+The value of the `locales` option must include the supported language codes. For a list of supported language codes, see [this article](/guide/supported-languages).
+
+VitePress requires you to specify a primary language. This is called the root locale, and in VitePress I18n, you can specify the root locale like this
+
+```javascript
+withI18n(vitePressOptions, {
+  locales: [
+    { path: 'eng', locale: 'en' },
+    { path: 'kor', locale: 'ko' }
+  ],
+  rootLocale: 'en'
+});
+```
+
+The value of `rootLocale` uses a supported language code rather than a directory path. If this option is not specified, the first value in the `locales` array will be the root locale.
+
+To test what the overall output looks like, try building VitePress with the `debugPrint` option provided by VitePress I18 set to `true`. You should see the output in the console.
+
+```javascript
+withI18n(vitePressOptions, {
+  locales: ['en', 'ko'],
+  debugPrint: true
+});
+```
+
+To learn more about the options in VitePress I18n, see the [VitePress I18n options page](/guide/options).

@@ -1,3 +1,3 @@
 ---
-title: 가이드
+title: Guide
 ---

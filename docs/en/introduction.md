@@ -1,13 +1,25 @@
-# 소개
+# Introduction
 
-**VitePress i18n** is a plugin for VitePress that makes it easy to translate text in the default theme and search tool. It translates the default layout with a simple setup and can be used in multiple projects without duplicate code.
+**VitePress I18n** is a plugin that automatically translates components of VitePress for the desired language.
 
-- ⚡️ Optimized for the latest version of **VitePress**
-- ⚡️ Lightweight bundle file size, zero dependencies
-- ⚡️ [TypeScript](https://www.typescriptlang.org) support
+It performs translations for the layout interface, system, and search interface of sites deployed with VitePress. All you need to do for this to work is a very simple setup!
 
-## 어디에서 사용되나요?
+With VitePress alone, you would have to provide and manage separate translation texts for each language, but with this plugin, you can use pre-translated sets to eliminate the hassle of having to do translations for each project. Of course, it will also reduce the amount of code.
 
-**VitePress I18n**은 다양한 프로젝트 환경에서 활용되고 있습니다.
+The plugin does not currently translate VitePress documentation files directly, but supporting this when possible is something we may consider as a future roadmap.
 
-- GitHub 프로젝트에서 현재 활용 중인 패키지를 살펴보세요: https://github.com/jooy2/vitepress-i18n/network/dependents
+- ⚡️ Optimized for the latest version of **VitePress**.
+- ⚡️ Lightweight bundled file size, zero dependencies
+- ⚡️ [TypeScript](https://typescriptlang.org) Support
+
+## Where is it used?
+
+The **VitePress I18n** is being utilized in a variety of project environments.
+
+- Take a look at the packages we're currently utilizing in our GitHub projects: https://github.com/jooy2/vitepress-i18n/network/dependents
+
+## Check out our family project, the Auto Sidebar plugin!
+
+Our other project, the **VitePress Sidebar** plugin, is also worth a look. This plugin is suitable for use with `vitepress-i18n` and will automatically create a sidebar with a few simple settings, without the need to manually create a cumbersome sidebar.
+
+To learn more, visit: https://vitepress-sidebar.cdget.com

@@ -8,10 +8,6 @@
 - ⚡️ Lightweight bundle file size, zero dependencies
 - ⚡️ [TypeScript](https://www.typescriptlang.org) support
 
-> [!NOTE]
->
-> Currently, the plugin is experimental and production-ready, but many features may be missing. The documentation page is still a work in progress. If you run into behavioral issues, please create a new issue!
-
 ## [Documentation (Getting Started & All option lists)](https://vitepress-i18n.cdget.com/guide/getting-started)
 
 Installing and using the package and defining all the utility methods can be found on the documentation page below: https://vitepress-i18n.cdget.com/guide/getting-started
@@ -39,62 +35,55 @@ The currently supported translation languages and `translateLocale` matching val
 ### Basic configurations
 
 ```javascript
-export default defineConfig({
-  ...generateI18n({
-    defineLocales: [
-      { label: 'en', translateLocale: 'en' },
-      { label: 'ko', translateLocale: 'ko' }
-    ]
-  })
-});
+import { withI18n } from 'vitepress-i18n';
+
+const vitePressOptions = {
+  title: 'VitePress',
+  themeConfig: {
+    // ...
+  }
+};
+
+const vitePressI18nOptions = {
+  locales: ['en', 'ko', 'zhHans']
+};
+
+export default defineConfig(withI18n(vitePressOptions, vitePressI18nOptions));
 ```
 
-### With custom label
+### With complex configurations
 
 ```javascript
-export default defineConfig({
-  ...generateI18n({
-    defineLocales: [
-      { label: 'en', translateLocale: 'en' },
-      { label: 'ko', translateLocale: 'ko' }
-    ],
-    rootLocale: 'en',
-    label: {
-      en: 'English',
-      ko: '한국어'
-    },
-    lang: {
-      en: 'en-US',
-      ko: 'ko-KR'
-    },
-    description: {
-      en: 'Hello',
-      ko: '안녕하세요'
-    }
-  })
-});
-```
+import { withI18n } from 'vitepress-i18n';
 
-### Parameters
+const vitePressOptions = {
+  title: 'VitePress',
+  themeConfig: {
+    // ...
+  }
+};
 
-```text
-{
-  defineLocales: DefineLocales[];
-  rootLocale?: string;
-  searchProvider?: 'local' | 'algolia';
-  searchOptions?: { [key: string]: any };
-  disableAutoSetLangValue?: boolean;
-  debugPrint?: boolean;
-  editLinkPattern?: string;
-  label?: { [key: string]: string };
-  link?: { [key: string]: string };
-  lang?: { [key: string]: string };
-  title?: { [key: string]: string };
-  titleTemplate?: { [key: string]: string | boolean };
-  description?: { [key: string]: string };
-  head?: { [key: string]: HeadConfig[] };
-  themeConfig?: { [key: string]: any };
-}
+const vitePressI18nOptions = {
+  locales: [
+    { path: 'en', locale: 'en' },
+    { path: 'ko', locale: 'ko' }
+  ],
+  rootLocale: 'en',
+  label: {
+    en: 'English',
+    ko: '한국어'
+  },
+  lang: {
+    en: 'en-US',
+    ko: 'ko-KR'
+  },
+  description: {
+    en: 'Hello',
+    ko: '안녕하세요'
+  }
+};
+
+export default defineConfig(withI18n(vitePressOptions, vitePressI18nOptions));
 ```
 
 ## Contribute
