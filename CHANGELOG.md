@@ -1,6 +1,12 @@
 # Changelog
 
+## 1.3.0 (2024-10-24)
+
+- **BREAKING CHANGES**: There have been significant changes to how this plugin is used. Learn more by visiting the following documentation pages: https://vitepress-i18n.cdget.com
+
 ## 1.2.0 (2024-10-24)
+
+This version is deprecated and not recommended for production use.
 
 - **BREAKING CHANGES**: The `generateI18nLocale` and `generateI18nSearch` functions have now been merged into `withI18n`. Therefore, both functions will be removed in the next version. Please refer to the documentation to migrate to the `withI18n` function.
 
@@ -18,17 +24,19 @@ This version is deprecated and not recommended for production use.
 
 ## 1.0.6 (2024-09-16)
 
+This version is deprecated and not recommended for production use.
+
 - Override `editLinkPattern` value even if defined common theme configs
 - Add `debugPrint` option for `generateI18nSearch`
 
-## 1.0.5 (2024-09-16)
+## 1.0.5 (2024-09-16) - Not for Production
 
 - Add italian translations
 - Allow auto set lang and label value when if not defined
 - Add `debugPrint` method
 - Add `disableAutoSetLangValue` method
 
-## 1.0.4 (2024-09-07)
+## 1.0.4 (2024-09-07) - Not for Production
 
 - Fix import issue
 
