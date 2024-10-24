@@ -1,10 +1,18 @@
 # Changelog
 
+## 1.2.0 (2024-10-24)
+
+- **BREAKING CHANGES**: The `generateI18nLocale` and `generateI18nSearch` functions have now been merged into `withI18n`. Therefore, both functions will be removed in the next version. Please refer to the documentation to migrate to the `withI18n` function.
+
 ## 1.1.1 (2024-10-23)
+
+This version is deprecated and not recommended for production use.
 
 - Fix chinese simplified string (#1)
 
 ## 1.1.0 (2024-10-23)
+
+This version is deprecated and not recommended for production use.
 
 - **BREAKING CHANGES**: The `generateI18nLocale` and `generateI18nSearch` functions have now been merged into `generateI18n`. Therefore, both functions will be removed in the next version. Please refer to the documentation to migrate to the `generateI18n` function.
 

@@ -1,10 +1,19 @@
 import assert from 'assert';
-import { generateI18n, generateI18nSearch, generateI18nLocale } from '../../dist';
+import { UserConfig } from 'vitepress';
+import { withI18n, generateI18nSearch, generateI18nLocale } from '../../dist';
+
+const vitePressConfigBase: UserConfig = {
+  title: 'Test',
+  themeConfig: {
+    logo: { src: '/logo.png', width: 24, height: 24 }
+  }
+};
 
 describe('Test: base test', () => {
   it('generateI18n', (done) => {
     assert.deepStrictEqual(
-      generateI18n({
+      withI18n(vitePressConfigBase, {
+        debugPrint: true,
         defineLocales: [
           { label: 'en', translateLocale: 'en' },
           { label: 'ko', translateLocale: 'ko' }
@@ -17,7 +26,9 @@ describe('Test: base test', () => {
         }
       }),
       {
+        title: 'Test',
         themeConfig: {
+          logo: { src: '/logo.png', width: 24, height: 24 },
           search: {
             provider: 'local',
             options: {

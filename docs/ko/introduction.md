@@ -1,10 +1,10 @@
 # 소개
 
-**VitePress i18n** is a plugin for VitePress that makes it easy to translate text in the default theme and search tool. It translates the default layout with a simple setup and can be used in multiple projects without duplicate code.
+**VitePress I18n**은 기본 테마와 검색 도구에서 텍스트를 쉽게 번역할 수 있는 VitePress용 플러그인입니다. 간단한 설정으로 기본 레이아웃을 번역하며 코드 중복 없이 여러 프로젝트에서 사용할 수 있습니다.
 
-- ⚡️ Optimized for the latest version of **VitePress**
-- ⚡️ Lightweight bundle file size, zero dependencies
-- ⚡️ [TypeScript](https://www.typescriptlang.org) support
+- ⚡️ 최신 버전의 **VitePress**에 최적화되었습니다.
+- ⚡️ 가벼운 번들 파일 크기, 제로 종속성
+- ⚡️ [TypeScript](https://www.typescriptlang.org) 지원
 
 ## 어디에서 사용되나요?
 

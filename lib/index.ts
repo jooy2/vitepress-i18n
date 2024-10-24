@@ -4,7 +4,7 @@ import type { DocSearchProps } from 'vitepress/types/docsearch.d.ts';
 import type { UserConfig } from 'vitepress';
 import type {
   PluginSupportLocalesOptions,
-  VitePressI18nLocalesOptions,
+  VitePressI18nOptions,
   VitePressI18nSearchOptions
 } from './types.ts';
 import {
@@ -15,6 +15,8 @@ import {
 
 type LocalSearchOptions = DefaultTheme.LocalSearchOptions;
 type AlgoliaSearchOptions = DefaultTheme.AlgoliaSearchOptions;
+
+declare type AnyValueObject = { [key: string]: any };
 
 const FALLBACK_LOCALE = 'en';
 const PLUGIN_SUPPORT_LOCALES: PluginSupportLocalesOptions[] = [
@@ -34,22 +36,27 @@ const PLUGIN_SUPPORT_LOCALES: PluginSupportLocalesOptions[] = [
 ];
 
 export default class VitePressI18n {
-  static generateI18n(options: Partial<VitePressI18nLocalesOptions>): Partial<UserConfig> {
-    if (arguments.length > 1 || !options) {
-      throw new Error(`You must pass 1 argument, see the documentation for details.`);
+  static withI18n(
+    vitePressOptions: UserConfig,
+    i18nOptions: Partial<VitePressI18nOptions>
+  ): Partial<UserConfig> {
+    if (arguments.length !== 2 || !vitePressOptions || !i18nOptions) {
+      throw new Error(
+        `You will need to pass VitePress's defineConfig option and plugin options respectively, see the documentation for details.`
+      );
     }
-    if (!options?.defineLocales || options.defineLocales.length < 1) {
+    if (!i18nOptions?.defineLocales || i18nOptions.defineLocales.length < 1) {
       throw new Error(`At least one 'defineLocales' value must exist!`);
     }
 
     const result: Partial<UserConfig> = {
       themeConfig: {
-        ...(options.searchProvider
+        ...(i18nOptions.searchProvider
           ? {
               search: {
-                provider: options.searchProvider,
+                provider: i18nOptions.searchProvider,
                 options: {
-                  ...options.searchOptions,
+                  ...i18nOptions.searchOptions,
                   locales: {}
                 }
               }
@@ -59,63 +66,67 @@ export default class VitePressI18n {
       locales: {}
     };
 
-    for (let i = 0; i < options.defineLocales.length; i += 1) {
-      const locale = options.defineLocales[i].translateLocale;
-      const label = options.defineLocales[i].label;
+    for (let i = 0; i < i18nOptions.defineLocales.length; i += 1) {
+      const locale = i18nOptions.defineLocales[i].translateLocale;
+      const label = i18nOptions.defineLocales[i].label;
 
       if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === locale)) {
         throw new Error(`The '${locale}' locale is not currently supported.`);
       }
 
       // Search
-      if (options.searchProvider) {
-        if (options.searchProvider === 'local') {
-          result.themeConfig.search.options.locales[label === options.rootLocale ? 'root' : label] =
-            LOCAL_SEARCH_TRANSLATIONS[locale];
+      if (i18nOptions.searchProvider) {
+        if (i18nOptions.searchProvider === 'local') {
+          result.themeConfig.search.options.locales[
+            label === i18nOptions.rootLocale ? 'root' : label
+          ] = LOCAL_SEARCH_TRANSLATIONS[locale];
         } else {
-          result.themeConfig.search.options.locales[label === options.rootLocale ? 'root' : label] =
-            ALGOLIA_SEARCH_TRANSLATIONS[locale];
+          result.themeConfig.search.options.locales[
+            label === i18nOptions.rootLocale ? 'root' : label
+          ] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
         }
       }
 
       const commonThemeConfig = LOCALES_TRANSLATIONS[locale];
 
-      result.locales![label === options.rootLocale ? 'root' : label] = {
-        ...VitePressI18n.getDefaultLangValue(options, label, locale),
-        label: options.label?.[label] || VitePressI18n.getDefaultLabelValue(locale),
-        ...(options.link?.[label] ? { link: options.link?.[label] } : {}),
-        ...(options.title?.[label] ? { title: options.title?.[label] } : {}),
-        ...(options.titleTemplate?.[label]
-          ? { titleTemplate: options.titleTemplate?.[label] }
+      result.locales![label === i18nOptions.rootLocale ? 'root' : label] = {
+        ...VitePressI18n.getDefaultLangValue(i18nOptions, label, locale),
+        label: i18nOptions.label?.[label] || VitePressI18n.getDefaultLabelValue(locale),
+        ...(i18nOptions.link?.[label] ? { link: i18nOptions.link?.[label] } : {}),
+        ...(i18nOptions.title?.[label] ? { title: i18nOptions.title?.[label] } : {}),
+        ...(i18nOptions.titleTemplate?.[label]
+          ? { titleTemplate: i18nOptions.titleTemplate?.[label] }
           : {}),
-        ...(options.description?.[label] ? { description: options.description?.[label] } : {}),
-        ...(options.head?.[label] ? { head: options.head?.[label] } : {}),
-        themeConfig: options.themeConfig?.[label]
+        ...(i18nOptions.description?.[label]
+          ? { description: i18nOptions.description?.[label] }
+          : {}),
+        ...(i18nOptions.head?.[label] ? { head: i18nOptions.head?.[label] } : {}),
+        themeConfig: i18nOptions.themeConfig?.[label]
           ? {
               ...commonThemeConfig,
               // Override
-              ...options.themeConfig?.[label]
+              ...i18nOptions.themeConfig?.[label]
             }
           : commonThemeConfig
       };
     }
 
-    if (options.debugPrint) {
+    if (i18nOptions.debugPrint) {
       process.stdout.write(
-        `\n${'='.repeat(50)}\n${JSON.stringify(options, null, 2)}\n${'-'.repeat(
+        `\n${'='.repeat(50)}\n${JSON.stringify(i18nOptions, null, 2)}\n${'-'.repeat(
           50
         )}\n${JSON.stringify(result, null, 2)}\n${'='.repeat(50)}\n\n`
       );
     }
 
-    return result;
+    return VitePressI18n.objMergeNewKey(vitePressOptions, result) as UserConfig;
   }
 
   /**
    * @deprecated This function has been integrated into the `generateI18n` function and will be removed in a future version. For more information, see `README.md`.
    * @param options
    */
-  static generateI18nLocale(options: Partial<VitePressI18nLocalesOptions>): LocaleConfig {
+  static generateI18nLocale(options: Partial<VitePressI18nOptions>): LocaleConfig {
     if (arguments.length > 1 || !options) {
       throw new Error(`You must pass 1 argument, see the documentation for details.`);
     }
@@ -242,7 +253,7 @@ export default class VitePressI18n {
   }
 
   private static getDefaultLangValue(
-    options: Partial<VitePressI18nLocalesOptions>,
+    options: Partial<VitePressI18nOptions>,
     label: string,
     locale: string
   ): object {
@@ -266,8 +277,46 @@ export default class VitePressI18n {
           : PLUGIN_SUPPORT_LOCALES[fallbackLocaleIndex].lang
     };
   }
+
+  private static isObject(data: any): boolean {
+    return data !== null && data !== undefined && Object.getPrototypeOf(data) === Object.prototype;
+  }
+
+  private static objMergeNewKey(obj: AnyValueObject, obj2: AnyValueObject): AnyValueObject | null {
+    if (!obj || typeof obj !== 'object' || !obj2 || typeof obj2 !== 'object') {
+      return null;
+    }
+
+    const merged: AnyValueObject = { ...obj };
+
+    Object.keys(obj2).forEach((key: string) => {
+      const data = obj2[key];
+
+      if (Object.hasOwn(merged, key)) {
+        if (Array.isArray(merged[key]) && Array.isArray(data)) {
+          if (merged[key].length === data.length) {
+            for (let i = 0; i < merged[key].length; i += 1) {
+              const update = data[i];
+
+              if (VitePressI18n.isObject(update)) {
+                merged[key][i] = VitePressI18n.objMergeNewKey(merged[key][i], update);
+              }
+            }
+          }
+        } else if (VitePressI18n.isObject(merged[key]) && VitePressI18n.isObject(data)) {
+          merged[key] = VitePressI18n.objMergeNewKey(merged[key], data);
+        } else {
+          merged[key] = data;
+        }
+      } else {
+        merged[key] = data;
+      }
+    });
+
+    return merged;
+  }
 }
 
 export { VitePressI18n };
 
-export const { generateI18n, generateI18nSearch, generateI18nLocale } = VitePressI18n;
+export const { withI18n, generateI18nSearch, generateI18nLocale } = VitePressI18n;

@@ -1,7 +1,8 @@
 import { generateSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
 import { repository, homepage } from '../../package.json';
 import { defineConfig, UserConfig } from 'vitepress';
-import { generateI18n } from '../../dist';
+import { withI18n } from '../../dist';
+import { VitePressI18nOptions } from '../../dist/types';
 
 const defaultLocale: string = 'en';
 const editLinkPattern = `${repository.url}/edit/master/docs/:path`;
@@ -23,13 +24,14 @@ const defineSupportLocales = [
   { label: 'ko', translateLocale: 'ko' }
 ];
 
+const vitePressI18nConfig: VitePressI18nOptions = {
+  defineLocales: defineSupportLocales,
+  rootLocale: defaultLocale,
+  editLinkPattern: editLinkPattern,
+  searchProvider: 'local'
+};
+
 const vitePressConfig: UserConfig = {
-  ...generateI18n({
-    defineLocales: defineSupportLocales,
-    rootLocale: defaultLocale,
-    editLinkPattern: editLinkPattern,
-    searchProvider: 'local'
-  }),
   title: 'VitePress I18n',
   lastUpdated: true,
   outDir: '../docs-dist',
@@ -69,4 +71,4 @@ const vitePressConfig: UserConfig = {
   }
 };
 
-export default defineConfig(vitePressConfig);
+export default defineConfig(withI18n(vitePressConfig, vitePressI18nConfig));

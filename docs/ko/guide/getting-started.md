@@ -31,22 +31,24 @@ $ pnpm i -D vitepress-i18n
 
 먼저 아래 두 가지 방법 중 하나로 `vitepress-i18n`을 import합니다.
 
-### 1. named-import 사용
+### 1. named-import 사용 (권장)
 
 ```javascript
 // `.vitepress/config.js`
 import { generateI18n } from 'vitepress-i18n';
 
-const vitepressI18nOptions = {
-  /* Options... */
-};
-
-export default defineConfig({
-  ...generateI18n(vitepressI18nOptions), // <-- Add this
+const vitePressOptions = {
+  title: 'VitePress',
   themeConfig: {
     // ...
   }
-});
+};
+
+const vitePressI18nOptions = {
+  /* Options... */
+};
+
+export default defineConfig(withI18n(vitePressOptions, vitePressI18nOptions));
 ```
 
 ### 2. default-import 사용
@@ -55,18 +57,26 @@ export default defineConfig({
 // `.vitepress/config.js`
 import VitePressI18n from 'vitepress-i18n';
 
-const vitepressI18nOptions = {
-  /* Options... */
-};
-
-export default defineConfig({
-  ...VitePressI18n.generateI18n(vitepressI18nOptions), // <-- Add this
+const vitePressOptions = {
+  title: 'VitePress',
   themeConfig: {
     // ...
   }
-});
+};
+
+const vitePressI18nOptions = {
+  /* Options... */
+};
+
+export default defineConfig(VitePressI18n.withI18n(vitePressOptions, vitePressI18nOptions));
 ```
 
-VitePress의 구성 파일인 `.vitepress/config.js` 파일(설정 파일 이름은 프로젝트 환경에 따라 다를 수 있음)의 `defineConfig`의 옵션값의 최상단에 `generateI18n` 메서드를 호출합니다.
+VitePress의 구성 파일인 `.vitepress/config.js` 파일(설정 파일 이름은 프로젝트 환경에 따라 다를 수 있음)의 `defineConfig` 옵션값에 `withI18n`을 호출합니다.
 
-이것이 어떻게 출력되는지 테스트하려면 `debugPrint` 옵션을 `true`로 설정하여 VitePress를 빌드해 보세요. 콘솔에 출력이 표시될 것입니다.
+`withI18n`에는 두가지 인자값을 포함해야 합니다. 첫번째 인자는 VitePress의 옵션 값을, 두번째 인자는 오버라이딩 할 VitePress I18n의 옵션 값을 포함합니다.
+
+VitePress I18n의 출력 결과에는 자동 번역이 된 텍스트가 포함되어 있습니다. 이 옵션 데이터는 기존의 VitePress의 옵션과 병합 될 것입니다.
+
+이것이 어떻게 출력되는지 테스트하려면 VitePress I18에서 제공하는 `debugPrint` 옵션을 `true`로 설정하여 VitePress를 빌드해 보세요. 콘솔에 출력이 표시될 것입니다.
+
+VitePress I18n의 옵션에 대해 자세히 알아보시려면 VitePress I18n 옵션 문서를 참고하세요.
