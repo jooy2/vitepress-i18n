@@ -65,18 +65,10 @@ const vitePressOptions = {
 
 const vitePressI18nOptions = {
   locales: [
-    { path: 'en', locale: 'en' },
-    { path: 'ko', locale: 'ko' }
+    { path: 'eng', locale: 'en' },
+    { path: 'kor', locale: 'ko' }
   ],
   rootLocale: 'en',
-  label: {
-    en: 'English',
-    ko: '한국어'
-  },
-  lang: {
-    en: 'en-US',
-    ko: 'ko-KR'
-  },
   description: {
     en: 'Hello',
     ko: '안녕하세요'

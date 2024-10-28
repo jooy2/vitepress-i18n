@@ -14,6 +14,12 @@ Defines a list of languages that this plugin should support. This involves inclu
 
 For example, to support English and Korean, use values like `['en', 'ko']`.
 
+```javascript
+withI18n(vitePressOptions, {
+  locales: ['en', 'ko']
+});
+```
+
 This way, in your documentation structure, you should organize English as an `en` directory and Korean as a `ko` directory.
 
 If you want to name the directories differently than the supported language codes, you can map them with objects of type `I18nLocale`. For example, if your directories are named `eng` and `kor`, you can map them to English and Korean, respectively, as follows
