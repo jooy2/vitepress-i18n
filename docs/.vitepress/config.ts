@@ -1,4 +1,4 @@
-import { generateSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
+import { withSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
 import { repository, homepage } from '../../package.json';
 import { defineConfig, UserConfig } from 'vitepress';
 import { withI18n } from '../../dist';
@@ -17,6 +17,17 @@ const commonSidebarConfig: VitePressSidebarOptions = {
   useFolderTitleFromIndexFile: true,
   sortMenusByFrontmatterOrder: true
 };
+
+const vitePressSidebarConfig = [
+  ...[defaultLocale, 'ko'].map((lang) => {
+    return {
+      ...commonSidebarConfig,
+      documentRootPath: `/docs/${lang}`,
+      resolvePath: defaultLocale === lang ? '/' : `/${lang}/`,
+      ...(defaultLocale === lang ? {} : { basePath: `/${lang}/` })
+    };
+  })
+];
 
 const defineSupportLocales = [defaultLocale, 'ko'];
 
@@ -78,16 +89,6 @@ const vitePressConfig: UserConfig = {
     editLink: {
       pattern: `${repository.url}/edit/master/docs/:path`
     },
-    sidebar: generateSidebar([
-      ...[defaultLocale, 'ko'].map((lang) => {
-        return {
-          ...commonSidebarConfig,
-          documentRootPath: `/docs/${lang}`,
-          resolvePath: defaultLocale === lang ? '/' : `/${lang}/`,
-          ...(defaultLocale === lang ? {} : { basePath: `/${lang}/` })
-        };
-      })
-    ]),
     socialLinks: [
       { icon: 'npm', link: 'https://www.npmjs.com/package/vitepress-i18n' },
       { icon: 'github', link: repository.url.replace('.git', '') }
@@ -99,4 +100,6 @@ const vitePressConfig: UserConfig = {
   }
 };
 
-export default defineConfig(withI18n(vitePressConfig, vitePressI18nConfig));
+export default defineConfig(
+  withSidebar(withI18n(vitePressConfig, vitePressI18nConfig), vitePressSidebarConfig)
+);
