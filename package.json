@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "npm run format:fix && tsc --project tsconfig.prod.json && npm run minify",
-    "test": "npm run build && mocha test/specs/**/*.spec.ts -r ts-node/register --loader=ts-node/esm --timeout 10000",
+    "test": "npm run build && glob -c \"tsx --test\" \"./test/**/*.test.ts\"",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "minify": "terser dist/index.js --config-file .terserrc -o dist/index.js && terser dist/strings.js --config-file .terserrc -o dist/strings.js",
@@ -56,7 +56,6 @@
     "plugin"
   ],
   "devDependencies": {
-    "@types/mocha": "^10.0.9",
     "@types/node": "^22.7.9",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
@@ -64,10 +63,10 @@
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.31.0",
-    "mocha": "^10.8.2",
+    "glob": "^11.0.0",
     "prettier": "^3.3.3",
     "terser": "^5.36.0",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vitepress": "^1.4.5",
     "vitepress-sidebar": "^1.29.0"

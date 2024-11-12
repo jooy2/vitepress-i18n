@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { describe, it } from 'node:test';
 import { UserConfig } from 'vitepress';
 import { withI18n } from '../../dist';
 
@@ -15,7 +16,7 @@ const vitePressConfigBase: UserConfig = {
 };
 
 describe('Test: base test', () => {
-  it('generateI18n', (done) => {
+  it('generateI18n', () => {
     assert.deepStrictEqual(
       withI18n(vitePressConfigBase, {
         locales: [
@@ -147,7 +148,5 @@ describe('Test: base test', () => {
         }
       }
     );
-
-    done();
   });
 });
