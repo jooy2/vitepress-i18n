@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1 (2024-12-07)
+
+-
+
 ## 1.3.0 (2024-10-24)
 
 - **BREAKING CHANGES**: There have been significant changes to how this plugin is used. Learn more by visiting the following documentation pages: https://vitepress-i18n.cdget.com

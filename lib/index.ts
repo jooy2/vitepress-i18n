@@ -1,5 +1,5 @@
 import type { UserConfig } from 'vitepress';
-import type { PluginSupportLocalesOptions, VitePressI18nOptions, I18nLocale } from './types.ts';
+import type { PluginSupportLocalesOptions, VitePressI18nOptions, I18nLocale } from './types.js';
 import {
   ALGOLIA_SEARCH_TRANSLATIONS,
   LOCAL_SEARCH_TRANSLATIONS,
