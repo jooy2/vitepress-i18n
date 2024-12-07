@@ -2,7 +2,7 @@
 
 ## 1.3.1 (2024-12-07)
 
--
+- Fix import of type declaration files
 
 ## 1.3.0 (2024-10-24)
 
