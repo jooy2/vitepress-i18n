@@ -86,4 +86,4 @@ You can also request a pull to fix bugs and add frequently used features.
 
 ## License
 
-Copyright © 2024 [CDGet](https://cdget.com) <[jooy2.contact@gmail.com](mailto:jooy2.contact@gmail.com)> Released under the MIT license.
+Copyright © 2024-2025 [CDGet](https://cdget.com) <[jooy2.contact@gmail.com](mailto:jooy2.contact@gmail.com)> Released under the MIT license.
