@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { UserConfig } from 'vitepress';
+import type { UserConfig } from 'vitepress';
 import { withI18n } from '../../dist';
 
 const editLinkPattern = 'https://vitepress-i18n.cdget.com';
