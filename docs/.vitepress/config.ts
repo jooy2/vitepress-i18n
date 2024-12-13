@@ -87,7 +87,7 @@ const vitePressConfig: UserConfig = {
   themeConfig: {
     logo: { src: '/logo-32.png', width: 24, height: 24 },
     editLink: {
-      pattern: `${repository.url}/edit/master/docs/:path`
+      pattern: `${repository.url}/edit/main/docs/:path`
     },
     socialLinks: [
       { icon: 'npm', link: 'https://www.npmjs.com/package/vitepress-i18n' },
