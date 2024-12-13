@@ -6,7 +6,7 @@ This project adheres to the Contributor Covenant code of conduct. Your contribut
 
 ## Issues
 
-Issues can be created on the following page: https://github.com/jooy2/vitepress-sidebar/issues
+Issues can be created on the following page: https://github.com/jooy2/vitepress-i18n/issues
 
 Alternatively, you can email the package maintainer. However, we prefer to track progress via GitHub Issues.
 
