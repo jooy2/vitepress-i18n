@@ -19,11 +19,11 @@ CONTRIBUTING.md
 
 # For development
 .git*
-.terserrc
 .eslintignore
 .eslintrc.json
 .prettierignore
 .prettierrc
 .editorconfig
+terser.config.json
 tsconfig.json
 tsconfig.prod.json
