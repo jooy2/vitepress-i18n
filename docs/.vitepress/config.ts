@@ -1,5 +1,5 @@
 import { withSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
-import { repository, homepage } from '../../package.json';
+import { name, repository, homepage } from '../../package.json';
 import { defineConfig, UserConfig } from 'vitepress';
 import { withI18n } from '../../dist';
 import { VitePressI18nOptions } from '../../dist/types';
@@ -89,7 +89,7 @@ const vitePressConfig: UserConfig = {
       pattern: `${repository.url}/edit/main/docs/:path`
     },
     socialLinks: [
-      { icon: 'npm', link: 'https://www.npmjs.com/package/vitepress-i18n' },
+      { icon: 'npm', link: `https://www.npmjs.com/package/${name}` },
       { icon: 'github', link: repository.url.replace('.git', '') }
     ],
     footer: {
