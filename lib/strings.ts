@@ -226,11 +226,11 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
       text: 'Dernière mise à jour'
     },
     langMenuLabel: 'Changer de langue',
-    returnToTopLabel: 'Retour au début de la page',
+    returnToTopLabel: 'Retour en haut de page',
     sidebarMenuLabel: 'Menu',
     darkModeSwitchLabel: 'Apparence',
-    lightModeSwitchTitle: 'Passer au thème lumineux',
-    darkModeSwitchTitle: 'Passer à un thème sombre'
+    lightModeSwitchTitle: 'Passer au thème clair',
+    darkModeSwitchTitle: 'Passer au thème sombre'
   },
   vi: {
     editLink: {
