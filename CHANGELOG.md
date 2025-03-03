@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2 (2024-12-07)
+
+- Update french translations (@paul-louyot)
+
 ## 1.3.1 (2024-12-07)
 
 - Fix import of type declaration files
