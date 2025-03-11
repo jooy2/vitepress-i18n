@@ -1,4 +1,4 @@
-name: test-nodejs
+name: run-test-javascript
 
 on:
   pull_request:
@@ -12,13 +12,14 @@ on:
       - '!.github/**'
       - '!.vscode/**'
       - '!docs/**'
+      - '.github/workflows/run-test-javascript.yml'
   # trigger deployment manually
   workflow_dispatch:
 
 jobs:
-  test-nodejs:
+  run-test-javascript:
     runs-on: ${{ matrix.os }}
-    name: Test NodeJS ${{ matrix.node_version }} on ${{ matrix.os }}
+    name: Test module Node.js ${{ matrix.node_version }} on ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -27,34 +28,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        name: Setup Node.js ${{ matrix.node_version }}
         with:
           # fetch all commits to get last updated time or other git log info
           fetch-depth: 0
-
-      - name: Setup NodeJS ${{ matrix.node_version }}
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           # choose node.js version to use
           node-version: ${{ matrix.node_version }}
           cache: npm
           cache-dependency-path: '**/package-lock.json'
-
-      # cache node_modules
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        id: npm-cache
-        with:
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      # install dependencies if the cache did not hit
-      - name: Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm i
+      - run: npm ci
+        working-directory: ${{ env.working-directory }}
 
       # run test
       - name: Test module script
         run: npm run test
+        working-directory: ${{ env.working-directory }}
