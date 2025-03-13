@@ -1,4 +1,4 @@
-name: documents
+name: publish-documentation
 
 on:
   # run every time a push occurs in the docs folder
@@ -6,14 +6,15 @@ on:
     branches: [main]
     paths:
       - docs/**
-      - .github/workflows/documents.yml
+      - .github/workflows/publish-documentation.yml
+      - CHANGELOG.md
       - package.json
       - package-lock.json
   # trigger deployment manually
   workflow_dispatch:
 
 jobs:
-  build-documentation-pages:
+  publish-documentation:
     runs-on: ubuntu-latest
 
     steps:
