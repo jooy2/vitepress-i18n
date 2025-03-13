@@ -115,8 +115,10 @@ export default class VitePressI18n {
 
       const commonThemeConfig = LOCALES_TRANSLATIONS[locale];
 
-      if (commonThemeConfig.editLink && vitePressOptions.themeConfig?.editLink?.pattern) {
+      if (vitePressOptions.themeConfig?.editLink?.pattern) {
         commonThemeConfig.editLink.pattern = vitePressOptions.themeConfig.editLink.pattern;
+      } else {
+        delete commonThemeConfig.editLink;
       }
 
       result.locales![locale === i18nOptions.rootLocale ? 'root' : label] = {
