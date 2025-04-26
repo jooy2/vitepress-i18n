@@ -132,14 +132,20 @@ export default class VitePressI18n {
         ...(i18nOptions.description?.[label]
           ? { description: i18nOptions.description?.[label] }
           : {}),
-        ...(i18nOptions.head?.[label] ? { head: i18nOptions.head?.[label] } : {}),
-        themeConfig: i18nOptions.themeConfig?.[label]
-          ? {
-              ...commonThemeConfig,
-              // Override
-              ...i18nOptions.themeConfig?.[label]
-            }
-          : commonThemeConfig
+        head: [
+          ...(i18nOptions.head?.[label] ? i18nOptions.head?.[label] : []),
+          ...(vitePressOptions?.head || [])
+        ],
+        themeConfig: VitePressI18n.objMergeNewKey(
+          i18nOptions.themeConfig?.[label]
+            ? {
+                ...commonThemeConfig,
+                // Override
+                ...i18nOptions.themeConfig?.[label]
+              }
+            : commonThemeConfig,
+          vitePressOptions?.themeConfig || {}
+        )
       };
     }
 

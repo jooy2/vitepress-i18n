@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.4 (2025-04-26)
+
+- Fixed some common themeConfig settings not being merged (#8)
+
 ## 1.3.3 (2025-03-13)
 
 - Do not include in the options when `editLink` is not defined (#6)
