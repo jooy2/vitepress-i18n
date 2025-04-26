@@ -1,8 +1,9 @@
-import { withSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
-import { name, repository, homepage } from '../../package.json';
+import { withSidebar } from 'vitepress-sidebar';
+import packageJson from '../../package.json' with { type: 'json' };
 import { defineConfig, UserConfig } from 'vitepress';
-import { withI18n } from '../../dist';
-import { VitePressI18nOptions } from '../../dist/types';
+import { withI18n } from '../../dist/index.js';
+import { VitePressI18nOptions } from '../../dist/types.js';
+import { VitePressSidebarOptions } from 'vitepress-sidebar/types';
 
 const defaultLocale: string = 'en';
 const defineSupportLocales = [defaultLocale, 'ko'];
@@ -81,16 +82,16 @@ const vitePressConfig: UserConfig = {
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }]
   ],
   sitemap: {
-    hostname: homepage
+    hostname: packageJson.homepage
   },
   themeConfig: {
     logo: { src: '/logo-32.png', width: 24, height: 24 },
     editLink: {
-      pattern: `${repository.url}/edit/main/docs/:path`
+      pattern: `${packageJson.repository.url}/edit/main/docs/:path`
     },
     socialLinks: [
-      { icon: 'npm', link: `https://www.npmjs.com/package/${name}` },
-      { icon: 'github', link: repository.url.replace('.git', '') }
+      { icon: 'npm', link: `https://www.npmjs.com/package/${packageJson.name}` },
+      { icon: 'github', link: packageJson.repository.url.replace('.git', '') }
     ],
     footer: {
       message: 'Released under the MIT License',

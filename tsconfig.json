@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": "lib",
     "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "lib": ["esnext"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -14,6 +14,12 @@
     "strict": true,
     "newLine": "lf"
   },
-  "include": ["lib/**/*.ts", "lib/**/*.d.ts", "test/**/*.test.ts", "docs/.vitepress/config.ts"],
+  "include": [
+    "lib/**/*.ts",
+    "lib/**/*.d.ts",
+    "test/**/*.test.ts",
+    "docs/.vitepress/config.ts",
+    "eslint.config.ts"
+  ],
   "exclude": ["node_modules"]
 }
