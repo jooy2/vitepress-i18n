@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": "lib",
     "target": "esnext",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "lib": ["esnext"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
