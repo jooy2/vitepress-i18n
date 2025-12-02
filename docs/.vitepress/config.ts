@@ -11,7 +11,7 @@ const defineSupportLocales = [defaultLocale, 'ko'];
 const commonSidebarConfig: VitePressSidebarOptions = {
   debugPrint: true,
   manualSortFileNameByPriority: ['introduction.md', 'guide'],
-  excludePattern: ['changelog.md'],
+  excludeByGlobPattern: ['changelog.md'],
   collapsed: false,
   capitalizeFirst: true,
   useTitleFromFileHeading: true,
