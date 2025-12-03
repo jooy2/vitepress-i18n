@@ -32,6 +32,7 @@ const vitePressSidebarConfig = [
 ];
 
 const vitePressI18nConfig: VitePressI18nOptions = {
+  debugPrint: true,
   locales: defineSupportLocales,
   rootLocale: defaultLocale,
   searchProvider: 'local',
