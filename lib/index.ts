@@ -124,6 +124,11 @@ export default class VitePressI18n {
         delete commonThemeConfig.editLink;
       }
 
+      const head = [
+        ...(i18nOptions.head?.[label] ? i18nOptions.head?.[label] : []),
+        ...(vitePressOptions?.head || [])
+      ];
+
       result.locales![locale === i18nOptions.rootLocale ? 'root' : label] = {
         ...VitePressI18n.getDefaultLangValue(i18nOptions, label, locale),
         label: i18nOptions.label?.[label] || VitePressI18n.getDefaultLabelValue(locale),
@@ -135,10 +140,7 @@ export default class VitePressI18n {
         ...(i18nOptions.description?.[label]
           ? { description: i18nOptions.description?.[label] }
           : {}),
-        head: [
-          ...(i18nOptions.head?.[label] ? i18nOptions.head?.[label] : []),
-          ...(vitePressOptions?.head || [])
-        ],
+        ...(head.length > 0 ? { head: head } : {}),
         themeConfig: VitePressI18n.objMergeNewKey(
           i18nOptions.themeConfig?.[label]
             ? {
