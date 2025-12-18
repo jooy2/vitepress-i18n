@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.5 (2025-12-18)
+
+- Fix search box does not work when themeConfig search provider is set (#9)
+
 ## 1.3.4 (2025-04-26)
 
 - Fixed some common themeConfig settings not being merged (#8)
