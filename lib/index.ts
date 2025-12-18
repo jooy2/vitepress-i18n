@@ -101,17 +101,20 @@ export default class VitePressI18n {
       }
 
       // Search
-      if (i18nOptions.searchProvider) {
-        if (i18nOptions.searchProvider === 'local') {
-          result.themeConfig.search.options.locales[
-            locale === i18nOptions.rootLocale ? 'root' : label
-          ] = LOCAL_SEARCH_TRANSLATIONS[locale];
-        } else {
-          result.themeConfig.search.options.locales[
-            locale === i18nOptions.rootLocale ? 'root' : label
-          ] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
-        }
+      const currentSearchProvider =
+        i18nOptions.searchProvider ?? vitePressOptions.themeConfig?.search?.provider;
+
+      if (currentSearchProvider === 'local') {
+        result.themeConfig.search.options.locales[
+          locale === i18nOptions.rootLocale ? 'root' : label
+        ] = LOCAL_SEARCH_TRANSLATIONS[locale];
+      } else if (currentSearchProvider === 'algolia') {
+        result.themeConfig.search.options.locales[
+          locale === i18nOptions.rootLocale ? 'root' : label
+        ] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
       }
+
+      delete vitePressOptions.themeConfig?.search;
 
       const commonThemeConfig = LOCALES_TRANSLATIONS[locale];
 
