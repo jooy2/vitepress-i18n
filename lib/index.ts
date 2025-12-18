@@ -101,17 +101,20 @@ export default class VitePressI18n {
       }
 
       // Search
-      if (i18nOptions.searchProvider) {
-        if (i18nOptions.searchProvider === 'local') {
-          result.themeConfig.search.options.locales[
-            locale === i18nOptions.rootLocale ? 'root' : label
-          ] = LOCAL_SEARCH_TRANSLATIONS[locale];
-        } else {
-          result.themeConfig.search.options.locales[
-            locale === i18nOptions.rootLocale ? 'root' : label
-          ] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
-        }
+      const currentSearchProvider =
+        i18nOptions.searchProvider ?? vitePressOptions.themeConfig?.search?.provider;
+
+      if (currentSearchProvider === 'local') {
+        result.themeConfig.search.options.locales[
+          locale === i18nOptions.rootLocale ? 'root' : label
+        ] = LOCAL_SEARCH_TRANSLATIONS[locale];
+      } else if (currentSearchProvider === 'algolia') {
+        result.themeConfig.search.options.locales[
+          locale === i18nOptions.rootLocale ? 'root' : label
+        ] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
       }
+
+      delete vitePressOptions.themeConfig?.search;
 
       const commonThemeConfig = LOCALES_TRANSLATIONS[locale];
 
@@ -120,6 +123,11 @@ export default class VitePressI18n {
       } else {
         delete commonThemeConfig.editLink;
       }
+
+      const head = [
+        ...(i18nOptions.head?.[label] ? i18nOptions.head?.[label] : []),
+        ...(vitePressOptions?.head || [])
+      ];
 
       result.locales![locale === i18nOptions.rootLocale ? 'root' : label] = {
         ...VitePressI18n.getDefaultLangValue(i18nOptions, label, locale),
@@ -132,10 +140,7 @@ export default class VitePressI18n {
         ...(i18nOptions.description?.[label]
           ? { description: i18nOptions.description?.[label] }
           : {}),
-        head: [
-          ...(i18nOptions.head?.[label] ? i18nOptions.head?.[label] : []),
-          ...(vitePressOptions?.head || [])
-        ],
+        ...(head.length > 0 ? { head: head } : {}),
         themeConfig: VitePressI18n.objMergeNewKey(
           i18nOptions.themeConfig?.[label]
             ? {

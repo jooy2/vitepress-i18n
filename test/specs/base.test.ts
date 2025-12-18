@@ -107,6 +107,7 @@ describe('Test: base test', () => {
               outline: {
                 label: 'On this page'
               },
+              logo: { src: '/logo.png', width: 24, height: 24 },
               lastUpdated: {
                 text: 'Last updated'
               },
@@ -134,6 +135,7 @@ describe('Test: base test', () => {
               outline: {
                 label: '이 페이지 콘텐츠'
               },
+              logo: { src: '/logo.png', width: 24, height: 24 },
               lastUpdated: {
                 text: '업데이트 일자'
               },
