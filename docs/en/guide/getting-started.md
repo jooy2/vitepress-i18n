@@ -10,7 +10,7 @@ This page walks you through the installation and use of the VitePress I18n modul
 
 You may need to pre-configure the **[VitePress](https://vitepress.dev)** module before using this module.
 
-It is recommended that you use Node.js version 18.x or higher. **VitePress I18n** is written in `ESM`.
+It is recommended that you use Node.js version 20.x or higher. **VitePress I18n** is written in `ESM`.
 
 You can install the module using [NPM](https://www.npmjs.com/package/vitepress-i18n) or another node module package manager. This package is only used in the developer environment and should be installed in `devDependencies`. Install it with the command below:
 
