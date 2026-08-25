@@ -181,7 +181,9 @@ export default class VitePressI18n {
         label: byLocale(i18nOptions.label) || VitePressI18n.getDefaultLabelValue(locale),
         ...(link ? { link } : {}),
         ...(title ? { title } : {}),
-        ...(titleTemplate ? { titleTemplate } : {}),
+        // `false` is a meaningful value here: it drops the site title suffix,
+        // so this cannot test for truthiness like the plain string options do
+        ...(titleTemplate !== undefined ? { titleTemplate } : {}),
         ...(description ? { description } : {}),
         ...(head.length > 0 ? { head } : {}),
         /*
