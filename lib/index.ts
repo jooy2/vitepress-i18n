@@ -24,6 +24,11 @@ const PLUGIN_SUPPORT_LOCALES: PluginSupportLocalesOptions[] = [
   { value: 'vi', label: 'Tiếng Việt', lang: 'vi-VN' },
   { value: 'it', label: 'Italiano', lang: 'it-IT' }
 ];
+// Locale code lookup table, so support checks and label or lang resolution do
+// not scan `PLUGIN_SUPPORT_LOCALES` again for every configured locale
+const PLUGIN_SUPPORT_LOCALES_BY_VALUE = new Map<string, PluginSupportLocalesOptions>(
+  PLUGIN_SUPPORT_LOCALES.map((supportLocale) => [supportLocale.value, supportLocale])
+);
 
 export default class VitePressI18n {
   static withI18n(
@@ -60,7 +65,7 @@ export default class VitePressI18n {
     // `rootLocale` is kept local: `withI18n` must not write back into its argument
     const rootLocale = i18nOptions.rootLocale ?? locales[0].locale;
 
-    if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === rootLocale)) {
+    if (!PLUGIN_SUPPORT_LOCALES_BY_VALUE.has(rootLocale)) {
       throw new Error(
         `Invalid locale detected, please make sure you are using a supported language code for the 'rootLocale' or 'locales' option.`
       );
@@ -75,7 +80,7 @@ export default class VitePressI18n {
     const localeKeys = new Set<string>();
 
     locales.forEach((localeOption) => {
-      if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === localeOption.locale)) {
+      if (!PLUGIN_SUPPORT_LOCALES_BY_VALUE.has(localeOption.locale)) {
         throw new Error(`The '${localeOption.locale}' locale is not currently supported.`);
       }
 
@@ -193,15 +198,15 @@ export default class VitePressI18n {
     ) as UserConfig;
   }
 
-  private static getDefaultLabelValue(locale: string): string {
-    const findIndex = PLUGIN_SUPPORT_LOCALES.findIndex((x) => x.value === locale);
-    const fallbackLocaleIndex = PLUGIN_SUPPORT_LOCALES.findIndex(
-      (x) => x.value === FALLBACK_LOCALE
-    );
+  private static getSupportLocale(locale: string): PluginSupportLocalesOptions {
+    // Unsupported locales are rejected while the options are validated, so the
+    // fallback here only guards against a lookup added outside that path
+    return (PLUGIN_SUPPORT_LOCALES_BY_VALUE.get(locale) ??
+      PLUGIN_SUPPORT_LOCALES_BY_VALUE.get(FALLBACK_LOCALE)) as PluginSupportLocalesOptions;
+  }
 
-    return findIndex !== -1
-      ? PLUGIN_SUPPORT_LOCALES[findIndex].label
-      : PLUGIN_SUPPORT_LOCALES[fallbackLocaleIndex].label;
+  private static getDefaultLabelValue(locale: string): string {
+    return VitePressI18n.getSupportLocale(locale).label;
   }
 
   private static getDefaultLangValue(
@@ -217,17 +222,7 @@ export default class VitePressI18n {
       return {};
     }
 
-    const findIndex = PLUGIN_SUPPORT_LOCALES.findIndex((x) => x.value === locale);
-    const fallbackLocaleIndex = PLUGIN_SUPPORT_LOCALES.findIndex(
-      (x) => x.value === FALLBACK_LOCALE
-    );
-
-    return {
-      lang:
-        findIndex !== -1
-          ? PLUGIN_SUPPORT_LOCALES[findIndex].lang
-          : PLUGIN_SUPPORT_LOCALES[fallbackLocaleIndex].lang
-    };
+    return { lang: VitePressI18n.getSupportLocale(locale).lang };
   }
 
   private static isObject(data: any): boolean {
