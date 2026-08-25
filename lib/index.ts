@@ -1,12 +1,15 @@
 import type { UserConfig } from 'vitepress';
-import type { PluginSupportLocalesOptions, VitePressI18nOptions, I18nLocale } from './types.js';
+import type {
+  KeyValueItem,
+  PluginSupportLocalesOptions,
+  VitePressI18nOptions,
+  I18nLocale
+} from './types.js';
 import {
   ALGOLIA_SEARCH_TRANSLATIONS,
   LOCAL_SEARCH_TRANSLATIONS,
   LOCALES_TRANSLATIONS
 } from './strings.js';
-
-declare type AnyValueObject = { [key: string]: any };
 
 const FALLBACK_LOCALE = 'en';
 const PLUGIN_SUPPORT_LOCALES: PluginSupportLocalesOptions[] = [
@@ -35,12 +38,13 @@ export default class VitePressI18n {
     vitePressOptions: UserConfig,
     i18nOptions: Partial<VitePressI18nOptions>
   ): Partial<UserConfig> {
-    if (arguments.length !== 2 || !vitePressOptions || !i18nOptions) {
+    if (!vitePressOptions || !i18nOptions) {
       throw new Error(
         `You will need to pass VitePress's defineConfig option and plugin options respectively, see the documentation for details.`
       );
     }
-    if (!i18nOptions?.locales || i18nOptions.locales.length < 1) {
+
+    if (!i18nOptions.locales || i18nOptions.locales.length < 1) {
       throw new Error(
         `The 'locales' option value is required. Please refer to the documentation to pass the correct value.`
       );
@@ -102,17 +106,18 @@ export default class VitePressI18n {
       i18nOptions.searchProvider ?? vitePressOptions.themeConfig?.search?.provider;
     const searchOptions =
       i18nOptions.searchOptions ?? vitePressOptions.themeConfig?.search?.options;
-    const searchTranslations: AnyValueObject = {};
+    const searchTranslations: KeyValueItem = {};
 
     // `withI18n` must not mutate its arguments, so the caller's own `search`
     // block is dropped from a shallow copy instead of being `delete`d in place.
-    const vitePressThemeConfig: AnyValueObject = { ...(vitePressOptions.themeConfig ?? {}) };
+    const vitePressThemeConfig: KeyValueItem = { ...(vitePressOptions.themeConfig ?? {}) };
 
     if (searchProvider) {
       delete vitePressThemeConfig.search;
     }
 
     const result: Partial<UserConfig> = {
+      // Only `search` is set here, everything else is resolved per locale below
       themeConfig: {
         ...(searchProvider
           ? {
@@ -125,7 +130,7 @@ export default class VitePressI18n {
               }
             }
           : {})
-      }, // For `search` only
+      },
       locales: {}
     };
 
@@ -166,7 +171,13 @@ export default class VitePressI18n {
       const description = byLocale(i18nOptions.description);
 
       result.locales![localeKey] = {
-        ...VitePressI18n.getDefaultLangValue(byLocale(i18nOptions.lang), i18nOptions, locale),
+        ...VitePressI18n.getDefaultLangValue(
+          byLocale(i18nOptions.lang),
+          locale,
+          i18nOptions.disableAutoSetLangValue
+        ),
+        // An empty label would render an unusable language menu entry, so `||`
+        // is intended here and falls back to the built-in name
         label: byLocale(i18nOptions.label) || VitePressI18n.getDefaultLabelValue(locale),
         ...(link ? { link } : {}),
         ...(title ? { title } : {}),
@@ -211,14 +222,14 @@ export default class VitePressI18n {
 
   private static getDefaultLangValue(
     lang: string | undefined,
-    options: Partial<VitePressI18nOptions>,
-    locale: string
+    locale: string,
+    disableAutoSetLangValue?: boolean
   ): object {
     if (lang) {
       return { lang };
     }
 
-    if (options.disableAutoSetLangValue) {
+    if (disableAutoSetLangValue) {
       return {};
     }
 
@@ -241,11 +252,11 @@ export default class VitePressI18n {
    * for the shared one, so merging by index would mix languages together.
    */
   private static objMergeNewKey(
-    obj: AnyValueObject,
-    obj2: AnyValueObject,
+    obj: KeyValueItem,
+    obj2: KeyValueItem,
     // Objects on the current recursion path, used to stop on circular references
     ancestors: WeakSet<object> = new WeakSet()
-  ): AnyValueObject {
+  ): KeyValueItem {
     if (!VitePressI18n.isObject(obj)) {
       return VitePressI18n.isObject(obj2) ? { ...obj2 } : {};
     }
@@ -254,7 +265,7 @@ export default class VitePressI18n {
       return { ...obj };
     }
 
-    const merged: AnyValueObject = { ...obj };
+    const merged: KeyValueItem = { ...obj };
 
     ancestors.add(obj2);
 
