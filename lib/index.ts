@@ -41,23 +41,54 @@ export default class VitePressI18n {
       );
     }
 
-    if (!i18nOptions.rootLocale) {
-      if (
-        typeof i18nOptions.locales[0] === 'object' &&
-        Object.hasOwn(i18nOptions.locales[0], 'path') &&
-        Object.hasOwn(i18nOptions.locales[0], 'locale')
-      ) {
-        i18nOptions.rootLocale = i18nOptions.locales[0].locale;
-      } else if (typeof i18nOptions.locales[0] === 'string') {
-        i18nOptions.rootLocale = i18nOptions.locales[0];
+    const locales = (i18nOptions.locales as (I18nLocale | string)[]).map((localeOption) => {
+      if (typeof localeOption === 'string' && localeOption.length > 0) {
+        return { path: localeOption, locale: localeOption };
       }
-    }
 
-    if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === i18nOptions.rootLocale)) {
+      if (
+        VitePressI18n.isObject(localeOption) &&
+        typeof (localeOption as I18nLocale).path === 'string' &&
+        typeof (localeOption as I18nLocale).locale === 'string'
+      ) {
+        return { ...(localeOption as I18nLocale) };
+      }
+
+      throw new Error(`The value of the 'locales' option is not in the correct format!`);
+    });
+
+    // `rootLocale` is kept local: `withI18n` must not write back into its argument
+    const rootLocale = i18nOptions.rootLocale ?? locales[0].locale;
+
+    if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === rootLocale)) {
       throw new Error(
         `Invalid locale detected, please make sure you are using a supported language code for the 'rootLocale' or 'locales' option.`
       );
     }
+
+    if (!locales.some((localeOption) => localeOption.locale === rootLocale)) {
+      throw new Error(
+        `The '${rootLocale}' locale given as 'rootLocale' is missing from the 'locales' option. VitePress needs one locale to be mapped to 'root'.`
+      );
+    }
+
+    const localeKeys = new Set<string>();
+
+    locales.forEach((localeOption) => {
+      if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === localeOption.locale)) {
+        throw new Error(`The '${localeOption.locale}' locale is not currently supported.`);
+      }
+
+      const localeKey = localeOption.locale === rootLocale ? 'root' : localeOption.path;
+
+      if (localeKeys.has(localeKey)) {
+        throw new Error(
+          `The '${localeKey}' locale key is used more than once by the 'locales' option.`
+        );
+      }
+
+      localeKeys.add(localeKey);
+    });
 
     // The search provider may come from either option object. When it is only
     // present in `vitePressOptions`, its own `search` block is dropped below and
@@ -93,31 +124,9 @@ export default class VitePressI18n {
       locales: {}
     };
 
-    for (let i = 0; i < i18nOptions.locales.length; i += 1) {
-      let locale: string | undefined;
-      let path: string | undefined;
-
-      if (typeof i18nOptions.locales[i] === 'object') {
-        const localeOption = i18nOptions.locales[i] as I18nLocale;
-
-        if (Object.hasOwn(localeOption, 'path') && Object.hasOwn(localeOption, 'locale')) {
-          locale = localeOption.locale;
-          path = localeOption.path;
-        }
-      } else if (typeof i18nOptions.locales[i] === 'string') {
-        locale = i18nOptions.locales[i].toString();
-        path = i18nOptions.locales[i].toString();
-      }
-
-      if (!locale || !path) {
-        throw new Error(`The value of the 'locales' option is not in the correct format!`);
-      }
-
-      if (!PLUGIN_SUPPORT_LOCALES.some((obj) => obj.value === locale)) {
-        throw new Error(`The '${locale}' locale is not currently supported.`);
-      }
-
-      const localeKey = locale === i18nOptions.rootLocale ? 'root' : path;
+    for (let i = 0; i < locales.length; i += 1) {
+      const { locale, path } = locales[i];
+      const localeKey = locale === rootLocale ? 'root' : path;
 
       // Search
       if (searchProvider === 'local') {
