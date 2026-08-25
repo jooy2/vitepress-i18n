@@ -59,15 +59,32 @@ export default class VitePressI18n {
       );
     }
 
+    // The search provider may come from either option object. When it is only
+    // present in `vitePressOptions`, its own `search` block is dropped below and
+    // rebuilt here, so the resolved value has to be read before that happens.
+    const searchProvider =
+      i18nOptions.searchProvider ?? vitePressOptions.themeConfig?.search?.provider;
+    const searchOptions =
+      i18nOptions.searchOptions ?? vitePressOptions.themeConfig?.search?.options;
+    const searchTranslations: AnyValueObject = {};
+
+    // `withI18n` must not mutate its arguments, so the caller's own `search`
+    // block is dropped from a shallow copy instead of being `delete`d in place.
+    const vitePressThemeConfig: AnyValueObject = { ...(vitePressOptions.themeConfig ?? {}) };
+
+    if (searchProvider) {
+      delete vitePressThemeConfig.search;
+    }
+
     const result: Partial<UserConfig> = {
       themeConfig: {
-        ...(i18nOptions.searchProvider
+        ...(searchProvider
           ? {
               search: {
-                provider: i18nOptions.searchProvider,
+                provider: searchProvider,
                 options: {
-                  ...i18nOptions.searchOptions,
-                  locales: {}
+                  ...searchOptions,
+                  locales: searchTranslations
                 }
               }
             }
@@ -100,28 +117,21 @@ export default class VitePressI18n {
         throw new Error(`The '${locale}' locale is not currently supported.`);
       }
 
+      const localeKey = locale === i18nOptions.rootLocale ? 'root' : label;
+
       // Search
-      const currentSearchProvider =
-        i18nOptions.searchProvider ?? vitePressOptions.themeConfig?.search?.provider;
-
-      if (currentSearchProvider === 'local') {
-        result.themeConfig.search.options.locales[
-          locale === i18nOptions.rootLocale ? 'root' : label
-        ] = structuredClone(LOCAL_SEARCH_TRANSLATIONS[locale]);
-      } else if (currentSearchProvider === 'algolia') {
-        result.themeConfig.search.options.locales[
-          locale === i18nOptions.rootLocale ? 'root' : label
-        ] = structuredClone(ALGOLIA_SEARCH_TRANSLATIONS[locale]);
+      if (searchProvider === 'local') {
+        searchTranslations[localeKey] = structuredClone(LOCAL_SEARCH_TRANSLATIONS[locale]);
+      } else if (searchProvider === 'algolia') {
+        searchTranslations[localeKey] = structuredClone(ALGOLIA_SEARCH_TRANSLATIONS[locale]);
       }
-
-      delete vitePressOptions.themeConfig?.search;
 
       // `LOCALES_TRANSLATIONS` is a module-level constant shared by every call,
       // so it must be cloned before any locale-specific value is written to it.
       const commonThemeConfig = structuredClone(LOCALES_TRANSLATIONS[locale]);
 
-      if (vitePressOptions.themeConfig?.editLink?.pattern) {
-        commonThemeConfig.editLink.pattern = vitePressOptions.themeConfig.editLink.pattern;
+      if (vitePressThemeConfig.editLink?.pattern) {
+        commonThemeConfig.editLink.pattern = vitePressThemeConfig.editLink.pattern;
       } else {
         delete commonThemeConfig.editLink;
       }
@@ -131,7 +141,7 @@ export default class VitePressI18n {
         ...(vitePressOptions?.head || [])
       ];
 
-      result.locales![locale === i18nOptions.rootLocale ? 'root' : label] = {
+      result.locales![localeKey] = {
         ...VitePressI18n.getDefaultLangValue(i18nOptions, label, locale),
         label: i18nOptions.label?.[label] || VitePressI18n.getDefaultLabelValue(locale),
         ...(i18nOptions.link?.[label] ? { link: i18nOptions.link?.[label] } : {}),
@@ -151,7 +161,7 @@ export default class VitePressI18n {
                 ...i18nOptions.themeConfig?.[label]
               }
             : commonThemeConfig,
-          vitePressOptions?.themeConfig || {}
+          vitePressThemeConfig
         )
       };
     }
@@ -164,7 +174,10 @@ export default class VitePressI18n {
       );
     }
 
-    return VitePressI18n.objMergeNewKey(vitePressOptions, result) as UserConfig;
+    return VitePressI18n.objMergeNewKey(
+      { ...vitePressOptions, themeConfig: vitePressThemeConfig },
+      result
+    ) as UserConfig;
   }
 
   private static getDefaultLabelValue(locale: string): string {
