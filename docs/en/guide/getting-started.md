@@ -106,4 +106,16 @@ withI18n(vitePressOptions, {
 });
 ```
 
+## Combining with other plugins
+
+When you also use a plugin that generates a large `themeConfig`, such as [VitePress Sidebar](https://vitepress-sidebar.cdget.com), call `withI18n` first and pass its result to the other plugin:
+
+```javascript
+export default defineConfig(
+  withSidebar(withI18n(vitePressOptions, vitePressI18nOptions), vitePressSidebarOptions)
+);
+```
+
+`withI18n` copies the shared `themeConfig` into every locale, so a generated sidebar handed to it first would be walked once per language for no benefit. Running it in the other order keeps that work out of the loop.
+
 To learn more about the options in VitePress I18n, see the [VitePress I18n options page](/guide/options).

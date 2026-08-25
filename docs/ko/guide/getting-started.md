@@ -106,4 +106,16 @@ withI18n(vitePressOptions, {
 });
 ```
 
+## 다른 플러그인과 함께 사용하기
+
+[VitePress Sidebar](https://vitepress-sidebar.cdget.com)처럼 큰 `themeConfig`를 생성하는 플러그인을 함께 사용하는 경우, `withI18n`을 먼저 호출하고 그 결과를 다른 플러그인에 전달하세요:
+
+```javascript
+export default defineConfig(
+  withSidebar(withI18n(vitePressOptions, vitePressI18nOptions), vitePressSidebarOptions)
+);
+```
+
+`withI18n`은 공통 `themeConfig`를 각 로캐일에 복사하므로, 생성된 사이드바를 먼저 넘기면 언어 수만큼 불필요하게 순회하게 됩니다. 위 순서로 호출하면 그 작업이 반복되지 않습니다.
+
 VitePress I18n의 옵션에 대해 자세히 알아보시려면 [VitePress I18n 옵션 페이지](/ko/guide/options)를 참고하세요.
