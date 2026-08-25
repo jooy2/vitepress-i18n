@@ -107,16 +107,18 @@ export default class VitePressI18n {
       if (currentSearchProvider === 'local') {
         result.themeConfig.search.options.locales[
           locale === i18nOptions.rootLocale ? 'root' : label
-        ] = LOCAL_SEARCH_TRANSLATIONS[locale];
+        ] = structuredClone(LOCAL_SEARCH_TRANSLATIONS[locale]);
       } else if (currentSearchProvider === 'algolia') {
         result.themeConfig.search.options.locales[
           locale === i18nOptions.rootLocale ? 'root' : label
-        ] = ALGOLIA_SEARCH_TRANSLATIONS[locale];
+        ] = structuredClone(ALGOLIA_SEARCH_TRANSLATIONS[locale]);
       }
 
       delete vitePressOptions.themeConfig?.search;
 
-      const commonThemeConfig = LOCALES_TRANSLATIONS[locale];
+      // `LOCALES_TRANSLATIONS` is a module-level constant shared by every call,
+      // so it must be cloned before any locale-specific value is written to it.
+      const commonThemeConfig = structuredClone(LOCALES_TRANSLATIONS[locale]);
 
       if (vitePressOptions.themeConfig?.editLink?.pattern) {
         commonThemeConfig.editLink.pattern = vitePressOptions.themeConfig.editLink.pattern;
