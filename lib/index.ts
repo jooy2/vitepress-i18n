@@ -139,7 +139,13 @@ export default class VitePressI18n {
       const byLocale = <T>(option: { [key: string]: T } | undefined): T | undefined =>
         option?.[path] ?? option?.[locale];
 
-      const head = [...(byLocale(i18nOptions.head) ?? []), ...(vitePressOptions?.head || [])];
+      /*
+       * Only the locale specific tags belong here. VitePress already merges
+       * `head` with the site level one through `mergeHead`, so copying the
+       * shared tags in would emit them twice for any tag `mergeHead` cannot
+       * deduplicate, such as an inline `script` or `style`.
+       */
+      const head = byLocale(i18nOptions.head) ?? [];
       const link = byLocale(i18nOptions.link);
       const title = byLocale(i18nOptions.title);
       const titleTemplate = byLocale(i18nOptions.titleTemplate);
