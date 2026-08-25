@@ -60,7 +60,7 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
   },
   zhHans: {
     editLink: {
-      text: '在 GitHub 上编辑此页面'
+      text: '编辑此页面'
     },
     docFooter: {
       prev: '上一页',
@@ -144,7 +144,7 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
   },
   es: {
     editLink: {
-      text: 'Editar esta página en GitHub'
+      text: 'Editar esta página'
     },
     docFooter: {
       prev: 'Anterior',
@@ -172,7 +172,7 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
   },
   pt: {
     editLink: {
-      text: 'Edite esta página no GitHub'
+      text: 'Editar esta página'
     },
     docFooter: {
       prev: 'Anterior',
