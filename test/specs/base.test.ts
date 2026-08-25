@@ -116,7 +116,15 @@ describe('Test: base test', () => {
               sidebarMenuLabel: 'Menu',
               darkModeSwitchLabel: 'Appearance',
               lightModeSwitchTitle: 'Switch to light theme',
-              darkModeSwitchTitle: 'Switch to dark theme'
+              darkModeSwitchTitle: 'Switch to dark theme',
+              skipToContentLabel: 'Skip to content',
+              notFound: {
+                title: 'PAGE NOT FOUND',
+                quote:
+                  "But if you don't change your direction, and if you keep looking, you may end up where you are heading.",
+                linkLabel: 'go to home',
+                linkText: 'Take me home'
+              }
             }
           },
           ko: {
@@ -144,7 +152,15 @@ describe('Test: base test', () => {
               sidebarMenuLabel: '사이드바 메뉴',
               darkModeSwitchLabel: '다크 모드',
               lightModeSwitchTitle: '라이트 모드로 변경',
-              darkModeSwitchTitle: '다크 모드로 변경'
+              darkModeSwitchTitle: '다크 모드로 변경',
+              skipToContentLabel: '본문으로 건너뛰기',
+              notFound: {
+                title: '페이지를 찾을 수 없습니다',
+                quote:
+                  '하지만 방향을 바꾸지 않고 계속 찾는다면, 결국 향하던 곳에 도달할지도 모릅니다.',
+                linkLabel: '홈으로 이동',
+                linkText: '홈으로 가기'
+              }
             }
           }
         }

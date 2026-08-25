@@ -20,7 +20,15 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'Menu',
     darkModeSwitchLabel: 'Appearance',
     lightModeSwitchTitle: 'Switch to light theme',
-    darkModeSwitchTitle: 'Switch to dark theme'
+    darkModeSwitchTitle: 'Switch to dark theme',
+    skipToContentLabel: 'Skip to content',
+    notFound: {
+      title: 'PAGE NOT FOUND',
+      quote:
+        "But if you don't change your direction, and if you keep looking, you may end up where you are heading.",
+      linkLabel: 'go to home',
+      linkText: 'Take me home'
+    }
   },
   ko: {
     editLink: {
@@ -41,7 +49,14 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: '사이드바 메뉴',
     darkModeSwitchLabel: '다크 모드',
     lightModeSwitchTitle: '라이트 모드로 변경',
-    darkModeSwitchTitle: '다크 모드로 변경'
+    darkModeSwitchTitle: '다크 모드로 변경',
+    skipToContentLabel: '본문으로 건너뛰기',
+    notFound: {
+      title: '페이지를 찾을 수 없습니다',
+      quote: '하지만 방향을 바꾸지 않고 계속 찾는다면, 결국 향하던 곳에 도달할지도 모릅니다.',
+      linkLabel: '홈으로 이동',
+      linkText: '홈으로 가기'
+    }
   },
   zhHans: {
     editLink: {
@@ -62,7 +77,14 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: '菜单',
     darkModeSwitchLabel: '主题',
     lightModeSwitchTitle: '切换到浅色模式',
-    darkModeSwitchTitle: '切换到深色模式'
+    darkModeSwitchTitle: '切换到深色模式',
+    skipToContentLabel: '跳转到内容',
+    notFound: {
+      title: '页面未找到',
+      quote: '但如果你不改变方向，并且继续寻找，你可能最终会到达你所前往的地方。',
+      linkLabel: '前往首页',
+      linkText: '带我回首页'
+    }
   },
   zhHant: {
     editLink: {
@@ -83,7 +105,14 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: '選單',
     darkModeSwitchLabel: '外觀',
     lightModeSwitchTitle: '切換至燈光主題',
-    darkModeSwitchTitle: '切換至深色主題'
+    darkModeSwitchTitle: '切換至深色主題',
+    skipToContentLabel: '跳至內容',
+    notFound: {
+      title: '頁面未找到',
+      quote: '但如果你不改變方向，並且繼續尋找，你可能最終會到達你所前往的地方。',
+      linkLabel: '前往首頁',
+      linkText: '帶我回首頁'
+    }
   },
   ja: {
     editLink: {
@@ -104,7 +133,14 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'メニュー',
     darkModeSwitchLabel: '外観',
     lightModeSwitchTitle: 'ライトテーマに切り替える',
-    darkModeSwitchTitle: 'ダークテーマに切り替える'
+    darkModeSwitchTitle: 'ダークテーマに切り替える',
+    skipToContentLabel: 'コンテンツへスキップ',
+    notFound: {
+      title: 'ページが見つかりません',
+      quote: 'しかし、方向を変えずに探し続ければ、向かっている場所にたどり着くかもしれません。',
+      linkLabel: 'ホームへ移動',
+      linkText: 'ホームへ戻る'
+    }
   },
   es: {
     editLink: {
@@ -125,7 +161,14 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'Menu Lateral',
     darkModeSwitchLabel: 'Tema Oscuro',
     lightModeSwitchTitle: 'Cambiar a modo claro',
-    darkModeSwitchTitle: 'Cambiar a modo oscuro'
+    darkModeSwitchTitle: 'Cambiar a modo oscuro',
+    skipToContentLabel: 'Saltar al contenido',
+    notFound: {
+      title: 'PÁGINA NO ENCONTRADA',
+      quote: 'Pero si no cambias de dirección y sigues buscando, puedes acabar donde te diriges.',
+      linkLabel: 'ir al inicio',
+      linkText: 'Llévame al inicio'
+    }
   },
   pt: {
     editLink: {
@@ -146,7 +189,15 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'Menu Lateral',
     darkModeSwitchLabel: 'Tema Escuro',
     lightModeSwitchTitle: 'Mudar para Modo Claro',
-    darkModeSwitchTitle: 'Mudar para Modo Escuro'
+    darkModeSwitchTitle: 'Mudar para Modo Escuro',
+    skipToContentLabel: 'Saltar para o conteúdo',
+    notFound: {
+      title: 'PÁGINA NÃO ENCONTRADA',
+      quote:
+        'Mas se não mudar de direção e continuar à procura, pode acabar por chegar onde se dirige.',
+      linkLabel: 'ir para a página inicial',
+      linkText: 'Levar-me para a página inicial'
+    }
   },
   ru: {
     editLink: {
@@ -167,7 +218,15 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'Меню',
     darkModeSwitchLabel: 'Оформление',
     lightModeSwitchTitle: 'Переключить на светлую тему',
-    darkModeSwitchTitle: 'Переключить на тёмную тему'
+    darkModeSwitchTitle: 'Переключить на тёмную тему',
+    skipToContentLabel: 'Перейти к содержимому',
+    notFound: {
+      title: 'СТРАНИЦА НЕ НАЙДЕНА',
+      quote:
+        'Но если вы не измените направление и продолжите искать, то можете оказаться там, куда идёте.',
+      linkLabel: 'перейти на главную',
+      linkText: 'На главную'
+    }
   },
   id: {
     editLink: {
@@ -188,7 +247,15 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'Menu',
     darkModeSwitchLabel: 'Penampilan',
     lightModeSwitchTitle: 'Beralih ke tema cahaya',
-    darkModeSwitchTitle: 'Beralih ke tema gelap'
+    darkModeSwitchTitle: 'Beralih ke tema gelap',
+    skipToContentLabel: 'Lompat ke konten',
+    notFound: {
+      title: 'HALAMAN TIDAK DITEMUKAN',
+      quote:
+        'Tetapi jika Anda tidak mengubah arah dan terus mencari, Anda mungkin akan berakhir di tempat yang Anda tuju.',
+      linkLabel: 'ke beranda',
+      linkText: 'Bawa saya ke beranda'
+    }
   },
   de: {
     editLink: {
@@ -209,7 +276,15 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'Menü',
     darkModeSwitchLabel: 'Erscheinungsbild',
     lightModeSwitchTitle: 'Zum Thema Licht wechseln',
-    darkModeSwitchTitle: 'Zu einem dunklen Thema wechseln'
+    darkModeSwitchTitle: 'Zu einem dunklen Thema wechseln',
+    skipToContentLabel: 'Zum Inhalt springen',
+    notFound: {
+      title: 'SEITE NICHT GEFUNDEN',
+      quote:
+        'Aber wenn Sie Ihre Richtung nicht ändern und weiter suchen, landen Sie vielleicht dort, wohin Sie unterwegs sind.',
+      linkLabel: 'zur Startseite',
+      linkText: 'Zur Startseite'
+    }
   },
   fr: {
     editLink: {
@@ -230,7 +305,15 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'Menu',
     darkModeSwitchLabel: 'Apparence',
     lightModeSwitchTitle: 'Passer au thème clair',
-    darkModeSwitchTitle: 'Passer au thème sombre'
+    darkModeSwitchTitle: 'Passer au thème sombre',
+    skipToContentLabel: 'Aller au contenu',
+    notFound: {
+      title: 'PAGE NON TROUVÉE',
+      quote:
+        'Mais si vous ne changez pas de direction et que vous continuez à chercher, vous pourriez finir là où vous vous dirigez.',
+      linkLabel: "aller \u00e0 l'accueil",
+      linkText: "Retour \u00e0 l'accueil"
+    }
   },
   vi: {
     editLink: {
@@ -251,7 +334,15 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'Thực đơn',
     darkModeSwitchLabel: 'Vẻ bề ngoài',
     lightModeSwitchTitle: 'Chuyển sang chủ đề sáng',
-    darkModeSwitchTitle: 'Chuyển sang chủ đề tối'
+    darkModeSwitchTitle: 'Chuyển sang chủ đề tối',
+    skipToContentLabel: 'Chuyển đến nội dung',
+    notFound: {
+      title: 'KHÔNG TÌM THẤY TRANG',
+      quote:
+        'Nhưng nếu bạn không đổi hướng và tiếp tục tìm kiếm, bạn có thể sẽ đến đúng nơi bạn đang hướng tới.',
+      linkLabel: 'về trang chủ',
+      linkText: 'Đưa tôi về trang chủ'
+    }
   },
   it: {
     editLink: {
@@ -272,7 +363,14 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     sidebarMenuLabel: 'Menu',
     darkModeSwitchLabel: 'Aspetto',
     lightModeSwitchTitle: 'Passare al tema della luce',
-    darkModeSwitchTitle: 'Passare al tema scuro'
+    darkModeSwitchTitle: 'Passare al tema scuro',
+    skipToContentLabel: 'Vai al contenuto',
+    notFound: {
+      title: 'PAGINA NON TROVATA',
+      quote: 'Ma se non cambi direzione e continui a cercare, potresti finire dove stai andando.',
+      linkLabel: 'vai alla home',
+      linkText: 'Portami alla home'
+    }
   }
 };
 
