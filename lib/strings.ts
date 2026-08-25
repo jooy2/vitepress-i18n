@@ -95,7 +95,7 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
       next: '下一頁'
     },
     outline: {
-      label: '在此頁面上'
+      label: '頁面導覽'
     },
     lastUpdated: {
       text: '最後更新'
@@ -123,7 +123,7 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
       next: '次のページ'
     },
     outline: {
-      label: 'このページでは'
+      label: 'このページの内容'
     },
     lastUpdated: {
       text: '最終更新日'
@@ -156,10 +156,10 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     lastUpdated: {
       text: 'Actualizado en'
     },
-    langMenuLabel: 'Cambiar Idioma',
+    langMenuLabel: 'Cambiar idioma',
     returnToTopLabel: 'Volver arriba',
-    sidebarMenuLabel: 'Menu Lateral',
-    darkModeSwitchLabel: 'Tema Oscuro',
+    sidebarMenuLabel: 'Menú lateral',
+    darkModeSwitchLabel: 'Tema oscuro',
     lightModeSwitchTitle: 'Cambiar a modo claro',
     darkModeSwitchTitle: 'Cambiar a modo oscuro',
     skipToContentLabel: 'Saltar al contenido',
@@ -184,12 +184,12 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     lastUpdated: {
       text: 'Atualizado em'
     },
-    langMenuLabel: 'Alterar Idioma',
-    returnToTopLabel: 'Voltar ao Topo',
-    sidebarMenuLabel: 'Menu Lateral',
-    darkModeSwitchLabel: 'Tema Escuro',
-    lightModeSwitchTitle: 'Mudar para Modo Claro',
-    darkModeSwitchTitle: 'Mudar para Modo Escuro',
+    langMenuLabel: 'Alterar idioma',
+    returnToTopLabel: 'Voltar ao topo',
+    sidebarMenuLabel: 'Menu lateral',
+    darkModeSwitchLabel: 'Tema escuro',
+    lightModeSwitchTitle: 'Mudar para o modo claro',
+    darkModeSwitchTitle: 'Mudar para o modo escuro',
     skipToContentLabel: 'Saltar para o conteúdo',
     notFound: {
       title: 'PÁGINA NÃO ENCONTRADA',
@@ -242,11 +242,11 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     lastUpdated: {
       text: 'Terakhir diperbarui'
     },
-    langMenuLabel: 'Mengubah bahasa',
+    langMenuLabel: 'Ubah bahasa',
     returnToTopLabel: 'Kembali ke atas',
     sidebarMenuLabel: 'Menu',
     darkModeSwitchLabel: 'Penampilan',
-    lightModeSwitchTitle: 'Beralih ke tema cahaya',
+    lightModeSwitchTitle: 'Beralih ke tema terang',
     darkModeSwitchTitle: 'Beralih ke tema gelap',
     skipToContentLabel: 'Lompat ke konten',
     notFound: {
@@ -275,8 +275,8 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     returnToTopLabel: 'Zurück zum Anfang',
     sidebarMenuLabel: 'Menü',
     darkModeSwitchLabel: 'Erscheinungsbild',
-    lightModeSwitchTitle: 'Zum Thema Licht wechseln',
-    darkModeSwitchTitle: 'Zu einem dunklen Thema wechseln',
+    lightModeSwitchTitle: 'Zum hellen Design wechseln',
+    darkModeSwitchTitle: 'Zum dunklen Design wechseln',
     skipToContentLabel: 'Zum Inhalt springen',
     notFound: {
       title: 'SEITE NICHT GEFUNDEN',
@@ -331,10 +331,10 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     },
     langMenuLabel: 'Thay đổi ngôn ngữ',
     returnToTopLabel: 'Quay lại đầu trang',
-    sidebarMenuLabel: 'Thực đơn',
-    darkModeSwitchLabel: 'Vẻ bề ngoài',
-    lightModeSwitchTitle: 'Chuyển sang chủ đề sáng',
-    darkModeSwitchTitle: 'Chuyển sang chủ đề tối',
+    sidebarMenuLabel: 'Menu',
+    darkModeSwitchLabel: 'Giao diện',
+    lightModeSwitchTitle: 'Chuyển sang giao diện sáng',
+    darkModeSwitchTitle: 'Chuyển sang giao diện tối',
     skipToContentLabel: 'Chuyển đến nội dung',
     notFound: {
       title: 'KHÔNG TÌM THẤY TRANG',
@@ -358,12 +358,12 @@ export const LOCALES_TRANSLATIONS: KeyValueItem = {
     lastUpdated: {
       text: 'Ultimo aggiornamento'
     },
-    langMenuLabel: 'Cambiare la lingua',
+    langMenuLabel: 'Cambia lingua',
     returnToTopLabel: "Torna all'inizio",
     sidebarMenuLabel: 'Menu',
     darkModeSwitchLabel: 'Aspetto',
-    lightModeSwitchTitle: 'Passare al tema della luce',
-    darkModeSwitchTitle: 'Passare al tema scuro',
+    lightModeSwitchTitle: 'Passa al tema chiaro',
+    darkModeSwitchTitle: 'Passa al tema scuro',
     skipToContentLabel: 'Vai al contenuto',
     notFound: {
       title: 'PAGINA NON TROVATA',
