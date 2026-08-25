@@ -66,20 +66,20 @@
   ],
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@types/node": "^25.6.2",
-    "@typescript-eslint/parser": "^8.59.2",
+    "@types/node": "^26.3.0",
+    "@typescript-eslint/parser": "^8.68.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-n": "^17.23.1",
+    "eslint-plugin-n": "^18.3.0",
     "glob": "13.0.6",
-    "globals": "^17.6.0",
+    "globals": "^17.11.0",
     "jiti": "^2.7.0",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.6",
     "terser-glob": "^1.2.1",
-    "tsx": "^4.21.0",
+    "tsx": "^4.23.12",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.2",
+    "typescript-eslint": "^8.68.0",
     "vitepress": "^1.6.4",
-    "vitepress-sidebar": "^1.33.2"
+    "vitepress-sidebar": "^1.39.0"
   }
 }

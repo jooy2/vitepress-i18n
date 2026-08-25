@@ -44,9 +44,7 @@ const vitePressOptions = {
   }
 };
 
-const vitePressI18nOptions = {
-  /* Options... */
-};
+const vitePressI18nOptions = {/* Options... */};
 
 export default defineConfig(withI18n(vitePressOptions, vitePressI18nOptions));
 ```
@@ -64,9 +62,7 @@ const vitePressOptions = {
   }
 };
 
-const vitePressI18nOptions = {
-  /* Options... */
-};
+const vitePressI18nOptions = {/* Options... */};
 
 export default defineConfig(VitePressI18n.withI18n(vitePressOptions, vitePressI18nOptions));
 ```
