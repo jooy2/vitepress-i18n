@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.4.0 (2026-08-25)
+
+Merge behavior has changed. A per locale `themeConfig` now overrides the shared one instead of losing to it, and `themeConfig` arrays such as `nav` are replaced by the more specific value instead of being merged entry by entry. Sites that relied on the previous order may see different output.
+
+- Add `notFound` page and `skipToContentLabel` translations for every language
+- Allow either the directory path or the language code as the key of the per language options (`label`, `link`, `lang`, `title`, `titleTemplate`, `description`, `head`, `themeConfig`)
+- Fix `withI18n` writing into the shared translation constants, which crashed the next call with `TypeError` and could take down the dev server
+- Fix search translations not being applied when the provider is set through `themeConfig` (#9)
+- Fix a per locale `themeConfig` being overwritten by the shared one
+- Fix `themeConfig` arrays gaining `null` entries when both sides mixed value types
+- Fix the shared `head` being copied into every locale, which duplicated `link`, `script` and `style` tags on every page
+- Fix `titleTemplate` being dropped when set to `false`
+- Fix `withI18n` writing back into the two options objects passed to it
+- Reject a `rootLocale` that is missing from `locales`, and two locales resolving to the same key
+- Report the format error instead of a `TypeError` for a malformed `locales` entry
+- Remove the hardcoded GitHub name from the chinese simplified, spanish and portuguese `editLink` texts
+- Fix mistranslated german, italian, vietnamese, indonesian, spanish, portuguese, japanese and chinese traditional strings
+- Resolve supported locales through a lookup map instead of repeated linear scans
+
 ## 1.3.5 (2025-12-18)
 
 - Fix search box does not work when themeConfig search provider is set (#9)
