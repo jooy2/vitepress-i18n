@@ -153,15 +153,13 @@ export default class VitePressI18n {
           ? { description: i18nOptions.description?.[label] }
           : {}),
         ...(head.length > 0 ? { head: head } : {}),
+        /*
+         * Precedence, from weakest to strongest:
+         * built-in translations < shared `themeConfig` < per locale `themeConfig`
+         */
         themeConfig: VitePressI18n.objMergeNewKey(
-          i18nOptions.themeConfig?.[label]
-            ? {
-                ...commonThemeConfig,
-                // Override
-                ...i18nOptions.themeConfig?.[label]
-              }
-            : commonThemeConfig,
-          vitePressThemeConfig
+          VitePressI18n.objMergeNewKey(commonThemeConfig, vitePressThemeConfig),
+          i18nOptions.themeConfig?.[label] ?? {}
         )
       };
     }
@@ -218,39 +216,48 @@ export default class VitePressI18n {
   }
 
   private static isObject(data: any): boolean {
-    return data !== null && data !== undefined && Object.getPrototypeOf(data) === Object.prototype;
+    return (
+      data !== null && typeof data === 'object' && Object.getPrototypeOf(data) === Object.prototype
+    );
   }
 
-  private static objMergeNewKey(obj: AnyValueObject, obj2: AnyValueObject): AnyValueObject | null {
-    if (!obj || typeof obj !== 'object' || !obj2 || typeof obj2 !== 'object') {
-      return null;
+  /*
+   * Deep merges `obj2` over `obj` without touching either argument. Plain
+   * objects are merged key by key; every other value, arrays included, is
+   * replaced by the one from `obj2`.
+   *
+   * Arrays are deliberately not merged element by element. A locale specific
+   * `nav` or `sidebar` is a standalone list, not a set of positional patches
+   * for the shared one, so merging by index would mix languages together.
+   */
+  private static objMergeNewKey(
+    obj: AnyValueObject,
+    obj2: AnyValueObject,
+    // Objects on the current recursion path, used to stop on circular references
+    ancestors: WeakSet<object> = new WeakSet()
+  ): AnyValueObject {
+    if (!VitePressI18n.isObject(obj)) {
+      return VitePressI18n.isObject(obj2) ? { ...obj2 } : {};
+    }
+
+    if (!VitePressI18n.isObject(obj2) || ancestors.has(obj2)) {
+      return { ...obj };
     }
 
     const merged: AnyValueObject = { ...obj };
 
+    ancestors.add(obj2);
+
     Object.keys(obj2).forEach((key: string) => {
       const data = obj2[key];
 
-      if (Object.hasOwn(merged, key)) {
-        if (Array.isArray(merged[key]) && Array.isArray(data)) {
-          if (merged[key].length === data.length) {
-            for (let i = 0; i < merged[key].length; i += 1) {
-              const update = data[i];
-
-              if (VitePressI18n.isObject(update)) {
-                merged[key][i] = VitePressI18n.objMergeNewKey(merged[key][i], update);
-              }
-            }
-          }
-        } else if (VitePressI18n.isObject(merged[key]) && VitePressI18n.isObject(data)) {
-          merged[key] = VitePressI18n.objMergeNewKey(merged[key], data);
-        } else {
-          merged[key] = data;
-        }
-      } else {
-        merged[key] = data;
-      }
+      merged[key] =
+        VitePressI18n.isObject(merged[key]) && VitePressI18n.isObject(data)
+          ? VitePressI18n.objMergeNewKey(merged[key], data, ancestors)
+          : data;
     });
+
+    ancestors.delete(obj2);
 
     return merged;
   }
