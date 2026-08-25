@@ -35,6 +35,8 @@ withI18n({
 
 Where `path` is the directory name and `locale` is the supported language code.
 
+Options that are declared per language (`label`, `link`, `lang`, `title`, `titleTemplate`, `description`, `head` and `themeConfig`) accept either value as their key. `path` is looked up first, so it wins when both keys are present.
+
 For a list of supported language codes, see [this article](/guide/supported-languages).
 
 ## `rootLocale`
@@ -106,7 +108,7 @@ Use this option if you want to use a custom `lang` property value.
 
 This option is used when you want to display different site titles for different languages.
 
-It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. For example, to customize English and Korean respectively, you would set it like this:
+It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. If you mapped a custom directory name with `I18nLocale`, you may use either the directory name or the language code as the key, and the directory name takes precedence when both are present. For example, to customize English and Korean respectively, you would set it like this:
 
 ```javascript
 withI18n({
@@ -126,7 +128,7 @@ withI18n({
 
 This option is used when you want to display different site title templates (tail separators) for different languages.
 
-It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. For example, to customize English and Korean respectively, you would set it like this:
+It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. If you mapped a custom directory name with `I18nLocale`, you may use either the directory name or the language code as the key, and the directory name takes precedence when both are present. For example, to customize English and Korean respectively, you would set it like this:
 
 ```javascript
 withI18n({
@@ -146,7 +148,7 @@ withI18n({
 
 This option is used when you want to display different site descriptions for different languages.
 
-It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. For example, to customize English and Korean respectively, you would set it like this:
+It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. If you mapped a custom directory name with `I18nLocale`, you may use either the directory name or the language code as the key, and the directory name takes precedence when both are present. For example, to customize English and Korean respectively, you would set it like this:
 
 ```javascript
 withI18n({
@@ -166,7 +168,7 @@ withI18n({
 
 This option is used when using different `head` settings for different languages.
 
-It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. For example, to customize English and Korean respectively, you would set it like this:
+It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. If you mapped a custom directory name with `I18nLocale`, you may use either the directory name or the language code as the key, and the directory name takes precedence when both are present. For example, to customize English and Korean respectively, you would set it like this:
 
 ```javascript
 withI18n({
@@ -186,7 +188,7 @@ withI18n({
 
 This option is used when using different `themeConfig` settings for different languages.
 
-It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. For example, to customize English and Korean respectively, you would set it like this:
+It is declared as an `object`, with the key value being the language code and the value being string data. You must use the corresponding language code even when you are the root locale. If you mapped a custom directory name with `I18nLocale`, you may use either the directory name or the language code as the key, and the directory name takes precedence when both are present. For example, to customize English and Korean respectively, you would set it like this:
 
 ```javascript
 withI18n({

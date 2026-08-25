@@ -95,21 +95,21 @@ export default class VitePressI18n {
 
     for (let i = 0; i < i18nOptions.locales.length; i += 1) {
       let locale: string | undefined;
-      let label: string | undefined;
+      let path: string | undefined;
 
       if (typeof i18nOptions.locales[i] === 'object') {
         const localeOption = i18nOptions.locales[i] as I18nLocale;
 
         if (Object.hasOwn(localeOption, 'path') && Object.hasOwn(localeOption, 'locale')) {
           locale = localeOption.locale;
-          label = localeOption.path;
+          path = localeOption.path;
         }
       } else if (typeof i18nOptions.locales[i] === 'string') {
         locale = i18nOptions.locales[i].toString();
-        label = i18nOptions.locales[i].toString();
+        path = i18nOptions.locales[i].toString();
       }
 
-      if (!locale || !label) {
+      if (!locale || !path) {
         throw new Error(`The value of the 'locales' option is not in the correct format!`);
       }
 
@@ -117,7 +117,7 @@ export default class VitePressI18n {
         throw new Error(`The '${locale}' locale is not currently supported.`);
       }
 
-      const localeKey = locale === i18nOptions.rootLocale ? 'root' : label;
+      const localeKey = locale === i18nOptions.rootLocale ? 'root' : path;
 
       // Search
       if (searchProvider === 'local') {
@@ -136,30 +136,30 @@ export default class VitePressI18n {
         delete commonThemeConfig.editLink;
       }
 
-      const head = [
-        ...(i18nOptions.head?.[label] ? i18nOptions.head?.[label] : []),
-        ...(vitePressOptions?.head || [])
-      ];
+      const byLocale = <T>(option: { [key: string]: T } | undefined): T | undefined =>
+        option?.[path] ?? option?.[locale];
+
+      const head = [...(byLocale(i18nOptions.head) ?? []), ...(vitePressOptions?.head || [])];
+      const link = byLocale(i18nOptions.link);
+      const title = byLocale(i18nOptions.title);
+      const titleTemplate = byLocale(i18nOptions.titleTemplate);
+      const description = byLocale(i18nOptions.description);
 
       result.locales![localeKey] = {
-        ...VitePressI18n.getDefaultLangValue(i18nOptions, label, locale),
-        label: i18nOptions.label?.[label] || VitePressI18n.getDefaultLabelValue(locale),
-        ...(i18nOptions.link?.[label] ? { link: i18nOptions.link?.[label] } : {}),
-        ...(i18nOptions.title?.[label] ? { title: i18nOptions.title?.[label] } : {}),
-        ...(i18nOptions.titleTemplate?.[label]
-          ? { titleTemplate: i18nOptions.titleTemplate?.[label] }
-          : {}),
-        ...(i18nOptions.description?.[label]
-          ? { description: i18nOptions.description?.[label] }
-          : {}),
-        ...(head.length > 0 ? { head: head } : {}),
+        ...VitePressI18n.getDefaultLangValue(byLocale(i18nOptions.lang), i18nOptions, locale),
+        label: byLocale(i18nOptions.label) || VitePressI18n.getDefaultLabelValue(locale),
+        ...(link ? { link } : {}),
+        ...(title ? { title } : {}),
+        ...(titleTemplate ? { titleTemplate } : {}),
+        ...(description ? { description } : {}),
+        ...(head.length > 0 ? { head } : {}),
         /*
          * Precedence, from weakest to strongest:
          * built-in translations < shared `themeConfig` < per locale `themeConfig`
          */
         themeConfig: VitePressI18n.objMergeNewKey(
           VitePressI18n.objMergeNewKey(commonThemeConfig, vitePressThemeConfig),
-          i18nOptions.themeConfig?.[label] ?? {}
+          byLocale(i18nOptions.themeConfig) ?? {}
         )
       };
     }
@@ -190,12 +190,12 @@ export default class VitePressI18n {
   }
 
   private static getDefaultLangValue(
+    lang: string | undefined,
     options: Partial<VitePressI18nOptions>,
-    label: string,
     locale: string
   ): object {
-    if (options.lang?.[label]) {
-      return { lang: options.lang?.[label] };
+    if (lang) {
+      return { lang };
     }
 
     if (options.disableAutoSetLangValue) {
