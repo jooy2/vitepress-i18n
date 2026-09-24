@@ -493,14 +493,14 @@ export const LOCAL_SEARCH_TRANSLATIONS: KeyValueItem = {
   es: {
     translations: {
       button: {
-        buttonText: 'Buscar en',
-        buttonAriaLabel: 'Buscar en'
+        buttonText: 'Buscar',
+        buttonAriaLabel: 'Buscar'
       },
       modal: {
         displayDetails: 'Mostrar lista detallada',
         resetButtonTitle: 'Restablecer búsqueda',
         backButtonTitle: 'Cerrar búsqueda',
-        noResultsText: 'Cerrar búsqueda',
+        noResultsText: 'Sin resultados para',
         footer: {
           selectText: 'para seleccionar',
           selectKeyAriaLabel: 'enter',
@@ -920,7 +920,7 @@ export const ALGOLIA_SEARCH_TRANSLATIONS: KeyValueItem = {
           resetButtonAriaLabel: 'Limpiar búsqueda',
           cancelButtonText: 'Cancelar',
           cancelButtonAriaLabel: 'Cancelar',
-          searchInputLabel: 'Buscar en'
+          searchInputLabel: 'Buscar'
         },
         startScreen: {
           recentSearchesTitle: 'Historial de búsqueda',

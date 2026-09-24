@@ -120,6 +120,24 @@ describe('Test: translation dictionaries', () => {
     });
   });
 
+  it('labels the Spanish search with a complete word', () => {
+    // These used to read `Buscar en` ("Search in"), a phrase cut off before its object
+    const localButton = LOCAL_SEARCH_TRANSLATIONS.es.translations.button;
+    const algoliaModal = ALGOLIA_SEARCH_TRANSLATIONS.es.translations.modal;
+
+    assert.strictEqual(localButton.buttonText, 'Buscar');
+    assert.strictEqual(localButton.buttonAriaLabel, 'Buscar');
+    assert.strictEqual(algoliaModal.searchBox.searchInputLabel, 'Buscar');
+  });
+
+  it('tells a Spanish reader when the local search finds nothing', () => {
+    // This used to repeat `backButtonTitle`, `Cerrar búsqueda` ("Close search")
+    const { modal } = LOCAL_SEARCH_TRANSLATIONS.es.translations;
+
+    assert.strictEqual(modal.noResultsText, 'Sin resultados para');
+    assert.notStrictEqual(modal.noResultsText, modal.backButtonTitle);
+  });
+
   it('provides an Algolia `placeholder` for every locale', () => {
     Object.keys(ALGOLIA_SEARCH_TRANSLATIONS).forEach((locale) => {
       assert.strictEqual(typeof ALGOLIA_SEARCH_TRANSLATIONS[locale].placeholder, 'string');

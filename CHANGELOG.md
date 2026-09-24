@@ -1,5 +1,10 @@
 # Changelog
 
+## vNext (2026--)
+
+- Fix the spanish search button and Algolia search input label reading `Buscar en` ("Search in") instead of `Buscar`
+- Fix the spanish local search showing `Cerrar búsqueda` ("Close search") instead of `Sin resultados para` when nothing matches
+
 ## 1.4.0 (2026-08-25)
 
 Merge behavior has changed. A per locale `themeConfig` now overrides the shared one instead of losing to it, and `themeConfig` arrays such as `nav` are replaced by the more specific value instead of being merged entry by entry. Sites that relied on the previous order may see different output.
