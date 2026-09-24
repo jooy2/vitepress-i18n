@@ -1,0 +1,318 @@
+/*
+ * Home page
+ *
+ * Every rule is scoped under `.VPHome`, so the other pages keep the look of
+ * the default theme. The hero colors stay in each `index.md`, because every
+ * language uses its own gradient.
+ */
+
+/* Hero */
+
+.VPHome .VPHero .name.clip {
+  background-size: 200% 200%;
+  animation: home-name-flow 8s ease-in-out infinite alternate;
+}
+
+.VPHome .VPHero .text,
+.VPHome .VPHero .tagline,
+.VPHome .VPHero .actions {
+  animation: home-rise 0.7s ease-out both;
+}
+
+.VPHome .VPHero .tagline {
+  animation-delay: 0.1s;
+}
+
+.VPHome .VPHero .actions {
+  animation-delay: 0.2s;
+}
+
+.VPHome .VPHero .image-bg {
+  animation: home-glow 7s ease-in-out infinite alternate;
+}
+
+.VPHome .VPHero .image-src {
+  animation: home-float 5s ease-in-out infinite alternate;
+}
+
+@keyframes home-name-flow {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+/* Starts above zero opacity, so the text still counts as painted on the first frame */
+@keyframes home-rise {
+  from {
+    opacity: 0.2;
+    translate: 0 12px;
+  }
+
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+/* `transform` repeats the default theme's centering, which the animation replaces */
+@keyframes home-glow {
+  from {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
+@keyframes home-float {
+  from {
+    translate: 0 6px;
+  }
+
+  to {
+    translate: 0 -6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .VPHome .VPHero .name.clip,
+  .VPHome .VPHero .text,
+  .VPHome .VPHero .tagline,
+  .VPHome .VPHero .actions,
+  .VPHome .VPHero .image-bg,
+  .VPHome .VPHero .image-src {
+    animation: none;
+  }
+}
+
+/* Sections below the feature cards */
+
+.VPHome .home-section {
+  margin-top: 72px;
+}
+
+@media (min-width: 768px) {
+  .VPHome .home-section {
+    margin-top: 112px;
+  }
+}
+
+.VPHome .vp-doc .home-section h2 {
+  margin: 0 0 12px;
+  border-top: 0;
+  padding-top: 0;
+  font-size: 26px;
+  line-height: 34px;
+}
+
+@media (min-width: 768px) {
+  .VPHome .vp-doc .home-section h2 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+.VPHome .vp-doc .home-section h2 + p {
+  margin: 0 0 32px;
+  max-width: 760px;
+  font-size: 16px;
+  line-height: 28px;
+  color: var(--vp-c-text-2);
+}
+
+.VPHome .vp-doc .home-section h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  line-height: 26px;
+}
+
+/* Feature list */
+
+.VPHome .vp-doc .home-feature-list ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.VPHome .vp-doc .home-feature-list li {
+  position: relative;
+  margin: 0;
+  padding-left: 40px;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--vp-c-text-2);
+}
+
+.VPHome .vp-doc .home-feature-list li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  background-color: var(--vp-c-brand-soft);
+  content: '';
+}
+
+/* The check mark is a mask, so it takes the brand color in both themes */
+.VPHome .vp-doc .home-feature-list li::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  background-color: var(--vp-c-brand-1);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E")
+    center / 16px no-repeat;
+  content: '';
+}
+
+.VPHome .vp-doc .home-feature-list li > strong:first-child {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 15px;
+  color: var(--vp-c-text-1);
+}
+
+/* Config and result side by side */
+
+/* `minmax(0, 1fr)` keeps a long code line from widening the column past the screen */
+.VPHome .home-demo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .VPHome .home-demo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+}
+
+.VPHome .vp-doc .home-demo div[class*='language-'] {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Use cases */
+
+.VPHome .home-use-cases {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.VPHome .home-use-case {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  padding: 24px;
+  background-color: var(--vp-c-bg-soft);
+}
+
+.VPHome .vp-doc .home-use-case p {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--vp-c-text-2);
+}
+
+.VPHome .vp-doc .home-use-case p:last-child {
+  margin-top: auto;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+/* Supported languages */
+
+.VPHome .vp-doc .home-locale-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.VPHome .vp-doc .home-locale-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.VPHome .vp-doc .home-locale-list code {
+  font-size: 12px;
+}
+
+.VPHome .vp-doc .home-locale-list abbr {
+  border-radius: 4px;
+  padding: 0 6px;
+  background-color: var(--vp-c-default-soft);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+}
+
+/* Closing call to action */
+
+.VPHome .vp-doc .home-cta-links p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0 0;
+}
+
+.VPHome .vp-doc .home-cta-links a {
+  display: inline-block;
+  border: 1px solid var(--vp-button-alt-border);
+  border-radius: 20px;
+  padding: 0 20px;
+  background-color: var(--vp-button-alt-bg);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--vp-button-alt-text);
+  text-decoration: none;
+  transition:
+    color 0.25s,
+    border-color 0.25s,
+    background-color 0.25s;
+}
+
+.VPHome .vp-doc .home-cta-links a:hover {
+  border-color: var(--vp-button-alt-hover-border);
+  background-color: var(--vp-button-alt-hover-bg);
+  color: var(--vp-button-alt-hover-text);
+}
+
+.VPHome .vp-doc .home-cta-links a:first-child {
+  border-color: var(--vp-button-brand-border);
+  background-color: var(--vp-button-brand-bg);
+  color: var(--vp-button-brand-text);
+}
+
+.VPHome .vp-doc .home-cta-links a:first-child:hover {
+  border-color: var(--vp-button-brand-hover-border);
+  background-color: var(--vp-button-brand-hover-bg);
+  color: var(--vp-button-brand-hover-text);
+}
