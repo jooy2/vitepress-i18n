@@ -12,13 +12,13 @@ VitePress만 사용하였을 때는 별도의 번역 텍스트를 언어별로 �
 - ⚡️ 가벼운 번들 파일 크기, 제로 종속성
 - ⚡️ [TypeScript](https://typescriptlang.org) 지원
 
-## 어디에서 사용되나요?
+## 어디에서 사용되나요? {#where-is-it-used}
 
 **VitePress I18n**은 다양한 프로젝트 환경에서 활용되고 있습니다.
 
 - GitHub 프로젝트에서 현재 활용 중인 패키지를 살펴보세요: https://github.com/jooy2/vitepress-i18n/network/dependents
 
-## 패밀리 프로젝트인 자동 사이드바 플러그인을 알아보세요!
+## 패밀리 프로젝트인 자동 사이드바 플러그인을 알아보세요! {#check-out-our-family-project-the-auto-sidebar-plugin}
 
 저희의 다른 프로젝트인 **VitePress Sidebar** 플러그인 또한 둘러 볼 가치가 있습니다. 이 플러그인은 `vitepress-i18n`과 함께 사용하기에 적합하며, 번거로운 사이드 바를 수동으로 생성할 필요 없이 몇가지 간단한 설정으로 사이드 바를 자동으로 만들어줍니다.
 

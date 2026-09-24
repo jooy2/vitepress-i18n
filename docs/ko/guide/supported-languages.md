@@ -6,7 +6,7 @@ order: 3
 
 이 페이지에서는 `locales` 옵션에서 사용할 수 있는 지원 언어에 대한 목록을 제공합니다.
 
-## 언어 코드
+## 언어 코드 {#language-codes}
 
 VitePress I18n의 지원 언어 코드는 다음과 같습니다:
 
@@ -28,7 +28,7 @@ VitePress I18n의 지원 언어 코드는 다음과 같습니다:
 
 MT (Machine translated)는 현재 해당 국가 현지인으로 부터 검토되지 않은 기계 번역을 사용한 데이터입니다. 하지만 Pull Request를 통해 언제든지 번역 개선이나 새로운 언어를 요청할 수 있습니다!
 
-## 번역 지원 범위
+## 번역 지원 범위 {#translation-coverage}
 
 번역은 VitePress의 다음 위치를 번역합니다:
 

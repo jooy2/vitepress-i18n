@@ -85,6 +85,23 @@ const vitePressConfig: UserConfig = {
   sitemap: {
     hostname: packageJson.homepage
   },
+  markdown: {
+    config: (md) => {
+      // VitePress builds the heading permalink label from the raw heading, so
+      // without this a screen reader would read out a custom `{#id}` as well
+      md.core.ruler.push('strip_custom_id_from_permalink_label', (state) => {
+        state.tokens.forEach((token) => {
+          token.children?.forEach((child) => {
+            const label = child.attrGet('aria-label');
+
+            if (child.type === 'link_open' && label) {
+              child.attrSet('aria-label', label.replace(/\s*\{#[^}]*\}/, ''));
+            }
+          });
+        });
+      });
+    }
+  },
   themeConfig: {
     logo: { src: '/logo-32.png', width: 24, height: 24 },
     editLink: {

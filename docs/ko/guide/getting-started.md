@@ -6,7 +6,7 @@ order: 1
 
 이 페이지에서는 VitePress I18n 모듈의 설치 및 사용 방법을 안내합니다.
 
-## 설치
+## 설치 {#installation}
 
 먼저 이 모듈을 사용하기 전에 **[VitePress](https://vitepress.dev)** 모듈을 사전 구성해야 할 수 있습니다.
 
@@ -25,13 +25,13 @@ $ yarn add -D vitepress-i18n
 $ pnpm i -D vitepress-i18n
 ```
 
-## 사용 방법
+## 사용 방법 {#how-to-use}
 
 이 문서에서 **VitePress**에 대한 기본 지식에 대해서는 설명하지 않습니다. **VitePress**에 대해 자세히 알아보시려면 다음 사이트를 방문하세요: https://vitepress.dev
 
 먼저 아래 두 가지 방법 중 하나로 `vitepress-i18n`을 import합니다.
 
-### 1. named-import 사용 (권장)
+### 1. named-import 사용 (권장) {#_1-using-named-import-recommend}
 
 ```javascript
 // `.vitepress/config.js`
@@ -49,7 +49,7 @@ const vitePressI18nOptions = {/* Options... */};
 export default defineConfig(withI18n(vitePressOptions, vitePressI18nOptions));
 ```
 
-### 2. default-import 사용
+### 2. default-import 사용 {#_2-using-default-import}
 
 ```javascript
 // `.vitepress/config.js`
@@ -106,7 +106,7 @@ withI18n(vitePressOptions, {
 });
 ```
 
-## 다른 플러그인과 함께 사용하기
+## 다른 플러그인과 함께 사용하기 {#combining-with-other-plugins}
 
 [VitePress Sidebar](https://vitepress-sidebar.cdget.com)처럼 큰 `themeConfig`를 생성하는 플러그인을 함께 사용하는 경우, `withI18n`을 먼저 호출하고 그 결과를 다른 플러그인에 전달하세요:
 
