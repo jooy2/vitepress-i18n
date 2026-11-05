@@ -269,6 +269,50 @@ describe('Test: `editLink`', () => {
     });
     assert.strictEqual(localesOf(result).root.themeConfig.editLink.pattern, editLinkPattern);
   });
+
+  it('translates the text when only a per locale option sets the pattern', () => {
+    const result = withI18n(
+      { themeConfig: {} },
+      {
+        locales: ['en', 'ko'],
+        themeConfig: { ko: { editLink: { pattern: 'https://example.com/ko/:path' } } }
+      }
+    );
+
+    assert.deepStrictEqual(localesOf(result).ko.themeConfig.editLink, {
+      text: LOCALES_TRANSLATIONS.ko.editLink.text,
+      pattern: 'https://example.com/ko/:path'
+    });
+    assert.strictEqual(Object.hasOwn(localesOf(result).root.themeConfig, 'editLink'), false);
+  });
+
+  it('translates the text when only the VitePress `locales` entry sets the pattern', () => {
+    const pattern = 'https://example.com/ko/:path';
+    const result = withI18n(
+      {
+        themeConfig: {},
+        locales: { ko: { label: '한국어', themeConfig: { editLink: { pattern } } } }
+      },
+      { locales: ['en', 'ko'] }
+    );
+
+    assert.deepStrictEqual(localesOf(result).ko.themeConfig.editLink, {
+      text: LOCALES_TRANSLATIONS.ko.editLink.text,
+      pattern
+    });
+  });
+
+  it('keeps a pattern given as a function', () => {
+    const pattern = ({ filePath }: { filePath: string }): string =>
+      `https://example.com/${filePath}`;
+    const result = withI18n(baseConfig({ editLink: { pattern } }), { locales: ['en', 'ko'] });
+
+    assert.strictEqual(localesOf(result).ko.themeConfig.editLink.pattern, pattern);
+    assert.strictEqual(
+      localesOf(result).ko.themeConfig.editLink.text,
+      LOCALES_TRANSLATIONS.ko.editLink.text
+    );
+  });
 });
 
 describe('Test: input shapes', () => {

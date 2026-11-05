@@ -229,7 +229,9 @@ export default class VitePressI18n {
       // so it must be cloned before any locale-specific value is written to it.
       const translations = structuredClone(LOCALES_TRANSLATIONS[locale]);
 
-      if (!vitePressThemeConfig.editLink?.pattern) {
+      // A translated `editLink` without a `pattern` would render a link to
+      // nowhere, so the text is kept only when some layer sets a `pattern`
+      if (!ownThemeConfig.editLink?.pattern) {
         delete translations.editLink;
       }
 
