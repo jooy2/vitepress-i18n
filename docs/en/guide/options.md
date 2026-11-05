@@ -91,7 +91,7 @@ If this option is `true`, the `lang` value is not set automatically.Use this if 
 - Type: `boolean`
 - Default: `false`
 
-If this option is `true`, you can try printing the options used and the output to the console log.
+If this option is `true`, the options passed to VitePress I18n and the resulting `locales` and `themeConfig` are printed to the console. The result is printed after it is merged with the VitePress options, so it also shows the `locales` entries that the VitePress options already had.
 
 ## `label`
 

@@ -227,18 +227,24 @@ export default class VitePressI18n {
       };
     }
 
-    if (i18nOptions.debugPrint) {
-      process.stdout.write(
-        `\n${'='.repeat(50)}\n${JSON.stringify(i18nOptions, null, 2)}\n${'-'.repeat(
-          50
-        )}\n${JSON.stringify(result, null, 2)}\n${'='.repeat(50)}\n\n`
-      );
-    }
-
-    return VitePressI18n.objMergeNewKey(
+    const merged = VitePressI18n.objMergeNewKey(
       { ...vitePressOptions, themeConfig: vitePressThemeConfig },
       result
     ) as UserConfig;
+
+    if (i18nOptions.debugPrint) {
+      // Printed after the merge, so `locales` entries that the VitePress
+      // options already had under other keys show up next to the generated ones
+      const printed = { themeConfig: merged.themeConfig, locales: merged.locales };
+
+      process.stdout.write(
+        `\n${'='.repeat(50)}\n${JSON.stringify(i18nOptions, null, 2)}\n${'-'.repeat(
+          50
+        )}\n${JSON.stringify(printed, null, 2)}\n${'='.repeat(50)}\n\n`
+      );
+    }
+
+    return merged;
   }
 
   private static getSupportLocale(locale: string): PluginSupportLocalesOptions {

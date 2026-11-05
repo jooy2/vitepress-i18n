@@ -91,7 +91,7 @@ VitePress의 검색 옵션을 오버라이딩하려면 `searchOptions` 옵션을
 - Type: `boolean`
 - Default: `false`
 
-이 옵션이 `true`일 경우, 사용 옵션과 출력 결과를 콘솔 로그로 출력해볼 수 있습니다.
+이 옵션이 `true`일 경우, VitePress I18n에 전달한 옵션과 결과로 나온 `locales`, `themeConfig`를 콘솔에 출력합니다. 결과는 VitePress 옵션과 병합한 뒤에 출력하므로 VitePress 옵션에 원래 있던 `locales` 항목도 함께 보입니다.
 
 ## `label`
 

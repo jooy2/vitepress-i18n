@@ -435,4 +435,17 @@ describe('Test: `debugPrint`', () => {
     assert.match(captured, /"locales"/);
     assert.match(captured, /"이 페이지 콘텐츠"/);
   });
+
+  it('prints the locales after the merge with the VitePress options', () => {
+    const captured = captureStdout(() =>
+      withI18n(
+        { ...baseConfig(), locales: { pl: { label: 'Polski' } } },
+        { locales: ['en', 'ko'], debugPrint: true }
+      )
+    );
+
+    assert.match(captured, /"pl": \{\s*"label": "Polski"\s*\}/);
+    assert.match(captured, /"root": \{/);
+    assert.match(captured, /"pattern": "https:\/\/vitepress-i18n\.cdget\.com\/edit\/:path"/);
+  });
 });
