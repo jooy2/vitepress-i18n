@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+## 1.5.0 (2026-11-05)
+
 Merge behavior has changed. An entry that the VitePress options already have under the same key in `locales` now takes precedence over the built-in translations and the shared `themeConfig` instead of being overwritten by them. The same now holds for the `locales` entries of the search options. Sites that relied on the plugin replacing those values may see different output.
 
 The shape of the output has changed as well. A shared `themeConfig` key is copied into a locale only when that locale sets the same key, such as a translated label or a per locale override, and every other key stays at the top level. VitePress lays the locale `themeConfig` over the shared one, so pages render the same, but code that reads a shared value such as `nav` from `locales[key].themeConfig` has to read it from `themeConfig` instead.
