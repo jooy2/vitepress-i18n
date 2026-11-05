@@ -125,7 +125,16 @@ export default class VitePressI18n {
       i18nOptions.searchProvider ?? vitePressOptions.themeConfig?.search?.provider;
     const searchOptions =
       i18nOptions.searchOptions ?? vitePressOptions.themeConfig?.search?.options;
-    const searchTranslations: KeyValueItem = {};
+    /*
+     * Per locale search options the caller already set, such as an Algolia
+     * `indexName` for one language, are kept. They beat the built-in
+     * translations for their own locale, and entries under any other key are
+     * passed through as they are.
+     */
+    const existingSearchLocales: KeyValueItem = VitePressI18n.isObject(searchOptions?.locales)
+      ? searchOptions.locales
+      : {};
+    const searchLocales: KeyValueItem = { ...existingSearchLocales };
 
     // `withI18n` must not mutate its arguments, so the caller's own `search`
     // block is dropped from a shallow copy instead of being `delete`d in place.
@@ -144,7 +153,7 @@ export default class VitePressI18n {
                 provider: searchProvider,
                 options: {
                   ...searchOptions,
-                  locales: searchTranslations
+                  locales: searchLocales
                 }
               }
             }
@@ -162,10 +171,19 @@ export default class VitePressI18n {
       const localeKey = toLocaleKey(locales[i]);
 
       // Search
-      if (searchProvider === 'local') {
-        searchTranslations[localeKey] = structuredClone(LOCAL_SEARCH_TRANSLATIONS[locale]);
-      } else if (searchProvider === 'algolia') {
-        searchTranslations[localeKey] = structuredClone(ALGOLIA_SEARCH_TRANSLATIONS[locale]);
+      const searchTranslations =
+        searchProvider === 'local'
+          ? LOCAL_SEARCH_TRANSLATIONS[locale]
+          : searchProvider === 'algolia'
+            ? ALGOLIA_SEARCH_TRANSLATIONS[locale]
+            : undefined;
+
+      if (searchTranslations) {
+        // Cloned because the merge keeps untouched branches by reference
+        searchLocales[localeKey] = VitePressI18n.objMergeNewKey(
+          structuredClone(searchTranslations),
+          existingSearchLocales[localeKey] ?? {}
+        );
       }
 
       // `LOCALES_TRANSLATIONS` is a module-level constant shared by every call,

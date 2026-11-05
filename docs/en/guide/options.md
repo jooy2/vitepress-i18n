@@ -79,6 +79,23 @@ To override VitePress's search options, you can use the `searchOptions` option.
 
 You can specify refinement options for `local` or `algolia` searches.
 
+Entries in `locales` are kept. An entry for a language that VitePress I18n translates is merged over the built-in translations, so you can change a single string or add settings such as an Algolia `indexName` for that language. Entries under any other key are passed through as they are. The keys are the VitePress locale keys, so use `root` for the root locale. The same applies when the search options come from `themeConfig.search.options` of the VitePress options.
+
+```javascript
+withI18n(vitePressOptions, {
+  locales: ['en', 'ko'],
+  searchProvider: 'algolia',
+  searchOptions: {
+    appId: 'YOUR_APP_ID',
+    apiKey: 'YOUR_SEARCH_API_KEY',
+    indexName: 'docs',
+    locales: {
+      ko: { indexName: 'docs-ko' }
+    }
+  }
+});
+```
+
 ## `disableAutoSetLangValue`
 
 - Type: `boolean`

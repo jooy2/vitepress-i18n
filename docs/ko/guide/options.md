@@ -79,6 +79,23 @@ VitePress의 검색 옵션을 오버라이딩하려면 `searchOptions` 옵션을
 
 `local` 또는 `algolia` 검색에 대한 상세 옵션을 지정할 수 있습니다.
 
+`locales`에 넣은 항목은 그대로 유지됩니다. VitePress I18n이 번역하는 언어의 항목은 기본 번역 위에 병합되므로, 그 언어의 문구 하나만 바꾸거나 Algolia `indexName` 같은 설정을 추가할 수 있습니다. 다른 키의 항목은 손대지 않고 그대로 전달합니다. 키는 VitePress의 로캐일 키이므로 root 로캐일에는 `root`를 사용합니다. 검색 옵션을 VitePress 옵션의 `themeConfig.search.options`에서 가져오는 경우에도 같습니다.
+
+```javascript
+withI18n(vitePressOptions, {
+  locales: ['en', 'ko'],
+  searchProvider: 'algolia',
+  searchOptions: {
+    appId: 'YOUR_APP_ID',
+    apiKey: 'YOUR_SEARCH_API_KEY',
+    indexName: 'docs',
+    locales: {
+      ko: { indexName: 'docs-ko' }
+    }
+  }
+});
+```
+
 ## `disableAutoSetLangValue`
 
 - Type: `boolean`

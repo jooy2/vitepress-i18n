@@ -2,7 +2,11 @@ import assert from 'assert';
 import { describe, it } from 'node:test';
 import type { UserConfig } from 'vitepress';
 import { withI18n } from '../../dist/index.js';
-import { LOCALES_TRANSLATIONS } from '../../dist/strings.js';
+import {
+  ALGOLIA_SEARCH_TRANSLATIONS,
+  LOCAL_SEARCH_TRANSLATIONS,
+  LOCALES_TRANSLATIONS
+} from '../../dist/strings.js';
 
 type AnyRecord = { [key: string]: any };
 
@@ -378,15 +382,77 @@ describe('Test: search options', () => {
     assert.deepStrictEqual(options.miniSearch, { searchOptions: { fuzzy: 0.2 } });
   });
 
-  it('owns the `locales` key of the search options', () => {
+  it('lets a `locales` entry of the search options beat the built-in translations', () => {
     const result = withI18n(baseConfig(), {
-      locales: ['en'],
+      locales: ['en', 'ko'],
       searchProvider: 'local',
-      searchOptions: { locales: { root: { translations: { button: { buttonText: 'nope' } } } } }
+      searchOptions: { locales: { ko: { translations: { button: { buttonText: '찾기' } } } } }
     });
     const searchLocales = (result.themeConfig as AnyRecord).search.options.locales;
 
+    assert.strictEqual(searchLocales.ko.translations.button.buttonText, '찾기');
+    assert.strictEqual(
+      searchLocales.ko.translations.button.buttonAriaLabel,
+      LOCAL_SEARCH_TRANSLATIONS.ko.translations.button.buttonAriaLabel
+    );
     assert.strictEqual(searchLocales.root.translations.button.buttonText, 'Search');
+  });
+
+  it('keeps the per locale Algolia settings next to the translations', () => {
+    const result = withI18n(
+      baseConfig({
+        search: {
+          provider: 'algolia',
+          options: {
+            appId: 'app',
+            apiKey: 'key',
+            indexName: 'docs',
+            locales: {
+              ko: { indexName: 'docs-ko', searchParameters: { facetFilters: ['version:2'] } }
+            }
+          }
+        }
+      }),
+      { locales: ['en', 'ko'] }
+    );
+    const options = (result.themeConfig as AnyRecord).search.options;
+
+    assert.strictEqual(options.indexName, 'docs');
+    assert.strictEqual(options.locales.ko.indexName, 'docs-ko');
+    assert.deepStrictEqual(options.locales.ko.searchParameters, { facetFilters: ['version:2'] });
+    assert.strictEqual(options.locales.ko.placeholder, ALGOLIA_SEARCH_TRANSLATIONS.ko.placeholder);
+    assert.strictEqual(options.locales.root.indexName, undefined);
+  });
+
+  it('passes through a search `locales` entry the plugin does not generate', () => {
+    const polish = { translations: { button: { buttonText: 'Szukaj' } } };
+    const result = withI18n(baseConfig(), {
+      locales: ['en', 'ko'],
+      searchProvider: 'local',
+      searchOptions: { locales: { pl: polish } }
+    });
+    const searchLocales = (result.themeConfig as AnyRecord).search.options.locales;
+
+    assert.deepStrictEqual(Object.keys(searchLocales), ['pl', 'root', 'ko']);
+    assert.deepStrictEqual(searchLocales.pl, polish);
+  });
+
+  it('does not write into the built-in search translations', () => {
+    withI18n(baseConfig(), {
+      locales: ['en'],
+      searchProvider: 'local',
+      searchOptions: { locales: { root: { translations: { button: { buttonText: 'Find' } } } } }
+    });
+
+    const result = withI18n(baseConfig(), { locales: ['en'], searchProvider: 'local' });
+    const searchLocales = (result.themeConfig as AnyRecord).search.options.locales;
+
+    assert.strictEqual(LOCAL_SEARCH_TRANSLATIONS.en.translations.button.buttonText, 'Search');
+    assert.strictEqual(searchLocales.root.translations.button.buttonText, 'Search');
+    assert.notStrictEqual(
+      searchLocales.root.translations,
+      LOCAL_SEARCH_TRANSLATIONS.en.translations
+    );
   });
 
   it('emits the provider without translations when it is unknown', () => {
