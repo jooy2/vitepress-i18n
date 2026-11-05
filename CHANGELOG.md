@@ -53,7 +53,7 @@ Merge behavior has changed. A per locale `themeConfig` now overrides the shared 
 
 - Do not include in the options when `editLink` is not defined (#6)
 
-## 1.3.2 (2024-12-07)
+## 1.3.2 (2025-03-03)
 
 - Update french translations (@paul-louyot)
 
