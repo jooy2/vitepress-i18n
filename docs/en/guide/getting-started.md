@@ -120,6 +120,6 @@ export default defineConfig(
 );
 ```
 
-`withI18n` copies the shared `themeConfig` into every locale, so a generated sidebar handed to it first would be walked once per language for no benefit. Running it in the other order keeps that work out of the loop.
+`withI18n` copies a shared `themeConfig` key into a locale only when that locale sets the same key, because VitePress already lays each locale over the shared values. A generated sidebar therefore stays in one place either way. Calling `withI18n` first still keeps it apart from a locale that defines its own `sidebar`, which would otherwise be merged with the generated one.
 
 To learn more about the options in VitePress I18n, see the [VitePress I18n options page](/guide/options).

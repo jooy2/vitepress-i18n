@@ -18,6 +18,13 @@ const baseConfig = (themeConfig: AnyRecord = {}): UserConfig => ({
 
 const localesOf = (config: Partial<UserConfig>): AnyRecord => config.locales as AnyRecord;
 
+// What VitePress shows on a page of the locale: its `themeConfig` laid over the
+// site one, one level deep, as `resolveSiteDataByRoute` does
+const resolvedThemeConfig = (config: Partial<UserConfig>, key: string): AnyRecord => ({
+  ...(config.themeConfig as AnyRecord),
+  ...localesOf(config)[key].themeConfig
+});
+
 const SUPPORTED = [
   { locale: 'en', lang: 'en-US', label: 'English' },
   { locale: 'ko', lang: 'ko-KR', label: '한국어' },
@@ -409,7 +416,7 @@ describe('Test: top level VitePress options', () => {
     const result = withI18n(baseConfig({ logo: '/logo.png' }), { locales: ['en', 'ko'] });
 
     assert.strictEqual((result.themeConfig as AnyRecord).logo, '/logo.png');
-    assert.strictEqual(localesOf(result).ko.themeConfig.logo, '/logo.png');
+    assert.strictEqual(resolvedThemeConfig(result, 'ko').logo, '/logo.png');
   });
 });
 

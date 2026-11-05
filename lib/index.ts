@@ -218,16 +218,31 @@ export default class VitePressI18n {
        * `false` cannot take the label away from a stronger layer that sets it
        * back to an object.
        */
-      const ownThemeConfig = [
+      const [sharedLayer, ...localeLayers] = [
         vitePressThemeConfig,
         existingLocale.themeConfig,
         byLocale(i18nOptions.themeConfig)
-      ]
-        .map(VitePressI18n.normalizeThemeConfig)
-        .reduce<KeyValueItem>((merged, layer) => VitePressI18n.objMergeNewKey(merged, layer), {});
+      ].map(VitePressI18n.normalizeThemeConfig);
+
       // `LOCALES_TRANSLATIONS` is a module-level constant shared by every call,
       // so it must be cloned before any locale-specific value is written to it.
       const translations = structuredClone(LOCALES_TRANSLATIONS[locale]);
+
+      /*
+       * VitePress lays the locale `themeConfig` over the site one at runtime,
+       * one level deep. A shared key therefore only has to be copied in when
+       * the locale holds the same key and the two need a deep merge. Copying
+       * every shared key would ship a large `nav` or `sidebar` once per
+       * language in the site data that every page loads.
+       */
+      const localeThemeKeys = new Set([
+        ...Object.keys(translations),
+        ...localeLayers.flatMap((layer) => Object.keys(layer))
+      ]);
+      const ownThemeConfig = [
+        VitePressI18n.pickKeys(sharedLayer, localeThemeKeys),
+        ...localeLayers
+      ].reduce<KeyValueItem>((merged, layer) => VitePressI18n.objMergeNewKey(merged, layer), {});
 
       // A translated `editLink` without a `pattern` would render a link to
       // nowhere, so the text is kept only when some layer sets a `pattern`
@@ -340,6 +355,10 @@ export default class VitePressI18n {
     }
 
     return normalized;
+  }
+
+  private static pickKeys(data: KeyValueItem, keys: Set<string>): KeyValueItem {
+    return Object.fromEntries(Object.entries(data).filter(([key]) => keys.has(key)));
   }
 
   private static isObject(data: any): boolean {

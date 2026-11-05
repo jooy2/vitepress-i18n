@@ -14,6 +14,13 @@ const baseConfig = (themeConfig: AnyRecord = {}): UserConfig => ({
 
 const localesOf = (config: Partial<UserConfig>): AnyRecord => config.locales as AnyRecord;
 
+// What VitePress shows on a page of the locale: its `themeConfig` laid over the
+// site one, one level deep, as `resolveSiteDataByRoute` does
+const resolvedThemeConfig = (config: Partial<UserConfig>, key: string): AnyRecord => ({
+  ...(config.themeConfig as AnyRecord),
+  ...localesOf(config)[key].themeConfig
+});
+
 describe('Test: shared translation constants', () => {
   it('does not delete `editLink` from the constant when no pattern is given', () => {
     withI18n({ themeConfig: {} }, { locales: ['en'] });
@@ -107,7 +114,7 @@ describe('Test: `themeConfig` merge precedence', () => {
     });
 
     assert.deepStrictEqual(localesOf(result).ko.themeConfig.nav, [{ text: '가' }]);
-    assert.deepStrictEqual(localesOf(result).root.themeConfig.nav, [
+    assert.deepStrictEqual(resolvedThemeConfig(result, 'root').nav, [
       { text: 'A' },
       { text: 'B' },
       { text: 'C' }
@@ -127,9 +134,89 @@ describe('Test: `themeConfig` merge precedence', () => {
     const circular: AnyRecord = { name: 'root' };
     circular.self = circular;
 
-    const result = withI18n(baseConfig({ custom: circular }), { locales: ['en'] });
+    // Both sides hold the same circular object, so the merge has to walk into it
+    const result = withI18n(baseConfig({ custom: circular }), {
+      locales: ['en'],
+      themeConfig: { en: { custom: circular } }
+    });
 
     assert.strictEqual(localesOf(result).root.themeConfig.custom.name, 'root');
+  });
+});
+
+describe('Test: shared `themeConfig` in the locales', () => {
+  const all = [
+    'en',
+    'ko',
+    'zhHans',
+    'zhHant',
+    'ja',
+    'es',
+    'pt',
+    'ru',
+    'id',
+    'de',
+    'fr',
+    'vi',
+    'it'
+  ];
+
+  it('leaves a shared key that no locale sets at the top level only', () => {
+    const sidebar = [{ text: 'Guide', link: '/guide/' }];
+    const socialLinks = [{ icon: 'github', link: 'https://example.com' }];
+    const result = withI18n(baseConfig({ sidebar, socialLinks }), { locales: ['en', 'ko'] });
+
+    ['root', 'ko'].forEach((key) => {
+      assert.strictEqual(Object.hasOwn(localesOf(result)[key].themeConfig, 'sidebar'), false);
+      assert.strictEqual(Object.hasOwn(localesOf(result)[key].themeConfig, 'socialLinks'), false);
+      assert.deepStrictEqual(resolvedThemeConfig(result, key).sidebar, sidebar);
+      assert.deepStrictEqual(resolvedThemeConfig(result, key).socialLinks, socialLinks);
+    });
+  });
+
+  it('copies a shared object that a locale also sets, so the two are merged', () => {
+    const result = withI18n(
+      baseConfig({ sidebar: { '/guide/': [{ text: 'Guide' }] }, footer: { message: 'MIT' } }),
+      {
+        locales: ['en', 'ko'],
+        themeConfig: { ko: { sidebar: { '/ko/guide/': [{ text: '가이드' }] } } }
+      }
+    );
+
+    assert.deepStrictEqual(localesOf(result).ko.themeConfig.sidebar, {
+      '/guide/': [{ text: 'Guide' }],
+      '/ko/guide/': [{ text: '가이드' }]
+    });
+    assert.strictEqual(Object.hasOwn(localesOf(result).ko.themeConfig, 'footer'), false);
+    assert.strictEqual(Object.hasOwn(localesOf(result).root.themeConfig, 'sidebar'), false);
+  });
+
+  it('still lays a shared value over a translated key', () => {
+    const result = withI18n(baseConfig({ langMenuLabel: 'Language' }), { locales: ['en', 'ko'] });
+
+    assert.strictEqual(localesOf(result).ko.themeConfig.langMenuLabel, 'Language');
+  });
+
+  it('does not grow with the number of locales for a large shared `sidebar`', () => {
+    const sidebar = Array.from({ length: 300 }, (_, index) => ({
+      text: `Page ${index}`,
+      link: `/guide/page-${index}`
+    }));
+    const sizeOf = (locales: string[]): number =>
+      JSON.stringify(withI18n(baseConfig({ sidebar }), { locales })).length;
+    const sidebarSize = JSON.stringify(sidebar).length;
+
+    assert.ok(sizeOf(all) - sizeOf(['en']) < sidebarSize);
+  });
+
+  it('lets a `sidebar` set after `withI18n` reach every locale', () => {
+    const result = withI18n(baseConfig({ sidebar: [{ text: 'Old' }] }), { locales: ['en', 'ko'] });
+    const updated = {
+      ...result,
+      themeConfig: { ...(result.themeConfig as AnyRecord), sidebar: [{ text: 'New' }] }
+    };
+
+    assert.deepStrictEqual(resolvedThemeConfig(updated, 'ko').sidebar, [{ text: 'New' }]);
   });
 });
 
@@ -398,7 +485,7 @@ describe('Test: existing VitePress `locales` entries', () => {
     assert.deepStrictEqual(ko.nav, [{ text: '가이드' }]);
     assert.strictEqual(ko.outline.label, '목차');
     assert.strictEqual(ko.docFooter.prev, LOCALES_TRANSLATIONS.ko.docFooter.prev);
-    assert.deepStrictEqual(localesOf(result).root.themeConfig.nav, [{ text: 'Guide' }]);
+    assert.deepStrictEqual(resolvedThemeConfig(result, 'root').nav, [{ text: 'Guide' }]);
   });
 
   it('lets the per locale plugin options beat the entry', () => {

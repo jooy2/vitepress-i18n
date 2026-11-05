@@ -120,6 +120,6 @@ export default defineConfig(
 );
 ```
 
-`withI18n`은 공통 `themeConfig`를 각 로캐일에 복사하므로, 생성된 사이드바를 먼저 넘기면 언어 수만큼 불필요하게 순회하게 됩니다. 위 순서로 호출하면 그 작업이 반복되지 않습니다.
+VitePress가 각 로캐일 설정을 공통 값 위에 겹쳐 적용하므로, `withI18n`은 로캐일이 같은 키를 가질 때만 공통 `themeConfig`의 그 키를 로캐일에 복사합니다. 그래서 생성된 사이드바는 어느 순서로 호출해도 한 곳에만 남습니다. 다만 `withI18n`을 먼저 호출하면, 자기 `sidebar`를 따로 정의한 로캐일에 생성된 사이드바가 병합되지 않습니다.
 
 VitePress I18n의 옵션에 대해 자세히 알아보시려면 [VitePress I18n 옵션 페이지](/ko/guide/options)를 참고하세요.

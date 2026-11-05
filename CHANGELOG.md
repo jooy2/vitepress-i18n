@@ -4,8 +4,11 @@
 
 Merge behavior has changed. An entry that the VitePress options already have under the same key in `locales` now takes precedence over the built-in translations and the shared `themeConfig` instead of being overwritten by them. The same now holds for the `locales` entries of the search options. Sites that relied on the plugin replacing those values may see different output.
 
+The shape of the output has changed as well. A shared `themeConfig` key is copied into a locale only when that locale sets the same key, such as a translated label or a per locale override, and every other key stays at the top level. VitePress lays the locale `themeConfig` over the shared one, so pages render the same, but code that reads a shared value such as `nav` from `locales[key].themeConfig` has to read it from `themeConfig` instead.
+
 - Add `rootLocale: false` to keep every language in its own directory without a `root` locale (#12)
 - Fix the values of an existing `locales` entry, such as its `label` or `themeConfig.nav`, being overwritten by the built-in translations and the shared `themeConfig` (#12)
+- Stop copying the whole shared `themeConfig` into every locale, which grew the site data that every page loads with each added language and kept a stale copy of a `sidebar` set by a plugin running after `withI18n`
 - Fix the translated outline title falling back to English when `outline` is set to a heading level only, such as `'deep'` or `[2, 3]`
 - Let the deprecated `outlineTitle` and `lastUpdatedText` beat the built-in translations like the other shared values, instead of being hidden by them
 - Fix the `editLink` text falling back to English when only a per locale `themeConfig` sets the `pattern`
