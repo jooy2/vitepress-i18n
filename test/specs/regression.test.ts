@@ -249,6 +249,134 @@ describe('Test: option validation', () => {
   });
 });
 
+describe('Test: existing VitePress `locales` entries', () => {
+  const withLocales = (locales: AnyRecord, themeConfig: AnyRecord = {}): UserConfig => ({
+    ...baseConfig(themeConfig),
+    locales
+  });
+
+  it('keeps the values set on the entry with the same key', () => {
+    const result = withI18n(
+      withLocales({ ko: { label: 'Korean', lang: 'ko', title: 'Docs', dir: 'ltr' } }),
+      { locales: ['en', 'ko'] }
+    );
+    const ko = localesOf(result).ko;
+
+    assert.strictEqual(ko.label, 'Korean');
+    assert.strictEqual(ko.lang, 'ko');
+    assert.strictEqual(ko.title, 'Docs');
+    assert.strictEqual(ko.dir, 'ltr');
+  });
+
+  it('lets the entry `themeConfig` beat the shared one and the built-in translations', () => {
+    const result = withI18n(
+      withLocales(
+        { ko: { themeConfig: { nav: [{ text: '가이드' }], outline: { label: '목차' } } } },
+        { nav: [{ text: 'Guide' }] }
+      ),
+      { locales: ['en', 'ko'] }
+    );
+    const ko = localesOf(result).ko.themeConfig;
+
+    assert.deepStrictEqual(ko.nav, [{ text: '가이드' }]);
+    assert.strictEqual(ko.outline.label, '목차');
+    assert.strictEqual(ko.docFooter.prev, LOCALES_TRANSLATIONS.ko.docFooter.prev);
+    assert.deepStrictEqual(localesOf(result).root.themeConfig.nav, [{ text: 'Guide' }]);
+  });
+
+  it('lets the per locale plugin options beat the entry', () => {
+    const result = withI18n(
+      withLocales({
+        ko: { label: 'Korean', lang: 'ko', themeConfig: { nav: [{ text: 'A' }] } }
+      }),
+      {
+        locales: ['en', 'ko'],
+        label: { ko: '한글' },
+        lang: { ko: 'ko-Kore-KR' },
+        themeConfig: { ko: { nav: [{ text: 'B' }] } }
+      }
+    );
+    const ko = localesOf(result).ko;
+
+    assert.strictEqual(ko.label, '한글');
+    assert.strictEqual(ko.lang, 'ko-Kore-KR');
+    assert.deepStrictEqual(ko.themeConfig.nav, [{ text: 'B' }]);
+  });
+
+  it('applies the `root` entry to the root locale', () => {
+    const result = withI18n(withLocales({ root: { label: 'EN' } }), { locales: ['en', 'ko'] });
+
+    assert.strictEqual(localesOf(result).root.label, 'EN');
+    assert.strictEqual(localesOf(result).root.lang, 'en-US');
+  });
+
+  it('falls back to the built-in label when the entry label is empty', () => {
+    const result = withI18n(withLocales({ ko: { label: '' } }), { locales: ['en', 'ko'] });
+
+    assert.strictEqual(localesOf(result).ko.label, '한국어');
+  });
+
+  it('keeps an entry under its own `lang` when auto setting is disabled', () => {
+    const result = withI18n(withLocales({ ko: { lang: 'ko' } }), {
+      locales: ['en', 'ko'],
+      disableAutoSetLangValue: true
+    });
+
+    assert.strictEqual(localesOf(result).ko.lang, 'ko');
+    assert.strictEqual(localesOf(result).root.lang, undefined);
+  });
+
+  it('leaves an entry the plugin does not generate untouched', () => {
+    const polish = { label: 'Polski', lang: 'pl-PL', themeConfig: { outline: { label: 'Spis' } } };
+    const result = withI18n(withLocales({ pl: polish }), { locales: ['en', 'ko'] });
+
+    assert.deepStrictEqual(Object.keys(localesOf(result)), ['pl', 'root', 'ko']);
+    assert.deepStrictEqual(localesOf(result).pl, polish);
+  });
+
+  it('lists each language once when every language has its own directory', () => {
+    const result = withI18n(
+      withLocales({
+        en: { label: 'English (US)', link: '/en/' },
+        de: { label: 'Deutsch', link: '/de/' }
+      }),
+      {
+        locales: [
+          { path: 'en', locale: 'en' },
+          { path: 'de', locale: 'de' }
+        ],
+        rootLocale: false,
+        searchProvider: 'local'
+      }
+    );
+    const searchLocales = (result.themeConfig as AnyRecord).search.options.locales;
+
+    assert.deepStrictEqual(Object.keys(localesOf(result)), ['en', 'de']);
+    assert.deepStrictEqual(Object.keys(searchLocales), ['en', 'de']);
+    assert.strictEqual(localesOf(result).en.label, 'English (US)');
+    assert.strictEqual(localesOf(result).en.link, '/en/');
+    assert.strictEqual(
+      localesOf(result).de.themeConfig.outline.label,
+      LOCALES_TRANSLATIONS.de.outline.label
+    );
+  });
+
+  it('does not write back into the entries', () => {
+    const vitePressOptions = withLocales(
+      { ko: { label: 'Korean', themeConfig: { nav: [{ text: '가이드' }] } } },
+      { nav: [{ text: 'Guide' }] }
+    );
+    const snapshot = JSON.stringify(vitePressOptions);
+
+    withI18n(vitePressOptions, {
+      locales: ['en', 'ko'],
+      themeConfig: { ko: { outline: { label: '목차' } } }
+    });
+
+    assert.strictEqual(JSON.stringify(vitePressOptions), snapshot);
+  });
+});
+
 describe('Test: argument immutability', () => {
   it('does not write back into either options object', () => {
     const vitePressOptions = baseConfig({

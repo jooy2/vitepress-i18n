@@ -2,7 +2,10 @@
 
 ## vNext (2026--)
 
+Merge behavior has changed. An entry that the VitePress options already have under the same key in `locales` now takes precedence over the built-in translations and the shared `themeConfig` instead of being overwritten by them. Sites that relied on the plugin replacing those values may see different output.
+
 - Add `rootLocale: false` to keep every language in its own directory without a `root` locale (#12)
+- Fix the values of an existing `locales` entry, such as its `label` or `themeConfig.nav`, being overwritten by the built-in translations and the shared `themeConfig` (#12)
 - Fix the spanish search button and Algolia search input label reading `Buscar en` ("Search in") instead of `Buscar`
 - Fix the spanish local search showing `Cerrar búsqueda` ("Close search") instead of `Sin resultados para` when nothing matches
 

@@ -73,6 +73,8 @@ VitePress의 구성 파일인 `.vitepress/config.js` 파일(설정 파일 이름
 
 VitePress I18n의 출력 결과에는 자동 번역이 된 텍스트가 포함되어 있습니다. 이 옵션 데이터는 기존의 VitePress의 옵션과 병합 될 것입니다.
 
+VitePress 옵션의 `locales`에 `locales.de`처럼 같은 키의 항목이 이미 있으면 그 값은 그대로 유지되고, 번역 텍스트는 비어 있는 값만 채웁니다. `label`, `themeConfig` 같은 VitePress I18n의 언어별 옵션은 그 항목보다 우선합니다. VitePress I18n이 지원하지 않는 언어처럼 다른 키에 있는 항목은 건드리지 않습니다.
+
 여러가지 옵션이 제공되고 있지만 상황에 따라 선택적으로 사용할 수 있습니다. 하지만 `locales` 옵션은 반드시 필수로 제공되어야 합니다. 이 옵션은 VitePress I18n이 번역해야 하는 언어를 제공합니다.
 
 ```javascript

@@ -73,6 +73,8 @@ The `withI18n` must contain two argument values: the first argument contains the
 
 The output from VitePress I18n contains automatically translated text. This options data will be merged with the existing options in VitePress.
 
+If the VitePress options already have a `locales` entry under the same key, such as `locales.de`, its values are kept and the translated text only fills in what it leaves out. The per language options of VitePress I18n, such as `label` and `themeConfig`, take precedence over that entry. Entries under any other key, such as a language that VitePress I18n does not support, are left as they are.
+
 There are several options available, but they are optional depending on the context. However, the `locales` option is mandatory: it provides the languages that VitePress I18n should translate into.
 
 ```javascript

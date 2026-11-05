@@ -142,6 +142,10 @@ export default class VitePressI18n {
       locales: {}
     };
 
+    const vitePressLocales: KeyValueItem = VitePressI18n.isObject(vitePressOptions.locales)
+      ? (vitePressOptions.locales as KeyValueItem)
+      : {};
+
     for (let i = 0; i < locales.length; i += 1) {
       const { locale, path } = locales[i];
       const localeKey = toLocaleKey(locales[i]);
@@ -178,15 +182,28 @@ export default class VitePressI18n {
       const titleTemplate = byLocale(i18nOptions.titleTemplate);
       const description = byLocale(i18nOptions.description);
 
+      /*
+       * The VitePress config may already hold an entry under the same key,
+       * such as `locales.de`. Its values beat the built-in ones, and only the
+       * per locale options of this plugin beat them in turn.
+       */
+      const existingLocale: KeyValueItem = VitePressI18n.isObject(vitePressLocales[localeKey])
+        ? vitePressLocales[localeKey]
+        : {};
+
       result.locales![localeKey] = {
+        ...existingLocale,
         ...VitePressI18n.getDefaultLangValue(
-          byLocale(i18nOptions.lang),
+          byLocale(i18nOptions.lang) || existingLocale.lang,
           locale,
           i18nOptions.disableAutoSetLangValue
         ),
         // An empty label would render an unusable language menu entry, so `||`
         // is intended here and falls back to the built-in name
-        label: byLocale(i18nOptions.label) || VitePressI18n.getDefaultLabelValue(locale),
+        label:
+          byLocale(i18nOptions.label) ||
+          existingLocale.label ||
+          VitePressI18n.getDefaultLabelValue(locale),
         ...(link ? { link } : {}),
         ...(title ? { title } : {}),
         // `false` is a meaningful value here: it drops the site title suffix,
@@ -195,12 +212,17 @@ export default class VitePressI18n {
         ...(description ? { description } : {}),
         ...(head.length > 0 ? { head } : {}),
         /*
-         * Precedence, from weakest to strongest:
-         * built-in translations < shared `themeConfig` < per locale `themeConfig`
+         * Precedence, from weakest to strongest: built-in translations <
+         * shared `themeConfig` < the existing locale entry's `themeConfig` <
+         * the per locale `themeConfig` option
          */
-        themeConfig: VitePressI18n.objMergeNewKey(
-          VitePressI18n.objMergeNewKey(commonThemeConfig, vitePressThemeConfig),
-          byLocale(i18nOptions.themeConfig) ?? {}
+        themeConfig: [
+          vitePressThemeConfig,
+          existingLocale.themeConfig,
+          byLocale(i18nOptions.themeConfig)
+        ].reduce(
+          (merged: KeyValueItem, layer) => VitePressI18n.objMergeNewKey(merged, layer ?? {}),
+          commonThemeConfig
         )
       };
     }
