@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+- Publish only `dist` next to `package.json`, `README.md` and `LICENSE`, so a folder outside the package can no longer end up in it, as a local `.claude` folder did in 1.4.0 and made it 32 MB
+
 ## 1.5.0 (2026-11-05)
 
 Merge behavior has changed. An entry that the VitePress options already have under the same key in `locales` now takes precedence over the built-in translations and the shared `themeConfig` instead of being overwritten by them. The same now holds for the `locales` entries of the search options. Sites that relied on the plugin replacing those values may see different output.
