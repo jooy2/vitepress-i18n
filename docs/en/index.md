@@ -53,7 +53,7 @@ The VitePress default theme shows its interface in English until you translate e
 - **One function call** Wrap your existing config with `withI18n`. There are no translation files to create or keep in sync.
 - **Search is translated too** The local search and Algolia DocSearch get their button, dialog, and empty-result text in each language.
 - **Your wording wins** Set `label` or a per-locale `themeConfig`, and your text replaces the built-in translation for that locale. `title`, `description`, and `head` can differ per locale as well.
-- **Any folder layout** Map folders such as `eng` or `kor` to language codes with `{ path, locale }` and keep your current URLs.
+- **Any folder layout** Map folders such as `eng` or `kor` to language codes with `{ path, locale }` and keep your current URLs. With `rootLocale: false`, the default language gets its own folder as well.
 - **`lang` and labels set for you** Each locale gets its `lang` attribute, such as `ko-KR`, and its native name in the language menu.
 - **Zero dependencies** A small ESM package with no runtime dependencies. It runs once while VitePress loads your config.
 - **TypeScript types** `VitePressI18nOptions` and `I18nLocale` ship with the package under `vitepress-i18n/types`.

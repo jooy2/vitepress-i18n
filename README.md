@@ -8,7 +8,7 @@
 - One `withI18n` call, with no translation files to create or keep in sync
 - Local search and Algolia DocSearch are translated as well
 - `label` and a per locale `themeConfig` replace the built-in text, and `title`, `description` and `head` can differ per locale
-- Folders such as `eng` or `kor` can be mapped to language codes with `{ path, locale }`
+- Folders such as `eng` or `kor` can be mapped to language codes with `{ path, locale }`, and `rootLocale: false` gives every language its own folder, the default one included
 - Optimized for the latest version of **VitePress**, with zero dependencies and [TypeScript](https://www.typescriptlang.org) types
 
 ## Installation
