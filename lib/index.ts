@@ -66,21 +66,29 @@ export default class VitePressI18n {
       throw new Error(`The value of the 'locales' option is not in the correct format!`);
     });
 
-    // `rootLocale` is kept local: `withI18n` must not write back into its argument
+    /*
+     * `rootLocale` is kept local: `withI18n` must not write back into its
+     * argument. With `false`, no locale is mapped to `root` and every locale
+     * is keyed by its `path`, so each language lives in its own directory.
+     */
     const rootLocale = i18nOptions.rootLocale ?? locales[0].locale;
 
-    if (!PLUGIN_SUPPORT_LOCALES_BY_VALUE.has(rootLocale)) {
-      throw new Error(
-        `Invalid locale detected, please make sure you are using a supported language code for the 'rootLocale' or 'locales' option.`
-      );
+    if (rootLocale !== false) {
+      if (!PLUGIN_SUPPORT_LOCALES_BY_VALUE.has(rootLocale)) {
+        throw new Error(
+          `Invalid locale detected, please make sure you are using a supported language code for the 'rootLocale' or 'locales' option.`
+        );
+      }
+
+      if (!locales.some((localeOption) => localeOption.locale === rootLocale)) {
+        throw new Error(
+          `The '${rootLocale}' locale given as 'rootLocale' is missing from the 'locales' option. VitePress needs one locale to be mapped to 'root', or set 'rootLocale' to false to keep every locale in its own directory.`
+        );
+      }
     }
 
-    if (!locales.some((localeOption) => localeOption.locale === rootLocale)) {
-      throw new Error(
-        `The '${rootLocale}' locale given as 'rootLocale' is missing from the 'locales' option. VitePress needs one locale to be mapped to 'root'.`
-      );
-    }
-
+    const toLocaleKey = ({ locale, path }: I18nLocale): string =>
+      locale === rootLocale ? 'root' : path;
     const localeKeys = new Set<string>();
 
     locales.forEach((localeOption) => {
@@ -88,7 +96,7 @@ export default class VitePressI18n {
         throw new Error(`The '${localeOption.locale}' locale is not currently supported.`);
       }
 
-      const localeKey = localeOption.locale === rootLocale ? 'root' : localeOption.path;
+      const localeKey = toLocaleKey(localeOption);
 
       if (localeKeys.has(localeKey)) {
         throw new Error(
@@ -136,7 +144,7 @@ export default class VitePressI18n {
 
     for (let i = 0; i < locales.length; i += 1) {
       const { locale, path } = locales[i];
-      const localeKey = locale === rootLocale ? 'root' : path;
+      const localeKey = toLocaleKey(locales[i]);
 
       // Search
       if (searchProvider === 'local') {

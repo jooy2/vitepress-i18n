@@ -35,13 +35,15 @@ withI18n({
 
 `path`는 디렉토리 이름, `locale`은 지원 언어 코드입니다.
 
+VitePress는 `path`를 로캐일의 키로 사용합니다. 따라서 소스 디렉토리(`srcDir`) 기준의 디렉토리를 적고 `base`는 넣지 않습니다. 예를 들어 사이트가 `base: '/docs/'` 아래에서 제공되고 독일어 페이지가 `de` 디렉토리에 있으면 `docs/de`가 아니라 `de`를 사용합니다.
+
 언어별로 선언하는 옵션(`label`, `link`, `lang`, `title`, `titleTemplate`, `description`, `head`, `themeConfig`)은 두 값 중 어느 것이든 키로 사용할 수 있습니다. `path`를 먼저 조회하므로 두 키가 모두 존재하면 `path`가 우선합니다.
 
 지원 언어 코드 목록은 [이 문서](/ko/guide/supported-languages)를 참고해주세요.
 
 ## `rootLocale`
 
-- Type: `string`
+- Type: `string | false`
 - Default: `undefined`
 
 이 옵션값에는 `root` 로캐일로 설정 할 언어 코드를 지정합니다. VitePress의 i18n 설정에서 해당 언어는 `root`로 지정됩니다. 이 값은 VitePress의 기본 언어를 지정하기 위해 필요하지만 옵션 값을 지정하지 않더라도 `locales` 옵션의 첫번째 배열값을 사용합니다.
@@ -49,6 +51,17 @@ withI18n({
 예를 들어 영어가 기본 언어이면 `rootLocale` 값을 `en`으로 설정합니다.
 
 주의할 점은 디렉토리 경로가 아닌 로캐일 언어 코드를 사용해야 합니다. (예: 디렉토리 이름이 `eng`일 때 `rootLocale`값은 `en`을 사용)
+
+기본 언어를 포함한 모든 언어가 `en`, `de`처럼 각자의 디렉토리를 가진다면 `rootLocale`을 `false`로 설정합니다. 이때는 어떤 로캐일도 `root`로 지정되지 않고 모든 로캐일이 `path`를 키로 사용하므로, 언어 메뉴에 언어마다 항목이 하나씩만 나옵니다.
+
+```javascript
+withI18n(vitePressOptions, {
+  locales: ['en', 'de'],
+  rootLocale: false
+});
+```
+
+이 경우 `/en/`으로 이동시키는 최상위 `index.md`처럼 어느 언어 디렉토리에도 속하지 않는 페이지는 로캐일이 없으므로 VitePress 기본 테마의 문구가 표시됩니다.
 
 ## `searchProvider`
 

@@ -35,13 +35,15 @@ withI18n({
 
 Where `path` is the directory name and `locale` is the supported language code.
 
+VitePress uses `path` as the key of the locale, so write the directory relative to the source directory (`srcDir`) and leave out `base`. For example, when the site is served under `base: '/docs/'` and the German pages are in the `de` directory, use `de`, not `docs/de`.
+
 Options that are declared per language (`label`, `link`, `lang`, `title`, `titleTemplate`, `description`, `head` and `themeConfig`) accept either value as their key. `path` is looked up first, so it wins when both keys are present.
 
 For a list of supported language codes, see [this article](/guide/supported-languages).
 
 ## `rootLocale`
 
-- Type: `string`
+- Type: `string | false`
 - Default: `undefined`
 
 This option value specifies the language code to set as the `root` locale. In VitePress's i18n settings, that language is specified as `root`. This value is required to specify the default language for VitePress, but it uses the first array value of the `locales` option even if you don't specify an option value.
@@ -49,6 +51,17 @@ This option value specifies the language code to set as the `root` locale. In Vi
 For example, if English is the default language, set the `rootLocale` value to `en`.
 
 Note that you must use the locale language code, not the directory path (e.g., use `en` for the `rootLocale` value when the directory name is `eng`).
+
+Set `rootLocale` to `false` when every language, the default one included, has its own directory such as `en` and `de`. No locale is mapped to `root` then, and every locale uses its `path` as its key, so the language menu lists each language once.
+
+```javascript
+withI18n(vitePressOptions, {
+  locales: ['en', 'de'],
+  rootLocale: false
+});
+```
+
+A page outside every language directory, such as an `index.md` at the top of the source directory that redirects to `/en/`, then belongs to no locale and shows the default theme text of VitePress.
 
 ## `searchProvider`
 

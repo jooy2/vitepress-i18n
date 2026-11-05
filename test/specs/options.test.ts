@@ -116,6 +116,56 @@ describe('Test: `rootLocale`', () => {
       'root'
     ]);
   });
+
+  it('keys every locale by its directory when it is `false`', () => {
+    const result = withI18n(baseConfig(), {
+      locales: [
+        { path: 'en', locale: 'en' },
+        { path: 'de', locale: 'de' }
+      ],
+      rootLocale: false
+    });
+
+    assert.deepStrictEqual(Object.keys(localesOf(result)), ['en', 'de']);
+    assert.strictEqual(localesOf(result).en.lang, 'en-US');
+    assert.strictEqual(localesOf(result).en.label, 'English');
+    assert.strictEqual(localesOf(result).en.themeConfig.outline.label, 'On this page');
+    assert.strictEqual(localesOf(result).de.lang, 'de-DE');
+    assert.strictEqual(localesOf(result).de.label, 'Deutsch');
+  });
+
+  it('keys a string list by the language codes when it is `false`', () => {
+    const result = withI18n(baseConfig(), { locales: ['en', 'ko'], rootLocale: false });
+
+    assert.deepStrictEqual(Object.keys(localesOf(result)), ['en', 'ko']);
+  });
+
+  it('uses the same keys in the search options when it is `false`', () => {
+    const result = withI18n(baseConfig(), {
+      locales: ['en', 'ko'],
+      rootLocale: false,
+      searchProvider: 'local'
+    });
+    const searchLocales = (result.themeConfig as AnyRecord).search.options.locales;
+
+    assert.deepStrictEqual(Object.keys(searchLocales), ['en', 'ko']);
+    assert.strictEqual(searchLocales.en.translations.button.buttonText, 'Search');
+    assert.strictEqual(searchLocales.ko.translations.button.buttonText, '검색');
+  });
+
+  it('applies the per locale options by directory or language code when it is `false`', () => {
+    const result = withI18n(baseConfig(), {
+      locales: [
+        { path: 'eng', locale: 'en' },
+        { path: 'kor', locale: 'ko' }
+      ],
+      rootLocale: false,
+      title: { en: 'Docs', kor: '문서' }
+    });
+
+    assert.strictEqual(localesOf(result).eng.title, 'Docs');
+    assert.strictEqual(localesOf(result).kor.title, '문서');
+  });
 });
 
 describe('Test: `lang` and `disableAutoSetLangValue`', () => {

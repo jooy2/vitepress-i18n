@@ -209,6 +209,27 @@ describe('Test: option validation', () => {
     );
   });
 
+  it('rejects two locales sharing a directory when `rootLocale` is `false`', () => {
+    assert.throws(
+      () =>
+        withI18n(baseConfig(), {
+          locales: [
+            { path: 'a', locale: 'en' },
+            { path: 'a', locale: 'ko' }
+          ],
+          rootLocale: false
+        }),
+      /'a' locale key is used more than once/
+    );
+  });
+
+  it('still rejects an unsupported locale when `rootLocale` is `false`', () => {
+    assert.throws(
+      () => withI18n(baseConfig(), { locales: ['en', 'xx'], rootLocale: false }),
+      /'xx' locale is not currently supported/
+    );
+  });
+
   it('reports the format error for malformed entries', () => {
     const malformed = [null, {}, 123, ''];
 

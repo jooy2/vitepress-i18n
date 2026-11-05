@@ -95,7 +95,7 @@ withI18n(vitePressOptions, {
 });
 ```
 
-`rootLocale`의 값은 디렉토리 경로가 아닌 지원되는 언어 코드를 사용합니다. 이 옵션을 지정하지 않을 경우 `locales` 배열의 첫번째 값이 root 로캐일이 됩니다.
+`rootLocale`의 값은 디렉토리 경로가 아닌 지원되는 언어 코드를 사용합니다. 이 옵션을 지정하지 않을 경우 `locales` 배열의 첫번째 값이 root 로캐일이 됩니다. 모든 언어가 각자의 디렉토리를 가지고 루트에서 제공되는 언어가 없다면 `rootLocale`을 `false`로 설정하세요. 자세한 내용은 [`rootLocale` 옵션](/ko/guide/options#rootlocale)을 참고해주세요.
 
 전체적인 결과가 어떻게 출력되는지 테스트하려면 VitePress I18에서 제공하는 `debugPrint` 옵션을 `true`로 설정하여 VitePress를 빌드해 보세요. 콘솔에 출력이 표시될 것입니다.
 

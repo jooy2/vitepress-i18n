@@ -2,6 +2,7 @@
 
 ## vNext (2026--)
 
+- Add `rootLocale: false` to keep every language in its own directory without a `root` locale (#12)
 - Fix the spanish search button and Algolia search input label reading `Buscar en` ("Search in") instead of `Buscar`
 - Fix the spanish local search showing `Cerrar búsqueda` ("Close search") instead of `Sin resultados para` when nothing matches
 

@@ -18,7 +18,8 @@ export interface PluginSupportLocalesOptions {
 export interface VitePressI18nOptions {
   debugPrint?: boolean;
   locales: I18nLocale[] | string[];
-  rootLocale?: string;
+  // `false` keeps every locale in its own directory, so none becomes `root`
+  rootLocale?: string | false;
   searchProvider?: 'local' | 'algolia' | undefined;
   searchOptions?: { [key: string]: any };
   disableAutoSetLangValue?: boolean;

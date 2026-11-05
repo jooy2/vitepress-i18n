@@ -95,7 +95,7 @@ withI18n(vitePressOptions, {
 });
 ```
 
-The value of `rootLocale` uses a supported language code rather than a directory path. If this option is not specified, the first value in the `locales` array will be the root locale.
+The value of `rootLocale` uses a supported language code rather than a directory path. If this option is not specified, the first value in the `locales` array will be the root locale. When every language has its own directory and none should be served from the root, set `rootLocale` to `false`. See the [`rootLocale` option](/guide/options#rootlocale) for details.
 
 To test what the overall output looks like, try building VitePress with the `debugPrint` option provided by VitePress I18 set to `true`. You should see the output in the console.
 
