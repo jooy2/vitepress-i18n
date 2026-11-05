@@ -35,7 +35,8 @@ First, import `vitepress-i18n` in one of the two ways below.
 
 ```javascript
 // `.vitepress/config.js`
-import { generateI18n } from 'vitepress-i18n';
+import { defineConfig } from 'vitepress';
+import { withI18n } from 'vitepress-i18n';
 
 const vitePressOptions = {
   title: 'VitePress',
@@ -53,6 +54,7 @@ export default defineConfig(withI18n(vitePressOptions, vitePressI18nOptions));
 
 ```javascript
 // `.vitepress/config.js`
+import { defineConfig } from 'vitepress';
 import VitePressI18n from 'vitepress-i18n';
 
 const vitePressOptions = {
