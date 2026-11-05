@@ -35,7 +35,7 @@ withI18n({
 
 `path`는 디렉토리 이름, `locale`은 지원 언어 코드입니다.
 
-VitePress는 `path`를 로캐일의 키로 사용합니다. 따라서 소스 디렉토리(`srcDir`) 기준의 디렉토리를 적고 `base`는 넣지 않습니다. 예를 들어 사이트가 `base: '/docs/'` 아래에서 제공되고 독일어 페이지가 `de` 디렉토리에 있으면 `docs/de`가 아니라 `de`를 사용합니다.
+VitePress는 `path`를 로캐일의 키로 사용합니다. 따라서 소스 디렉토리(`srcDir`) 기준의 디렉토리를 적고 `base`는 넣지 않습니다. 예를 들어 사이트가 `base: '/docs/'` 아래에서 제공되고 독일어 페이지가 `de` 디렉토리에 있으면 `docs/de`가 아니라 `de`를 사용합니다. `path` 앞뒤의 슬래시는 제거되므로 `/de/`는 `de`로 읽습니다. `path`를 비워 둘 수 있는 것은 root 로캐일뿐입니다.
 
 언어별로 선언하는 옵션(`label`, `link`, `lang`, `title`, `titleTemplate`, `description`, `head`, `themeConfig`)은 두 값 중 어느 것이든 키로 사용할 수 있습니다. `path`를 먼저 조회하므로 두 키가 모두 존재하면 `path`가 우선합니다.
 

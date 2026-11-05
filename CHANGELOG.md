@@ -6,6 +6,7 @@ Merge behavior has changed. An entry that the VitePress options already have und
 
 - Add `rootLocale: false` to keep every language in its own directory without a `root` locale (#12)
 - Fix the values of an existing `locales` entry, such as its `label` or `themeConfig.nav`, being overwritten by the built-in translations and the shared `themeConfig` (#12)
+- Remove the slashes around a `path`, which turned `/ko/` into a locale that never matched a page, and reject an empty `path` outside the root locale
 - `debugPrint` prints `locales` and `themeConfig` after the merge with the VitePress options, so entries the plugin did not generate show up as well (#12)
 - Fix the spanish search button and Algolia search input label reading `Buscar en` ("Search in") instead of `Buscar`
 - Fix the spanish local search showing `Cerrar búsqueda` ("Close search") instead of `Sin resultados para` when nothing matches

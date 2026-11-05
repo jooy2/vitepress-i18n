@@ -223,6 +223,45 @@ describe('Test: option validation', () => {
     );
   });
 
+  it('removes the slashes around a `path`', () => {
+    const result = withI18n(baseConfig(), {
+      locales: [
+        { path: 'en', locale: 'en' },
+        { path: '/kor/', locale: 'ko' },
+        { path: '//docs/ja', locale: 'ja' }
+      ],
+      title: { kor: '문서' }
+    });
+
+    assert.deepStrictEqual(Object.keys(localesOf(result)), ['root', 'kor', 'docs/ja']);
+    assert.strictEqual(localesOf(result).kor.title, '문서');
+  });
+
+  it('accepts an empty `path` for the root locale only', () => {
+    const result = withI18n(baseConfig(), {
+      locales: [
+        { path: '', locale: 'en' },
+        { path: 'ko', locale: 'ko' }
+      ]
+    });
+
+    assert.deepStrictEqual(Object.keys(localesOf(result)), ['root', 'ko']);
+    assert.throws(
+      () =>
+        withI18n(baseConfig(), {
+          locales: [
+            { path: 'en', locale: 'en' },
+            { path: '/', locale: 'ko' }
+          ]
+        }),
+      /'ko' locale needs a 'path'/
+    );
+    assert.throws(
+      () => withI18n(baseConfig(), { locales: [{ path: '', locale: 'en' }], rootLocale: false }),
+      /'en' locale needs a 'path'/
+    );
+  });
+
   it('still rejects an unsupported locale when `rootLocale` is `false`', () => {
     assert.throws(
       () => withI18n(baseConfig(), { locales: ['en', 'xx'], rootLocale: false }),

@@ -60,7 +60,12 @@ export default class VitePressI18n {
         typeof (localeOption as I18nLocale).path === 'string' &&
         typeof (localeOption as I18nLocale).locale === 'string'
       ) {
-        return { ...(localeOption as I18nLocale) };
+        // VitePress wraps the key in slashes itself, so a key written as
+        // `/ko/` would never match a page
+        return {
+          ...(localeOption as I18nLocale),
+          path: (localeOption as I18nLocale).path.replace(/^\/+|\/+$/g, '')
+        };
       }
 
       throw new Error(`The value of the 'locales' option is not in the correct format!`);
@@ -97,6 +102,12 @@ export default class VitePressI18n {
       }
 
       const localeKey = toLocaleKey(localeOption);
+
+      if (localeKey === '') {
+        throw new Error(
+          `The '${localeOption.locale}' locale needs a 'path', since only the root locale can be served from the top directory.`
+        );
+      }
 
       if (localeKeys.has(localeKey)) {
         throw new Error(

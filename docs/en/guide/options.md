@@ -35,7 +35,7 @@ withI18n({
 
 Where `path` is the directory name and `locale` is the supported language code.
 
-VitePress uses `path` as the key of the locale, so write the directory relative to the source directory (`srcDir`) and leave out `base`. For example, when the site is served under `base: '/docs/'` and the German pages are in the `de` directory, use `de`, not `docs/de`.
+VitePress uses `path` as the key of the locale, so write the directory relative to the source directory (`srcDir`) and leave out `base`. For example, when the site is served under `base: '/docs/'` and the German pages are in the `de` directory, use `de`, not `docs/de`. Slashes around `path` are removed, so `/de/` is read as `de`. Only the root locale may have an empty `path`.
 
 Options that are declared per language (`label`, `link`, `lang`, `title`, `titleTemplate`, `description`, `head` and `themeConfig`) accept either value as their key. `path` is looked up first, so it wins when both keys are present.
 
