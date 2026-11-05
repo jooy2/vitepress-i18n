@@ -133,6 +133,84 @@ describe('Test: `themeConfig` merge precedence', () => {
   });
 });
 
+describe('Test: `outline` and the deprecated labels', () => {
+  const koOutlineLabel = LOCALES_TRANSLATIONS.ko.outline.label;
+
+  it('keeps the translated label when `outline` is a heading level only', () => {
+    const levels = ['deep', [2, 3], 2];
+
+    levels.forEach((level) => {
+      const result = withI18n(baseConfig({ outline: level }), { locales: ['en', 'ko'] });
+
+      assert.deepStrictEqual(localesOf(result).ko.themeConfig.outline, {
+        level,
+        label: koOutlineLabel
+      });
+      assert.deepStrictEqual((result.themeConfig as AnyRecord).outline, level);
+    });
+  });
+
+  it('keeps `outline` hidden when it is `false`', () => {
+    const result = withI18n(baseConfig({ outline: false }), { locales: ['en', 'ko'] });
+
+    assert.strictEqual(localesOf(result).ko.themeConfig.outline, false);
+  });
+
+  it('restores the label when a per locale `outline` follows a shared `false`', () => {
+    const result = withI18n(baseConfig({ outline: false }), {
+      locales: ['en', 'ko'],
+      themeConfig: { ko: { outline: 'deep' } }
+    });
+
+    assert.deepStrictEqual(localesOf(result).ko.themeConfig.outline, {
+      level: 'deep',
+      label: koOutlineLabel
+    });
+    assert.strictEqual(localesOf(result).root.themeConfig.outline, false);
+  });
+
+  it('lets a shared `outlineTitle` beat the built-in label', () => {
+    const result = withI18n(baseConfig({ outlineTitle: 'Contents' }), {
+      locales: ['en', 'ko'],
+      themeConfig: { ko: { outlineTitle: '목차' } }
+    });
+
+    assert.strictEqual(localesOf(result).root.themeConfig.outline.label, 'Contents');
+    assert.strictEqual(localesOf(result).ko.themeConfig.outline.label, '목차');
+  });
+
+  it('lets a shared `lastUpdatedText` beat the built-in text', () => {
+    const formatOptions = { dateStyle: 'short' };
+    const result = withI18n(
+      baseConfig({ lastUpdatedText: 'Updated', lastUpdated: { formatOptions } }),
+      { locales: ['en', 'ko'] }
+    );
+
+    assert.deepStrictEqual(localesOf(result).ko.themeConfig.lastUpdated, {
+      text: 'Updated',
+      formatOptions
+    });
+  });
+
+  it('prefers `outline.label` over `outlineTitle` in the same layer', () => {
+    const result = withI18n(
+      baseConfig({ outline: { label: 'Outline' }, outlineTitle: 'Contents' }),
+      { locales: ['en'] }
+    );
+
+    assert.strictEqual(localesOf(result).root.themeConfig.outline.label, 'Outline');
+  });
+
+  it('does not write the rewritten forms back into the options', () => {
+    const vitePressOptions = baseConfig({ outline: 'deep', outlineTitle: 'Contents' });
+    const snapshot = JSON.stringify(vitePressOptions);
+
+    withI18n(vitePressOptions, { locales: ['en', 'ko'] });
+
+    assert.strictEqual(JSON.stringify(vitePressOptions), snapshot);
+  });
+});
+
 describe('Test: per language option keys', () => {
   const locales = [
     { path: 'eng', locale: 'en' },

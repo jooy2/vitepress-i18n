@@ -186,16 +186,6 @@ export default class VitePressI18n {
         );
       }
 
-      // `LOCALES_TRANSLATIONS` is a module-level constant shared by every call,
-      // so it must be cloned before any locale-specific value is written to it.
-      const commonThemeConfig = structuredClone(LOCALES_TRANSLATIONS[locale]);
-
-      if (vitePressThemeConfig.editLink?.pattern) {
-        commonThemeConfig.editLink.pattern = vitePressThemeConfig.editLink.pattern;
-      } else {
-        delete commonThemeConfig.editLink;
-      }
-
       const byLocale = <T>(option: { [key: string]: T } | undefined): T | undefined =>
         option?.[path] ?? option?.[locale];
 
@@ -220,6 +210,29 @@ export default class VitePressI18n {
         ? vitePressLocales[localeKey]
         : {};
 
+      /*
+       * Precedence, from weakest to strongest: built-in translations <
+       * shared `themeConfig` < the existing locale entry's `themeConfig` <
+       * the per locale `themeConfig` option. The translations are merged in
+       * last, under everything else, so a weaker layer that sets `outline` to
+       * `false` cannot take the label away from a stronger layer that sets it
+       * back to an object.
+       */
+      const ownThemeConfig = [
+        vitePressThemeConfig,
+        existingLocale.themeConfig,
+        byLocale(i18nOptions.themeConfig)
+      ]
+        .map(VitePressI18n.normalizeThemeConfig)
+        .reduce<KeyValueItem>((merged, layer) => VitePressI18n.objMergeNewKey(merged, layer), {});
+      // `LOCALES_TRANSLATIONS` is a module-level constant shared by every call,
+      // so it must be cloned before any locale-specific value is written to it.
+      const translations = structuredClone(LOCALES_TRANSLATIONS[locale]);
+
+      if (!vitePressThemeConfig.editLink?.pattern) {
+        delete translations.editLink;
+      }
+
       result.locales![localeKey] = {
         ...existingLocale,
         ...VitePressI18n.getDefaultLangValue(
@@ -240,19 +253,7 @@ export default class VitePressI18n {
         ...(titleTemplate !== undefined ? { titleTemplate } : {}),
         ...(description ? { description } : {}),
         ...(head.length > 0 ? { head } : {}),
-        /*
-         * Precedence, from weakest to strongest: built-in translations <
-         * shared `themeConfig` < the existing locale entry's `themeConfig` <
-         * the per locale `themeConfig` option
-         */
-        themeConfig: [
-          vitePressThemeConfig,
-          existingLocale.themeConfig,
-          byLocale(i18nOptions.themeConfig)
-        ].reduce(
-          (merged: KeyValueItem, layer) => VitePressI18n.objMergeNewKey(merged, layer ?? {}),
-          commonThemeConfig
-        )
+        themeConfig: VitePressI18n.objMergeNewKey(translations, ownThemeConfig)
       };
     }
 
@@ -301,6 +302,42 @@ export default class VitePressI18n {
     }
 
     return { lang: VitePressI18n.getSupportLocale(locale).lang };
+  }
+
+  /*
+   * Returns a shallow copy of a `themeConfig` in which the forms that leave
+   * no room for a translated label are rewritten as objects, so a merge keeps
+   * the translation next to them:
+   *
+   * - `outline` given as a heading level only, such as `'deep'` or `[2, 3]`
+   * - the deprecated `outlineTitle` and `lastUpdatedText`, which VitePress
+   *   reads only when `outline.label` and `lastUpdated.text` are missing
+   */
+  private static normalizeThemeConfig(themeConfig: unknown): KeyValueItem {
+    if (!VitePressI18n.isObject(themeConfig)) {
+      return {};
+    }
+
+    const normalized: KeyValueItem = { ...(themeConfig as KeyValueItem) };
+    const { outline, outlineTitle, lastUpdated, lastUpdatedText } = normalized;
+
+    if (typeof outline === 'number' || typeof outline === 'string' || Array.isArray(outline)) {
+      normalized.outline = { level: outline };
+    }
+
+    // `outline: false` hides the outline, so there is no label to set
+    if (outlineTitle && normalized.outline !== false && !normalized.outline?.label) {
+      normalized.outline = { ...normalized.outline, label: outlineTitle };
+    }
+
+    if (lastUpdatedText && !lastUpdated?.text) {
+      normalized.lastUpdated = {
+        ...(VitePressI18n.isObject(lastUpdated) ? lastUpdated : {}),
+        text: lastUpdatedText
+      };
+    }
+
+    return normalized;
   }
 
   private static isObject(data: any): boolean {

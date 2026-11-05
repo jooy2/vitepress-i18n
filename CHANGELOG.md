@@ -6,6 +6,8 @@ Merge behavior has changed. An entry that the VitePress options already have und
 
 - Add `rootLocale: false` to keep every language in its own directory without a `root` locale (#12)
 - Fix the values of an existing `locales` entry, such as its `label` or `themeConfig.nav`, being overwritten by the built-in translations and the shared `themeConfig` (#12)
+- Fix the translated outline title falling back to English when `outline` is set to a heading level only, such as `'deep'` or `[2, 3]`
+- Let the deprecated `outlineTitle` and `lastUpdatedText` beat the built-in translations like the other shared values, instead of being hidden by them
 - Keep the `locales` entries of the search options, which were replaced as a whole and lost settings such as a per locale Algolia `indexName` or `searchParameters`
 - Remove the slashes around a `path`, which turned `/ko/` into a locale that never matched a page, and reject an empty `path` outside the root locale
 - `debugPrint` prints `locales` and `themeConfig` after the merge with the VitePress options, so entries the plugin did not generate show up as well (#12)
